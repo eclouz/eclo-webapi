@@ -13,6 +13,11 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Middlewares\" />
+    <Folder Include="Configurations\" />
+    <Folder Include="Accessors\" />
+    <Folder Include="wwwroot\Avatars\" />
+    <Folder Include="wwwroot\Storage\Images\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -10,4 +10,11 @@
     <ProjectReference Include="..\Eclo.DataAccess\Eclo.DataAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTOs\" />
+    <Folder Include="Attributes\" />
+    <Folder Include="Filters\" />
+    <Folder Include="Validations\" />
+  </ItemGroup>
+
 </Project>
