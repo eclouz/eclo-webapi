@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Handlers\" />
+    <Folder Include="ViewModels\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
 
