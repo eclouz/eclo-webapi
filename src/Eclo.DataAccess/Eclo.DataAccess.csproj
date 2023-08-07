@@ -8,11 +8,11 @@
 
   <ItemGroup>
     <Folder Include="Handlers\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.143" />
+    <PackageReference Include="Npgsql" Version="7.0.4" />
   </ItemGroup>
 
   <ItemGroup>
