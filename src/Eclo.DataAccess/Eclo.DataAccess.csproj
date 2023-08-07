@@ -15,6 +15,7 @@
     <PackageReference Include="Npgsql" Version="7.0.4" />
   </ItemGroup>
 
+
   <ItemGroup>
     <ProjectReference Include="..\Eclo.Application\Eclo.Application.csproj" />
   </ItemGroup>
