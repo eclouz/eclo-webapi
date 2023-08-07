@@ -8,8 +8,11 @@
 
   <ItemGroup>
     <Folder Include="Handlers\" />
-    <Folder Include="ViewModels\" />
     <Folder Include="Repositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.143" />
   </ItemGroup>
 
   <ItemGroup>
