@@ -34,7 +34,7 @@ public class ProductDetailSizeRepository : BaseRepository, IProductDetailSizeRep
 
             string query = "INSERT INTO public.product_detail_sizes " +
                 "(product_detail_id, size, quantity, created_at, updated_at) " +
-                "VALUES (@ProductDetailId, @Size, @Quantity, @CreatedAt, @UpdatedAt);";
+                    "VALUES (@ProductDetailId, @Size, @Quantity, @CreatedAt, @UpdatedAt);";
 
             var result = await _connection.ExecuteAsync(query, entity);
 
@@ -98,8 +98,8 @@ public class ProductDetailSizeRepository : BaseRepository, IProductDetailSizeRep
 
             string query = $"UPDATE public.product_detail_sizes " +
                 $"SET product_detail_id=@ProductDetailId, size=@Size, " +
-                $"quantity=@Quantity, created_at=@CreatedAt, updated_at=@UpdatedAt " +
-                $"WHERE id=@Id;";
+                    $"quantity=@Quantity, created_at=@CreatedAt, updated_at=@UpdatedAt " +
+                        $"WHERE id=@Id;";
 
             var result = await _connection.ExecuteAsync(query, entity);
 
