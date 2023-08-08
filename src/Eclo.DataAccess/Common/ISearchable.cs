@@ -4,5 +4,5 @@ namespace Eclo.DataAccess.Common;
 
 public interface ISearchable<TModel>
 {
-    public Task<(int ItemsCount, IList<TModel>)> SearchAsync(string search, PaginationParams @params);
+    public Task<(long ItemsCount, IList<TModel>)> SearchAsync(string search, PaginationParams @params);
 }
