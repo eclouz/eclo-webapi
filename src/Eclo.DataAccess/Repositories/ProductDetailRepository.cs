@@ -18,7 +18,6 @@ namespace Eclo.DataAccess.Repositories
                 var result = await _connection.QuerySingleAsync<long>(query);
 
                 return result;
-
             }
             catch
             {
@@ -35,12 +34,13 @@ namespace Eclo.DataAccess.Repositories
             try
             {
                 await _connection.OpenAsync();
+                
                 string query = "INSERT INTO public.product_details(product_id, image_path, color, created_at," +
                     "updated_at) VALUES (@ProductId,@ImagePath,@Color,@CreatedAt,@UpdatedAt);";
+                    
                 var result = await _connection.ExecuteAsync(query, entity);
 
                 return result;
-
             }
             catch 
             {
@@ -61,7 +61,6 @@ namespace Eclo.DataAccess.Repositories
                 var result = await _connection.ExecuteAsync(query, new { Id = id });
 
                 return result;
-
             }
             catch
             {
@@ -78,12 +77,13 @@ namespace Eclo.DataAccess.Repositories
             try
             {
                 await _connection.OpenAsync();
+                
                 string query = $"SELECT * FROM product_details order by id desc " +
                     $"offset {@params.GetSkipCount()} limit {@params.PageSize}";
+                    
                 var result = (await _connection.QueryAsync<ProductViewModel>(query)).ToList();
 
                 return result;
-
             }
             catch
             {
@@ -104,7 +104,6 @@ namespace Eclo.DataAccess.Repositories
                 var result = await _connection.QuerySingleAsync<ProductViewModel>(query, new { Id = id });
 
                 return result;
-
             }
             catch
             {
@@ -121,12 +120,10 @@ namespace Eclo.DataAccess.Repositories
             try
             {
                 await _connection.OpenAsync();
-                string query = "select * from product_view " +
-                    $"where product_name ilike '%{search}%'";
+                string query = $"select * from product_view where product_name ilike '%{search}%'";
                 var result = (await _connection.QueryAsync<ProductViewModel>(query)).ToList();
 
                 return (result.Count, result);
-
             }
             catch 
             {
@@ -143,12 +140,13 @@ namespace Eclo.DataAccess.Repositories
             try
             {
                 await _connection.OpenAsync();
+                
                 string query = "UPDATE public.product_details SET product_id=@ProductId, image_path=@ImagePath, " +
-                    $"color=@Color, updated_at=@UpdatedAt WHERE id={id};";                
+                    $"color=@Color, updated_at=@UpdatedAt WHERE id={id};";  
+                    
                 var result = await _connection.ExecuteAsync(query, entity);
-
+                
                 return result;
-
             }
             catch
             {
