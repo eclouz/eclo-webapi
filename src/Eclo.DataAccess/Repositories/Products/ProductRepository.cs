@@ -124,7 +124,8 @@ public class ProductRepository : BaseRepository, IProductRepository
             string query = $"SELECT * FROM product_view WHERE product_name ILIKE @search ORDER BY id DESC " +
                 $"OFFSET {@params.GetSkipCount()} LIMIT {@params.PageSize}";
 
-            var result = (await _connection.QueryAsync<ProductViewModel>(query, new { search = "%" + search + "%" })).ToList();
+            var result = (await _connection.QueryAsync<ProductViewModel>
+                (query, new { search = "%" + search + "%" })).ToList();
 
             return (result.Count, result);
         }
