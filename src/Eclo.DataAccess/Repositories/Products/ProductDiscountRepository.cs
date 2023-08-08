@@ -35,9 +35,9 @@ public class ProductDiscountRepository : BaseRepository, IProductDiscountReposit
             string query = "INSERT INTO public.product_discounts " +
                 "(product_id, discount_id, description, start_at, end_at, created_at, updated_at) " +
                 "VALUES (@ProductId, @DiscountId, @Description, @StartAt, @EndAt, @CreatedAt, @UpdatedAt);";
-            
+
             var result = await _connection.ExecuteAsync(query, entity);
-            
+
             return result;
         }
         catch
@@ -55,9 +55,9 @@ public class ProductDiscountRepository : BaseRepository, IProductDiscountReposit
         try
         {
             await _connection.OpenAsync();
-            string query = "DELETE FROM product_discounts WHERE id = #Id";            
-            var result = await _connection.ExecuteAsync(query, new {Id = id});
-            
+            string query = "DELETE FROM product_discounts WHERE id = #Id";
+            var result = await _connection.ExecuteAsync(query, new { Id = id });
+
             return result;
         }
         catch
@@ -75,9 +75,9 @@ public class ProductDiscountRepository : BaseRepository, IProductDiscountReposit
         try
         {
             await _connection.OpenAsync();
-            string query = "SELECT * FROM product_discounts WHERE id = @Id";            
+            string query = "SELECT * FROM product_discounts WHERE id = @Id";
             var result = await _connection.QuerySingleAsync<ProductDiscount>(query, new { Id = id });
-            
+
             return result;
         }
         catch
@@ -100,9 +100,9 @@ public class ProductDiscountRepository : BaseRepository, IProductDiscountReposit
                 $"SET product_id=@ProductId, discount_id=@DiscountId, description=@Description, " +
                 $"start_at=@StartAt, end_at=@EndAt, created_at=CreatedAt, updated_at=@UpdatedAt " +
                 $"WHERE id = @Id;";
-            
+
             var result = await _connection.ExecuteAsync(query, entity);
-            
+
             return result;
         }
         catch
@@ -110,8 +110,8 @@ public class ProductDiscountRepository : BaseRepository, IProductDiscountReposit
             return 0;
         }
         finally
-        { 
-            await _connection.CloseAsync(); 
+        {
+            await _connection.CloseAsync();
         }
     }
 }

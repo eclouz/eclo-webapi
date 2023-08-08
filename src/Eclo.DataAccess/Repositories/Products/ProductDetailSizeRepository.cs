@@ -55,7 +55,7 @@ public class ProductDetailSizeRepository : BaseRepository, IProductDetailSizeRep
         try
         {
             await _connection.OpenAsync();
-            string query = "DELETE FROM product_detail_sizes WHERE id = #Id";            
+            string query = "DELETE FROM product_detail_sizes WHERE id = #Id";
             var result = await _connection.ExecuteAsync(query, new { Id = id });
 
             return result;

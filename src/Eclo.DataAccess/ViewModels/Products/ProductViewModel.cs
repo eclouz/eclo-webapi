@@ -9,7 +9,7 @@ public class ProductViewModel
     public string BrandName { get; set; } = String.Empty;
 
     public string ProductImagePath { get; set; } = String.Empty;
-    
+
     public string ProductColor { get; set; } = String.Empty;
 
     public double ProductPrice { get; set; }

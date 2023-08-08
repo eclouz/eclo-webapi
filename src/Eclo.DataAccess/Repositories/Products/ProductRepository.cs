@@ -13,9 +13,9 @@ public class ProductRepository : BaseRepository, IProductRepository
         try
         {
             await _connection.OpenAsync();
-            string query = "SELECT COUNT(*) FROM products";            
+            string query = "SELECT COUNT(*) FROM products";
             var result = await _connection.QuerySingleAsync<long>(query);
-            
+
             return result;
         }
         catch
@@ -33,13 +33,13 @@ public class ProductRepository : BaseRepository, IProductRepository
         try
         {
             await _connection.OpenAsync();
-            
+
             string query = "INSERT INTO public.products " +
                 "(brand_id, sub_category_id, name, unit_price, description, created_at, updated_at) " +
-                "VALUES (@BrandId, @SubCategoryId, @Name, @UnitPrice, @Description, @CreatedAt, @UpdatedAt);";
-            
+                    "VALUES (@BrandId, @SubCategoryId, @Name, @UnitPrice, @Description, @CreatedAt, @UpdatedAt);";
+
             var result = await _connection.ExecuteAsync(query, entity);
-            
+
             return result;
         }
         catch
@@ -146,8 +146,8 @@ public class ProductRepository : BaseRepository, IProductRepository
 
             string query = $"UPDATE public.products " +
                 $"SET brand_id=@BrandId, sub_category_id=@SubCategoryId, name=@Name, unit_price=@UnitPrice, " +
-                $"description=@Description, created_at=@CreatedAt, updated_at=@UpdatedAt " +
-                $"WHERE id=@Id;";
+                    $"description=@Description, created_at=@CreatedAt, updated_at=@UpdatedAt " +
+                        $"WHERE id=@Id;";
 
             var result = await _connection.ExecuteAsync(query, entity);
 
