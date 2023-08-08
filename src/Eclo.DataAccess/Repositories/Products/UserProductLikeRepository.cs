@@ -12,8 +12,11 @@ public class UserProductLikeRepository : BaseRepository, IUserProductLikeReposit
         try
         {
             await _connection.OpenAsync();
+
             string query = "SELECT COUNT(*) FROM user_product_likes";
+            
             var result = await _connection.QuerySingleAsync<long>(query);
+            
             return result;
         }
         catch
@@ -31,9 +34,13 @@ public class UserProductLikeRepository : BaseRepository, IUserProductLikeReposit
         try
         {
             await _connection.OpenAsync();
-            string query = "INSERT INTO public.user_product_likes (user_id, product_id, is_liked, created_at, updated_at) " +
+            
+            string query = "INSERT INTO public.user_product_likes " +
+                "(user_id, product_id, is_liked, created_at, updated_at) " +
                 "VALUES (@UserId, @ProductId, @IsLiked, @CreatedAt, @UpdatedAt);";
+            
             var result = await _connection.ExecuteAsync(query, entity);
+            
             return result;            
         }
         catch
@@ -51,8 +58,11 @@ public class UserProductLikeRepository : BaseRepository, IUserProductLikeReposit
         try
         {
             await _connection.OpenAsync();
+            
             string query = "DELETE FROM user_product_likes WHERE id = @Id";
+            
             var result = await _connection.ExecuteAsync(query, new { Id = id});
+            
             return result;
         }
         catch
@@ -70,8 +80,11 @@ public class UserProductLikeRepository : BaseRepository, IUserProductLikeReposit
         try
         {
             await _connection.OpenAsync();
+            
             string query = "SELECT * FROM user_product_likes WHERE id = @Id";
+            
             var result = await _connection.QuerySingleAsync<UserProductLike>(query, new { Id = id });
+            
             return result;
         }
         catch
@@ -89,10 +102,13 @@ public class UserProductLikeRepository : BaseRepository, IUserProductLikeReposit
         try
         {
             await _connection.OpenAsync();
+            
             string query = $"UPDATE public.user_product_likes " +
                 $"SET user_id=@UserId, product_id=@ProductId, is_liked=@IsLiked, created_at=@CreatedAt, updated_at=@UpdatedAt" +
                 $"WHERE id = {id};";
+            
             var result = await _connection.ExecuteAsync(query, entity);
+            
             return result;
         }
         catch

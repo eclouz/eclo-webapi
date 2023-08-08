@@ -13,8 +13,11 @@ public class ProductRepository : BaseRepository, IProductRepository
         try
         {
             await _connection.OpenAsync();
+
             string query = "SELECT COUNT(*) FROM products";
+            
             var result = await _connection.QuerySingleAsync<long>(query);
+            
             return result;
         }
         catch
@@ -32,9 +35,13 @@ public class ProductRepository : BaseRepository, IProductRepository
         try
         {
             await _connection.OpenAsync();
-            string query = "INSERT INTO public.products (brand_id, sub_category_id, name, unit_price, description, created_at, updated_at) " +
+            
+            string query = "INSERT INTO public.products " +
+                "(brand_id, sub_category_id, name, unit_price, description, created_at, updated_at) " +
                 "VALUES (@BrandId, @SubCategoryId, @Name, @UnitPrice, @Description, @CreatedAt, @UpdatedAt);";
+            
             var result = await _connection.ExecuteAsync(query, entity);
+            
             return result;
         }
         catch
@@ -52,8 +59,11 @@ public class ProductRepository : BaseRepository, IProductRepository
         try
         {
             await _connection.OpenAsync();
+
             string query = "DELETE FROM products WHERE id = #Id";
+
             var result = await _connection.ExecuteAsync(query, new { Id = id });
+
             return result;
         }
         catch
@@ -71,9 +81,12 @@ public class ProductRepository : BaseRepository, IProductRepository
         try
         {
             await _connection.OpenAsync();
+
             string query = $"SELECT * FROM product_view ORDER BY id DESC " +
                 $"OFFSET {@params.GetSkipCount()} LIMIT {@params.PageSize}";
+
             var result = (await _connection.QueryAsync<ProductViewModel>(query)).ToList();
+
             return result;
         }
         catch
@@ -91,8 +104,11 @@ public class ProductRepository : BaseRepository, IProductRepository
         try
         {
             await _connection.OpenAsync();
+
             string query = "SELECT * FROM product_view WHERE id = @Id";
+
             var result = await _connection.QuerySingleAsync<ProductViewModel>(query, new { Id = id });
+
             return result;
         }
         catch
@@ -110,9 +126,12 @@ public class ProductRepository : BaseRepository, IProductRepository
         try
         {
             await _connection.OpenAsync();
+
             string query = $"SELECT * FROM product_view WHERE product_name ILIKE @search ORDER BY id DESC " +
                 $"OFFSET {@params.GetSkipCount()} LIMIT {@params.PageSize}";
+
             var result = (await _connection.QueryAsync<ProductViewModel>(query, new { search = "%" + search + "%" })).ToList();
+
             return (result.Count, result);
         }
         catch
@@ -130,10 +149,14 @@ public class ProductRepository : BaseRepository, IProductRepository
         try
         {
             await _connection.OpenAsync();
+
             string query = $"UPDATE public.products " +
-                $"SET brand_id=@BrandId, sub_category_id=@SubCategoryId, name=@Name, unit_price=@UnitPrice, description=@Description, created_at=@CreatedAt, updated_at=@UpdatedAt " +
+                $"SET brand_id=@BrandId, sub_category_id=@SubCategoryId, name=@Name, unit_price=@UnitPrice, " +
+                $"description=@Description, created_at=@CreatedAt, updated_at=@UpdatedAt " +
                 $"WHERE id=@Id;";
+
             var result = await _connection.ExecuteAsync(query, entity);
+
             return result;
         }
         catch
