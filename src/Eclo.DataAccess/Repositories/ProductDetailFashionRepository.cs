@@ -17,7 +17,6 @@ public class ProductDetailFashionRepository : BaseRepository, IProductDetailFash
             var result = await _connection.QuerySingleAsync<long>(query);
 
             return result;
-
         }
         catch
         {
@@ -34,12 +33,13 @@ public class ProductDetailFashionRepository : BaseRepository, IProductDetailFash
         try
         {
             await _connection.OpenAsync();
+            
             string query = "INSERT INTO public.product_detail_fashions(product_detail_id, image_path, created_at, " +
                 "updated_at) VALUES (@ProductDetailId,@ImagePath,@CreatedAt,@UpdatedAt);";
+                
             var result = await _connection.ExecuteAsync(query, entity);
 
             return result;
-
         }
         catch
         {
@@ -56,12 +56,10 @@ public class ProductDetailFashionRepository : BaseRepository, IProductDetailFash
         try
         {
             await _connection.OpenAsync();
-            string query = "DELETE FROM public.product_detail_fashions " +
-                "WHERE id=@Id;";
+            string query = "DELETE FROM public.product_detail_fashions WHERE id=@Id;";
             var result = await _connection.ExecuteAsync(query, new { Id = id });
 
             return result;
-
         }
         catch
         {
@@ -78,12 +76,13 @@ public class ProductDetailFashionRepository : BaseRepository, IProductDetailFash
         try
         {
             await _connection.OpenAsync();
+            
             string query = $"SELECT * FROM public.product_detail_fashion_view order by id desc " +
                 $"offset {@params.GetSkipCount()} limit {@params.PageSize}";
+                
             var result = (await _connection.QueryAsync<ProductDetailFashionViewModel>(query)).ToList();
 
             return result;
-
         }
         catch
         {
@@ -104,7 +103,6 @@ public class ProductDetailFashionRepository : BaseRepository, IProductDetailFash
             var result = await _connection.QuerySingleAsync<ProductDetailFashionViewModel>(query, new { Id = id });
 
             return result;
-
         }
         catch
         {
@@ -121,11 +119,13 @@ public class ProductDetailFashionRepository : BaseRepository, IProductDetailFash
         try
         {
             await _connection.OpenAsync();
+            
             string query = "UPDATE public.product_detail_fashions " +
                 "SET product_detail_id=@ProductDetailId, image_path=@ImagePath, updated_at=@UpdatedAt " +
                 $"WHERE id={id};";
 
             var result = await _connection.ExecuteAsync(query, entity);
+            
             return result;
         }
         catch
