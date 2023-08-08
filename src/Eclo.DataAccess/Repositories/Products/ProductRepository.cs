@@ -13,9 +13,7 @@ public class ProductRepository : BaseRepository, IProductRepository
         try
         {
             await _connection.OpenAsync();
-
-            string query = "SELECT COUNT(*) FROM products";
-            
+            string query = "SELECT COUNT(*) FROM products";            
             var result = await _connection.QuerySingleAsync<long>(query);
             
             return result;
@@ -59,9 +57,7 @@ public class ProductRepository : BaseRepository, IProductRepository
         try
         {
             await _connection.OpenAsync();
-
             string query = "DELETE FROM products WHERE id = #Id";
-
             var result = await _connection.ExecuteAsync(query, new { Id = id });
 
             return result;
@@ -104,9 +100,7 @@ public class ProductRepository : BaseRepository, IProductRepository
         try
         {
             await _connection.OpenAsync();
-
             string query = "SELECT * FROM product_view WHERE id = @Id";
-
             var result = await _connection.QuerySingleAsync<ProductViewModel>(query, new { Id = id });
 
             return result;

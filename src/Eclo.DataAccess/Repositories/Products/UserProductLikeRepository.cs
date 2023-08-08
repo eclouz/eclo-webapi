@@ -12,9 +12,7 @@ public class UserProductLikeRepository : BaseRepository, IUserProductLikeReposit
         try
         {
             await _connection.OpenAsync();
-
-            string query = "SELECT COUNT(*) FROM user_product_likes";
-            
+            string query = "SELECT COUNT(*) FROM user_product_likes";            
             var result = await _connection.QuerySingleAsync<long>(query);
             
             return result;
@@ -57,10 +55,8 @@ public class UserProductLikeRepository : BaseRepository, IUserProductLikeReposit
     {
         try
         {
-            await _connection.OpenAsync();
-            
-            string query = "DELETE FROM user_product_likes WHERE id = @Id";
-            
+            await _connection.OpenAsync();            
+            string query = "DELETE FROM user_product_likes WHERE id = @Id";            
             var result = await _connection.ExecuteAsync(query, new { Id = id});
             
             return result;
@@ -79,10 +75,8 @@ public class UserProductLikeRepository : BaseRepository, IUserProductLikeReposit
     {
         try
         {
-            await _connection.OpenAsync();
-            
-            string query = "SELECT * FROM user_product_likes WHERE id = @Id";
-            
+            await _connection.OpenAsync();            
+            string query = "SELECT * FROM user_product_likes WHERE id = @Id";            
             var result = await _connection.QuerySingleAsync<UserProductLike>(query, new { Id = id });
             
             return result;

@@ -11,9 +11,7 @@ public class ProductDetailSizeRepository : BaseRepository, IProductDetailSizeRep
         try
         {
             await _connection.OpenAsync();
-
             string query = "SELECT COUNT(*) FROM product_detail_sizes";
-
             var result = await _connection.QuerySingleAsync<long>(query);
 
             return result;
@@ -57,9 +55,7 @@ public class ProductDetailSizeRepository : BaseRepository, IProductDetailSizeRep
         try
         {
             await _connection.OpenAsync();
-
-            string query = "DELETE FROM product_detail_sizes WHERE id = #Id";
-            
+            string query = "DELETE FROM product_detail_sizes WHERE id = #Id";            
             var result = await _connection.ExecuteAsync(query, new { Id = id });
 
             return result;
@@ -79,9 +75,7 @@ public class ProductDetailSizeRepository : BaseRepository, IProductDetailSizeRep
         try
         {
             await _connection.OpenAsync();
-
             string query = "SELECT * FROM product_detail_sizes WHERE id = @Id";
-
             var result = await _connection.QuerySingleAsync<ProductDetailSize>(query, new { Id = id });
 
             return result;
