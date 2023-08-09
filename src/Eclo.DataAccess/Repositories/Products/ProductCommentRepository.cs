@@ -34,8 +34,10 @@ public class ProductCommentRepository : BaseRepository, IProductCommentRepositor
         {
             await _connection.OpenAsync();
 
-            string query = "INSERT INTO public.product_comments(product_id, user_id, reply_comment_id, comment, is_edited, created_at, updated_at) " +
-                "VALUES (@ProductId, @UserId, @ReplyCommentId, @Comment, @IsEdited, @CreatedAt, @UpdatedAt);";
+            string query = "INSERT INTO public.product_comments(product_id, user_id, reply_comment_id, " +
+                    "comment, is_edited, created_at, updated_at) " +
+                        "VALUES (@ProductId, @UserId, @ReplyCommentId, @Comment, @IsEdited, " +
+                            "@CreatedAt, @UpdatedAt);";
 
             var result = await _connection.ExecuteAsync(query, entity);
 
