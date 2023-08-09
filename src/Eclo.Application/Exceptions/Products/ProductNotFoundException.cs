@@ -4,6 +4,6 @@ public class ProductNotFoundException : NotFoundException
 {
     public ProductNotFoundException()
     {
-        this.TitleMessage = "Product not fount";
+        this.TitleMessage = "Product not found!";
     }
 }

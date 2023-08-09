@@ -4,6 +4,6 @@ public class UserNotFoundException : NotFoundException
 {
     public UserNotFoundException()
     {
-        this.TitleMessage = "User not fount";
+        this.TitleMessage = "User not found!";
     }
 }
