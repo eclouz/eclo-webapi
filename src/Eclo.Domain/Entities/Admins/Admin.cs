@@ -4,7 +4,6 @@ namespace Eclo.Domain.Entities.Admins;
 
 public class Admin : Human
 {
-    [MaxLength(13)]
     public string PhoneNumber { get; set; } = String.Empty;
 
     public bool PhoneNumberConfirmed { get; set; }
@@ -13,7 +12,6 @@ public class Admin : Human
 
     public string Salt { get; set; } = String.Empty;
 
-    [MaxLength(9)]
     public string PassportSerialNumber { get; set; } = String.Empty;
 
     public string Region { get; set; } = String.Empty;
