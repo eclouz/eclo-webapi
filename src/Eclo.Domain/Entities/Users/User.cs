@@ -5,7 +5,6 @@ namespace Eclo.Domain.Entities.Users;
 public class User : Human
 {
 
-    [MaxLength(13)]
     public string PhoneNumber { get; set; } = String.Empty;
 
     public bool PhoneNumberConfirmed { get; set; }
@@ -14,7 +13,6 @@ public class User : Human
 
     public string Salt { get; set; } = String.Empty;
 
-    [MaxLength(9)]
     public string PassportSerialNumber { get; set; } = String.Empty;
 
     public string Region { get; set; } = String.Empty;
