@@ -8,7 +8,6 @@ public class Product : Auditable
 
     public long SubCategoryId { get; set; }
 
-    [MaxLength(50)]
     public string Name { get; set; } = String.Empty;
 
     public double UnitPrice { get; set; }
