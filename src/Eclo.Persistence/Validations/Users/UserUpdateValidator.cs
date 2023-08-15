@@ -25,4 +25,3 @@ public class UserUpdateValidator : AbstractValidator<UserUpdateDto>
             .MaximumLength(7).WithMessage("PassportSerialNumber must be less than 7 characters!");
     }
 }
-}

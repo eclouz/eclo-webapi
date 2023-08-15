@@ -1,5 +1,5 @@
 ﻿using Eclo.Persistence.Dtos.Products;
-using Eclo.Services.Helpers;
+using Eclo.Persistence.Helpers;
 using FluentValidation;
 
 namespace Eclo.Persistence.Validations.Products;

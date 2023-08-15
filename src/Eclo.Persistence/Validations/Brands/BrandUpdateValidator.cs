@@ -1,12 +1,12 @@
 ﻿using Eclo.Persistence.Dtos.Brands;
-using Eclo.Services.Helpers;
+using Eclo.Persistence.Helpers;
 using FluentValidation;
 
 namespace Eclo.Persistence.Validations.Brands;
 
-public class BrandUodateValidator : AbstractValidator<BrandUpdateDto>
+public class BrandUpdateValidator : AbstractValidator<BrandUpdateDto>
 {
-    public BrandUodateValidator()
+    public BrandUpdateValidator()
     {
         RuleFor(dto => dto.Name).NotEmpty().NotNull().WithMessage("Brand name is required!")
             .MinimumLength(3).WithMessage("Brand name must be more than 3 characters!")
