@@ -6,14 +6,14 @@ public class PaginationParams
 
     public int PageSize { get; set; }
 
+    public PaginationParams(int pageNumber, int pageSize)
+    {
+        PageNumber = pageNumber;
+        PageSize = pageSize;
+    }
+
     public int GetSkipCount()
     {
         return (PageNumber - 1) * PageSize;
-    }
-
-    public PaginationParams(int pageSize, int pageNumber)
-    {
-        this.PageNumber = pageNumber;
-        this.PageSize = pageSize;
     }
 }
