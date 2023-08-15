@@ -1,5 +1,5 @@
 ﻿using Eclo.Persistence.Dtos.Brands;
-using Eclo.Services.Helpers;
+using Eclo.Persistence.Helpers;
 using FluentValidation;
 namespace Eclo.Persistence.Validations.Brands;
 
