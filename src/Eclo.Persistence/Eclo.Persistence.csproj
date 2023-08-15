@@ -14,7 +14,11 @@
     <Folder Include="DTOs\" />
     <Folder Include="Attributes\" />
     <Folder Include="Filters\" />
-    <Folder Include="Validations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.6.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
   </ItemGroup>
 
 </Project>
