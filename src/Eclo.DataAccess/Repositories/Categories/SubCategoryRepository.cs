@@ -70,7 +70,7 @@ public class SubCategoryRepository : BaseRepository, ISubCategoryRepository
         }
     }
 
-    public async Task<IList<SubCategory>> GetAllAsync(long id, PaginationParams @params)
+    public async Task<IList<SubCategory>> GetAllAsync(PaginationParams @params)
     {
         try
         {
