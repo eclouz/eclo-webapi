@@ -121,21 +121,46 @@ public class ProductDetailUpdateValidatorTest
         Assert.True(result.IsValid);
     }
 
-    //[Theory]
-    //[InlineData("AA")]
-    //[InlineData("A")]
-    //[InlineData("electronic products, we sell an electronic products to our clients, we sell an electronic products to our clients")]
-    //public void ShouldReturnInValidValidation(string color)
-    //{
-    //    byte[] byteImage = Encoding.UTF8.GetBytes("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s");
-    //    IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, byteImage.Length, "data", "file.jpg");
-    //    ProductDetailUpdateDto productDetailUpdateDto = new ProductDetailUpdateDto()
-    //    {
-    //        Color = color,
-    //        ImagePath = imageFile
-    //    };
-    //    var validator = new ProductDetailUpdateValidator();
-    //    var result = validator.Validate(productDetailUpdateDto);
-    //    Assert.False(result.IsValid);
-    //}
+    [Theory]
+    [InlineData("AA")]
+    [InlineData("A")]
+    [InlineData("electronic products, we sell an electronic products to our clients, we sell an electronic products to our clients")]
+    public void ShouldReturnInValidValidation(string color)
+    {
+        byte[] byteImage = Encoding.UTF8.GetBytes("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s");
+        IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, byteImage.Length, "data", "file.jpg");
+        ProductDetailUpdateDto productDetailUpdateDto = new ProductDetailUpdateDto()
+        {
+            Color = color,
+            ImagePath = imageFile
+        };
+        var validator = new ProductDetailUpdateValidator();
+        var result = validator.Validate(productDetailUpdateDto);
+        Assert.False(result.IsValid);
+    }
+    [Theory]
+    [InlineData("Red")]
+    [InlineData("White")]
+    [InlineData("Black")]
+    [InlineData("DarkBlue")]
+    [InlineData("LightBlue")]
+    [InlineData("Yellow")]
+    [InlineData("Pink")]
+    [InlineData("Silver")]
+    [InlineData("Brown")]
+    [InlineData("Orange")]
+    [InlineData("Olive")]
+    public void ShouldReturnColorValidValidation(string color)
+    {
+        byte[] byteImage = Encoding.UTF8.GetBytes("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s");
+        IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, byteImage.Length, "data", "file.jpg");
+        ProductDetailCreateDto productDetailCreateDto = new ProductDetailCreateDto()
+        {
+            Color = color,
+            ImagePath = imageFile
+        };
+        var validator = new ProductDetailCreateValidator();
+        var result = validator.Validate(productDetailCreateDto);
+        Assert.True(result.IsValid);
+    }
 }

@@ -31,26 +31,25 @@ public class ProductCreateValidatorTest
         var result = validator.Validate(productCreateDto);
         Assert.False(result.IsValid);
     }
-    //[Theory]
-    //[InlineData("AliSher")]
-    //[InlineData("Jasur")]
-    //[InlineData("Komil")]
-    //[InlineData("Sardor")]
-    //[InlineData("Muhammadamin")]
-    //[InlineData("Ali")]
-    //[InlineData("Jabbor")]
-    //[InlineData("Azam")]
-    //[InlineData("Umarali")]
-    //[InlineData("Bobur")]
-    //[InlineData("Abbos")]
-    //public void ShouldReturnValidValidation(string name)
-    //{
-    //    ProductCreateDto productCreateDto = new ProductCreateDto()
-    //    {
-    //        Name = name,
-    //    };
-    //    var validator = new ProductCreateValidator();
-    //    var result = validator.Validate(productCreateDto);
-    //    Assert.False(result.IsValid);
-    //}
+    [Theory]
+    [InlineData("Jean")]
+    [InlineData("Blazer")]
+    [InlineData("Suit")]
+    [InlineData("Sweatshirt")]
+    [InlineData("Shirt")]
+    [InlineData("Sweater")]
+    [InlineData("Swimwear")]
+    [InlineData("Jacket")]
+    [InlineData("Coat")]
+    [InlineData("Pant")]
+    public void ShouldReturnValidValidation(string name)
+    {
+        ProductCreateDto productCreateDto = new ProductCreateDto()
+        {
+            Name = name,
+        };
+        var validator = new ProductCreateValidator();
+        var result = validator.Validate(productCreateDto);
+        Assert.True(result.IsValid);
+    }
 }

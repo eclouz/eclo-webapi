@@ -29,26 +29,4 @@ public class DiscountUpdateValidatorTest
         var result = validator.Validate(discountUpdateDto);
         Assert.False(result.IsValid);
     }
-    //[Theory]
-    //[InlineData("AliSher")]
-    //[InlineData("Jasur")]
-    //[InlineData("Komil")]
-    //[InlineData("Sardor")]
-    //[InlineData("Muhammadamin")]
-    //[InlineData("Ali")]
-    //[InlineData("Jabbor")]
-    //[InlineData("Azam")]
-    //[InlineData("Umarali")]
-    //[InlineData("Bobur")]
-    //[InlineData("Abbos")]
-    //public void ShouldReturnValidValidation(string name)
-    //{
-    //    DiscountUpdateDto discountUpdateDto = new DiscountUpdateDto()
-    //    {
-    //        Name = name,
-    //    };
-    //    var validator = new DiscountUpdateValidator();
-    //    var result = validator.Validate(discountUpdateDto);
-    //    Assert.False(result.IsValid);
-    //}
 }

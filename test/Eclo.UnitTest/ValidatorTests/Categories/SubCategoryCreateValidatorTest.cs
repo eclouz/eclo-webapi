@@ -28,26 +28,25 @@ public class SubCategoryCreateValidatorTest
         var result = validator.Validate(subCategoryCreateDto);
         Assert.False(result.IsValid);
     }
-    //[Theory]
-    //[InlineData("AliSher")]
-    //[InlineData("Jasur")]
-    //[InlineData("Komil")]
-    //[InlineData("Sardor")]
-    //[InlineData("Muhammadamin")]
-    //[InlineData("Ali")]
-    //[InlineData("Jabbor")]
-    //[InlineData("Azam")]
-    //[InlineData("Umarali")]
-    //[InlineData("Bobur")]
-    //[InlineData("Abbos")]
-    //public void ShouldReturnValidValidation(string name)
-    //{
-    //    SubCategoryCreateDto subCategoryCreateDto = new SubCategoryCreateDto()
-    //    {
-    //        Name = name,
-    //    };
-    //    var validator = new SubCategoryCreateValidator();
-    //    var result = validator.Validate(subCategoryCreateDto);
-    //    Assert.False(result.IsValid);
-    //}
+    [Theory]
+    [InlineData("Jeans")]
+    [InlineData("Blazer")]
+    [InlineData("Suits")]
+    [InlineData("Sweatshirts")]
+    [InlineData("Shirt")]
+    [InlineData("Sweaters")]
+    [InlineData("Swimwears")]
+    [InlineData("Jackets")]
+    [InlineData("Coats")]
+    [InlineData("Pants")]
+    public void ShouldReturnValidValidation(string name)
+    {
+        SubCategoryCreateDto subCategoryCreateDto = new SubCategoryCreateDto()
+        {
+            Name = name,
+        };
+        var validator = new SubCategoryCreateValidator();
+        var result = validator.Validate(subCategoryCreateDto);
+        Assert.True(result.IsValid);
+    }
 }

@@ -31,26 +31,4 @@ public class DiscauntCreateValidatorTest
         var result = validator.Validate(discountCreateDto);
         Assert.False(result.IsValid);
     }
-    //[Theory]
-    //[InlineData("AliSher")]
-    //[InlineData("Jasur")]
-    //[InlineData("Komil")]
-    //[InlineData("Sardor")]
-    //[InlineData("Muhammadamin")]
-    //[InlineData("Ali")]
-    //[InlineData("Jabbor")]
-    //[InlineData("Azam")]
-    //[InlineData("Umarali")]
-    //[InlineData("Bobur")]
-    //[InlineData("Abbos")]
-    //public void ShouldReturnValidValidation(string name)
-    //{
-    //    DiscountCreateDto discountCreateDto = new DiscountCreateDto()
-    //    {
-    //        Name = name,
-    //    };
-    //    var validator = new DiscountCreateValidator();
-    //    var result = validator.Validate(discountCreateDto);
-    //    Assert.False(result.IsValid);
-    //}
 }

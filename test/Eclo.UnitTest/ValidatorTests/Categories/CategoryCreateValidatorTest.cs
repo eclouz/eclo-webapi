@@ -32,17 +32,16 @@ public class CategoryCreateValidatorTest
         Assert.False(result.IsValid);
     }
     [Theory]
-    [InlineData("AliSher")]
-    [InlineData("Jasur")]
-    [InlineData("Komil")]
-    [InlineData("Sardor")]
-    [InlineData("Muhammadamin")]
-    [InlineData("Ali")]
-    [InlineData("Jabbor")]
-    [InlineData("Azam")]
-    [InlineData("Umarali")]
-    [InlineData("Bobur")]
-    [InlineData("Abbos")]
+    [InlineData("Jeans")]
+    [InlineData("Blazer")]
+    [InlineData("Suits")]
+    [InlineData("Sweatshirts")]
+    [InlineData("Shirt")]
+    [InlineData("Sweaters")]
+    [InlineData("Swimwears")]
+    [InlineData("Jackets")]
+    [InlineData("Coats")]
+    [InlineData("Pants")]
     public void ShouldReturnValidValidation(string name)
     {
         CategoryCreateDto categoryCreateDto = new CategoryCreateDto()
@@ -51,6 +50,6 @@ public class CategoryCreateValidatorTest
         };
         var validator = new CategoryCreateValidator();
         var result = validator.Validate(categoryCreateDto);
-        Assert.False(result.IsValid);
+        Assert.True(result.IsValid);
     }
 }

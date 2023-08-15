@@ -29,26 +29,25 @@ public class CategoryUpdateValidatorTest
         var result = validator.Validate(categoryUpdateDto);
         Assert.False(result.IsValid);
     }
-    //[Theory]
-    //[InlineData("AliSher")]
-    //[InlineData("Jasur")]
-    //[InlineData("Komil")]
-    //[InlineData("Sardor")]
-    //[InlineData("Muhammadamin")]
-    //[InlineData("Ali")]
-    //[InlineData("Jabbor")]
-    //[InlineData("Azam")]
-    //[InlineData("Umarali")]
-    //[InlineData("Bobur")]
-    //[InlineData("Abbos")]
-    //public void ShouldReturnValidValidation(string name)
-    //{
-    //    CategoryUpdateDto categoryUpdateDto = new CategoryUpdateDto()
-    //    {
-    //        Name = name,
-    //    };
-    //    var validator = new CategoryUpdateValidator();
-    //    var result = validator.Validate(categoryUpdateDto);
-    //    Assert.False(result.IsValid);
-    //}
+    [Theory]
+    [InlineData("Jeans")]
+    [InlineData("Blazer")]
+    [InlineData("Suits")]
+    [InlineData("Sweatshirts")]
+    [InlineData("Shirt")]
+    [InlineData("Sweaters")]
+    [InlineData("Swimwears")]
+    [InlineData("Jackets")]
+    [InlineData("Coats")]
+    [InlineData("Pants")]
+    public void ShouldReturnValidValidation(string name)
+    {
+        CategoryUpdateDto categoryUpdateDto = new CategoryUpdateDto()
+        {
+            Name = name,
+        };
+        var validator = new CategoryUpdateValidator();
+        var result = validator.Validate(categoryUpdateDto);
+        Assert.True(result.IsValid);
+    }
 }
