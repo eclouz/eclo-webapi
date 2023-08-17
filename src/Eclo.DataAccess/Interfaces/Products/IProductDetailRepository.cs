@@ -7,4 +7,5 @@ namespace Eclo.DataAccess.Interfaces.Products;
 public interface IProductDetailRepository : IRepository<ProductDetail, ProductViewModel>,
     IGetAll<ProductViewModel>, ISearchable<ProductViewModel>
 {
+    public Task<ProductDetail?> GetById(long id);
 }

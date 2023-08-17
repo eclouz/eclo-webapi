@@ -2,10 +2,9 @@
 using Eclo.Application.Utilities;
 using Eclo.DataAccess.Interfaces.Products;
 using Eclo.DataAccess.ViewModels.Products;
-using Eclo.Domain.Entities.Categories;
 using Eclo.Domain.Entities.Products;
 
-namespace Eclo.DataAccess.Repositories
+namespace Eclo.DataAccess.Repositories.Products
 {
     public class ProductDetailRepository : BaseRepository, IProductDetailRepository
     {
@@ -34,17 +33,17 @@ namespace Eclo.DataAccess.Repositories
             try
             {
                 await _connection.OpenAsync();
-                
+
                 string query = "INSERT INTO public.product_details(product_id, image_path, color, created_at," +
                     "updated_at) VALUES (@ProductId,@ImagePath,@Color,@CreatedAt,@UpdatedAt);";
-                    
+
                 var result = await _connection.ExecuteAsync(query, entity);
 
                 return result;
             }
-            catch 
+            catch
             {
-                return 0;          
+                return 0;
             }
             finally
             {
@@ -77,10 +76,10 @@ namespace Eclo.DataAccess.Repositories
             try
             {
                 await _connection.OpenAsync();
-                
-                string query = $"SELECT * FROM product_details order by id desc " +
+
+                string query = $"SELECT * FROM product_view order by id desc " +
                     $"offset {@params.GetSkipCount()} limit {@params.PageSize}";
-                    
+
                 var result = (await _connection.QueryAsync<ProductViewModel>(query)).ToList();
 
                 return result;
@@ -95,12 +94,32 @@ namespace Eclo.DataAccess.Repositories
             }
         }
 
-        public async Task<ProductViewModel?> GetByIdAsync(long id)
+        public async Task<ProductDetail?> GetById(long id)
         {
             try
             {
                 await _connection.OpenAsync();
                 string query = $"SELECT * FROM product_details where id=@Id";
+                var result = await _connection.QuerySingleAsync<ProductDetail>(query, new { Id = id });
+
+                return result;
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                await _connection.CloseAsync();
+            }
+        }
+
+        public async Task<ProductViewModel?> GetByIdAsync(long id)
+        {
+            try
+            {
+                await _connection.OpenAsync();
+                string query = $"SELECT * FROM product_view where id=@Id";
                 var result = await _connection.QuerySingleAsync<ProductViewModel>(query, new { Id = id });
 
                 return result;
@@ -125,9 +144,9 @@ namespace Eclo.DataAccess.Repositories
 
                 return (result.Count, result);
             }
-            catch 
+            catch
             {
-                return (0,new List<ProductViewModel>());                
+                return (0, new List<ProductViewModel>());
             }
             finally
             {
@@ -140,12 +159,12 @@ namespace Eclo.DataAccess.Repositories
             try
             {
                 await _connection.OpenAsync();
-                
+
                 string query = "UPDATE public.product_details SET product_id=@ProductId, image_path=@ImagePath, " +
-                    $"color=@Color, updated_at=@UpdatedAt WHERE id={id};";  
-                    
+                    $"color=@Color, updated_at=@UpdatedAt WHERE id={id};";
+
                 var result = await _connection.ExecuteAsync(query, entity);
-                
+
                 return result;
             }
             catch
