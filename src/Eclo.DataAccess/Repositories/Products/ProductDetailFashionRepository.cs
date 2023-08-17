@@ -4,7 +4,7 @@ using Eclo.DataAccess.Interfaces.Products;
 using Eclo.DataAccess.ViewModels.Products;
 using Eclo.Domain.Entities.Products;
 
-namespace Eclo.DataAccess.Repositories;
+namespace Eclo.DataAccess.Repositories.Products;
 
 public class ProductDetailFashionRepository : BaseRepository, IProductDetailFashionRepository
 {
@@ -33,10 +33,10 @@ public class ProductDetailFashionRepository : BaseRepository, IProductDetailFash
         try
         {
             await _connection.OpenAsync();
-            
+
             string query = "INSERT INTO public.product_detail_fashions(product_detail_id, image_path, created_at, " +
                 "updated_at) VALUES (@ProductDetailId,@ImagePath,@CreatedAt,@UpdatedAt);";
-                
+
             var result = await _connection.ExecuteAsync(query, entity);
 
             return result;
@@ -76,10 +76,10 @@ public class ProductDetailFashionRepository : BaseRepository, IProductDetailFash
         try
         {
             await _connection.OpenAsync();
-            
+
             string query = $"SELECT * FROM public.product_detail_fashion_view order by id desc " +
                 $"offset {@params.GetSkipCount()} limit {@params.PageSize}";
-                
+
             var result = (await _connection.QueryAsync<ProductDetailFashionViewModel>(query)).ToList();
 
             return result;
@@ -87,6 +87,26 @@ public class ProductDetailFashionRepository : BaseRepository, IProductDetailFash
         catch
         {
             return new List<ProductDetailFashionViewModel>();
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<ProductDetailFashion?> GetById(long id)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = $"SELECT * FROM public.product_detail_fashions where id=@Id";
+            var result = await _connection.QuerySingleAsync<ProductDetailFashion>(query, new { Id = id });
+
+            return result;
+        }
+        catch
+        {
+            return null;
         }
         finally
         {
@@ -119,13 +139,13 @@ public class ProductDetailFashionRepository : BaseRepository, IProductDetailFash
         try
         {
             await _connection.OpenAsync();
-            
+
             string query = "UPDATE public.product_detail_fashions " +
                 "SET product_detail_id=@ProductDetailId, image_path=@ImagePath, updated_at=@UpdatedAt " +
                 $"WHERE id={id};";
 
             var result = await _connection.ExecuteAsync(query, entity);
-            
+
             return result;
         }
         catch

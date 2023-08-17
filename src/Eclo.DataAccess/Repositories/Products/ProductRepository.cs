@@ -57,7 +57,7 @@ public class ProductRepository : BaseRepository, IProductRepository
         try
         {
             await _connection.OpenAsync();
-            string query = "DELETE FROM products WHERE id = #Id";
+            string query = "DELETE FROM products WHERE id = @Id";
             var result = await _connection.ExecuteAsync(query, new { Id = id });
 
             return result;
@@ -88,6 +88,26 @@ public class ProductRepository : BaseRepository, IProductRepository
         catch
         {
             return new List<ProductViewModel>();
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<Product?> GetById(long id)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = "SELECT * FROM products WHERE id = @Id";
+            var result = await _connection.QuerySingleAsync<Product>(query, new { Id = id });
+
+            return result;
+        }
+        catch
+        {
+            return null;
         }
         finally
         {
