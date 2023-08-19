@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Eclo.Persistence.Validations.Products;
 
-public class ProductDetailSizeUpdateValidator : AbstractValidator<ProductDetailSizeCreateDto>
+public class ProductDetailSizeUpdateValidator : AbstractValidator<ProductDetailSizeUpdateDto>
 {
     public ProductDetailSizeUpdateValidator()
     {

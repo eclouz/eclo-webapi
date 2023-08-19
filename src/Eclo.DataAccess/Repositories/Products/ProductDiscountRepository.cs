@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Eclo.Application.Utilities;
 using Eclo.DataAccess.Interfaces.Products;
 using Eclo.Domain.Entities.Discounts;
 
@@ -63,6 +64,29 @@ public class ProductDiscountRepository : BaseRepository, IProductDiscountReposit
         catch
         {
             return 0;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<IList<ProductDiscount>> GetAllAsync(PaginationParams @params)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+
+            string query = $"SELECT * FROM product_discounts ORDER BY id DESC " +
+                $"OFFSET {@params.GetSkipCount()} LIMIT {@params.PageSize};";
+
+            var result = (await _connection.QueryAsync<ProductDiscount>(query)).ToList();
+
+            return result;
+        }
+        catch
+        {
+            return new List<ProductDiscount>();
         }
         finally
         {

@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Eclo.Application.Utilities;
 using Eclo.DataAccess.Interfaces.Products;
 using Eclo.Domain.Entities.Products;
 using static Dapper.SqlMapper;
@@ -64,6 +65,29 @@ public class UserProductLikeRepository : BaseRepository, IUserProductLikeReposit
         catch
         {
             return 0;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<IList<UserProductLike>> GetAllAsync(PaginationParams @params)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+
+            string query = $"SELECT * FROM user_product_likes ORDER BY id DESC " +
+                $"OFFSET {@params.GetSkipCount()} LIMIT {@params.PageSize};";
+
+            var result = (await _connection.QueryAsync<UserProductLike>(query)).ToList();
+
+            return result;
+        }
+        catch
+        {
+            return new List<UserProductLike>();
         }
         finally
         {
