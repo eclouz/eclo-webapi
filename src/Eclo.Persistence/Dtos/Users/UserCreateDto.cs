@@ -1,7 +1,11 @@
-﻿namespace Eclo.Persistence.Dtos.Users;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Eclo.Persistence.Dtos.Users;
 
 public class UserCreateDto
 {
+    public IFormFile ImagePath { get; set; } = default!;
+
     public string PhoneNumber { get; set; } = String.Empty;
 
     public bool PhoneNumberConfirmed { get; set; }

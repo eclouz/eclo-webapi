@@ -7,5 +7,5 @@ namespace Eclo.DataAccess.Interfaces.Users;
 public interface IAdminUserRepository : IRepository<User, AdminUserViewModel>,
     IGetAll<AdminUserViewModel>, ISearchable<AdminUserViewModel>
 {
-
+    public Task<User?> GetById(long id);
 }

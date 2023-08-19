@@ -1,16 +1,18 @@
-﻿namespace Eclo.Persistence.Dtos.Users;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Eclo.Persistence.Dtos.Users;
 
 public class UserUpdateDto
 {
-    public string PhoneNumber { get; set; } = String.Empty;
+    public string FirstName { get; set; } = String.Empty;
 
-    public bool PhoneNumberConfirmed { get; set; }
-
-    public string PasswordHash { get; set; } = String.Empty;
-
-    public string Salt { get; set; } = String.Empty;
+    public string LastName { get; set; } = String.Empty;
+    
+    public IFormFile ImagePath { get; set; } = default!;
 
     public string PassportSerialNumber { get; set; } = String.Empty;
+
+    public DateTime BirthDate { get; set; }
 
     public string Region { get; set; } = String.Empty;
 
