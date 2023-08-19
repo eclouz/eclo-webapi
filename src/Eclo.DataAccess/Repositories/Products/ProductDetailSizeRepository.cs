@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Eclo.Application.Utilities;
 using Eclo.DataAccess.Interfaces.Products;
 using Eclo.Domain.Entities.Products;
 
@@ -63,6 +64,29 @@ public class ProductDetailSizeRepository : BaseRepository, IProductDetailSizeRep
         catch
         {
             return 0;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<IList<ProductDetailSize>> GetAllAsync(PaginationParams @params)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+
+            string query = $"SELECT * FROM product_detail_sizes ORDER BY id DESC " +
+                $"OFFSET {@params.GetSkipCount()} LIMIT {@params.PageSize};";
+
+            var result = (await _connection.QueryAsync<ProductDetailSize>(query)).ToList();
+
+            return result;
+        }
+        catch
+        {
+            return new List<ProductDetailSize>();
         }
         finally
         {
