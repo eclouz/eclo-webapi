@@ -7,4 +7,5 @@ namespace Eclo.DataAccess.Interfaces.Products;
 public interface IProductCommentRepository : IRepository<ProductComment, ProductCommentViewModel>,
     IGetAll<ProductCommentViewModel>
 {
+    public Task<ProductComment?> GetById(long id);
 }

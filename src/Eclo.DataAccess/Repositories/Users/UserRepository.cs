@@ -98,6 +98,26 @@ public class UserRepository : BaseRepository, IUserRepository
         }
     }
 
+    public async Task<User?> GetById(long id)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = "Select * From users where id=@Id";
+            var result = await _connection.QuerySingleAsync<User>(query, new { Id = id });
+
+            return result;
+        }
+        catch
+        {
+            return null;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
     public async Task<UserViewModel?> GetByIdAsync(long id)
     {
         try

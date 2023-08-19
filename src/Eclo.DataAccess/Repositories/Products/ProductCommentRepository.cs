@@ -96,6 +96,26 @@ public class ProductCommentRepository : BaseRepository, IProductCommentRepositor
         }
     }
 
+    public async Task<ProductComment?> GetById(long id)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = "SELECT * FROM product_comments WHERE id = @Id";
+            var result = await _connection.QuerySingleAsync<ProductComment>(query, new { Id = id });
+
+            return result;
+        }
+        catch
+        {
+            return null;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
     public async Task<ProductCommentViewModel?> GetByIdAsync(long id)
     {
         try
