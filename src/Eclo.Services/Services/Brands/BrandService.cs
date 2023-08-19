@@ -38,6 +38,7 @@ public class BrandService : IBrandService
             CreatedAt = TimeHelper.GetDateTime(),
             UpdatedAt = TimeHelper.GetDateTime()
         };
+
         var result = await _repository.CreateAsync(brand);
         
         return result > 0;
@@ -77,7 +78,7 @@ public class BrandService : IBrandService
         var brand = await _repository.GetByIdAsync(brandId);
         if (brand is null) throw new BrandNotFoundException();
 
-        // parse new items to brand
+        // update brand with new items
         brand.Name = dto.Name;
 
         if (dto.BrandIconPath is not null)
@@ -93,9 +94,11 @@ public class BrandService : IBrandService
             brand.BrandIconPath = newIconPath;
         }
         // else brand old icon is have to save
+
         brand.UpdatedAt = TimeHelper.GetDateTime();
 
         var dbResult = await _repository.UpdateAsync(brandId, brand);
+
         return dbResult > 0;
     }
 }
