@@ -14,7 +14,7 @@ public class AdminProductCommentsController : AdminBaseController
         this._service = service;
     }
 
-    [HttpDelete("{productCommentId}")]
-    public async Task<IActionResult> DeleteAsync(long productCommentId)
-        => Ok(await _service.DeleteAsync(productCommentId));
+    [HttpDelete("{commentId}")]
+    public async Task<IActionResult> DeleteAsync(long commentId)
+        => Ok(await _service.DeleteAsync(commentId));
 }

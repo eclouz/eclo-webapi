@@ -7,17 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Middlewares\" />
-    <Folder Include="Configurations\" />
     <Folder Include="Accessors\" />
+    <Folder Include="Controllers\Head\" />
     <Folder Include="wwwroot\Avatars\" />
-    <Folder Include="wwwroot\Storage\Images\" />
+    <Folder Include="wwwroot\Storage\Icons\Brands\" />
+    <Folder Include="wwwroot\Storage\Images\Products\" />
   </ItemGroup>
 
   <ItemGroup>

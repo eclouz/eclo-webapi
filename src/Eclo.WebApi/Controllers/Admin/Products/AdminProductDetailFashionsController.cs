@@ -25,16 +25,16 @@ public class AdminProductDetailFashionsController : AdminBaseController
         else return BadRequest(result.Errors);
     }
 
-    [HttpPut("{productDetailFashionId}")]
-    public async Task<IActionResult> UpdateAsync(long productDetailFashionId, [FromForm] ProductDetailFashionUpdateDto dto)
+    [HttpPut("{fashionId}")]
+    public async Task<IActionResult> UpdateAsync(long fashionId, [FromForm] ProductDetailFashionUpdateDto dto)
     {
         var updateValidator = new ProductDetailFashionUpdateValidator();
         var validationResult = updateValidator.Validate(dto);
-        if (validationResult.IsValid) return Ok(await _service.UpdateAsync(productDetailFashionId, dto));
+        if (validationResult.IsValid) return Ok(await _service.UpdateAsync(fashionId, dto));
         else return BadRequest(validationResult.Errors);
     }
 
-    [HttpDelete("{productDetailFashionId}")]
-    public async Task<IActionResult> DeleteAsync(long productDetailFashionId)
-        => Ok(await _service.DeleteAsync(productDetailFashionId));
+    [HttpDelete("{fashionId}")]
+    public async Task<IActionResult> DeleteAsync(long fashionId)
+        => Ok(await _service.DeleteAsync(fashionId));
 }
