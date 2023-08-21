@@ -20,9 +20,9 @@ public class CommonProductDetailFashionsController : CommonBaseController
     public async Task<IActionResult> GetAllAsync([FromQuery] int page = 1)
     => Ok(await _service.GetAllAsync(new PaginationParams(page, maxPageSize)));
 
-    [HttpGet("{productDetailFashionId}")]
-    public async Task<IActionResult> GetByIdAsync(long productDetailFashionId)
-        => Ok(await _service.GetByIdAsync(productDetailFashionId));
+    [HttpGet("{fashionId}")]
+    public async Task<IActionResult> GetByIdAsync(long fashionId)
+        => Ok(await _service.GetByIdAsync(fashionId));
 
     [HttpGet("count")]
     public async Task<IActionResult> CountAsync()
