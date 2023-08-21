@@ -2,6 +2,7 @@
 using Eclo.Services.Interfaces.Brands;
 using Eclo.Services.Interfaces.Categories;
 using Eclo.Services.Interfaces.Common;
+using Eclo.Services.Interfaces.Discounts;
 using Eclo.Services.Interfaces.Notifications;
 using Eclo.Services.Interfaces.Products;
 using Eclo.Services.Interfaces.Users;
@@ -9,6 +10,7 @@ using Eclo.Services.Services.Auth;
 using Eclo.Services.Services.Brands;
 using Eclo.Services.Services.Categories;
 using Eclo.Services.Services.Common;
+using Eclo.Services.Services.Discounts;
 using Eclo.Services.Services.Notifications;
 using Eclo.Services.Services.Products;
 using Eclo.Services.Services.Users;
@@ -33,6 +35,10 @@ public static class ServiceLayerConfiguration
         builder.Services.AddScoped<IProductCommentService, ProductCommentService>();
         builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<IAdminUserService, AdminUserService>();
+        builder.Services.AddScoped<IDiscountService, DiscountService>();
+        builder.Services.AddScoped<IProductDiscountService, ProductDiscountService>();
+        builder.Services.AddScoped<IUserProductLikeService, UserProductLikeService>();
+        builder.Services.AddScoped<IProductDetailSizeService, ProductDetailSizeService>();
         builder.Services.AddSingleton<ISmsSender, SmsSender>();
     }
 }

@@ -1,9 +1,11 @@
 ﻿using Eclo.DataAccess.Interfaces.Brands;
 using Eclo.DataAccess.Interfaces.Categories;
+using Eclo.DataAccess.Interfaces.Discounts;
 using Eclo.DataAccess.Interfaces.Products;
 using Eclo.DataAccess.Interfaces.Users;
 using Eclo.DataAccess.Repositories.Brands;
 using Eclo.DataAccess.Repositories.Categories;
+using Eclo.DataAccess.Repositories.Discounts;
 using Eclo.DataAccess.Repositories.Products;
 using Eclo.DataAccess.Repositories.Users;
 
@@ -23,5 +25,9 @@ public static class DataAccessConfiguration
         builder.Services.AddScoped<IProductDetailFashionRepository, ProductDetailFashionRepository>();
         builder.Services.AddScoped<IProductCommentRepository, ProductCommentRepository>();
         builder.Services.AddScoped<IAdminUserRepository, AdminUserRepository>();
+        builder.Services.AddScoped<IDiscountRepository, DiscountRepository>();
+        builder.Services.AddScoped<IProductDiscountRepository, ProductDiscountRepository>();
+        builder.Services.AddScoped<IUserProductLikeRepository, UserProductLikeRepository>();
+        builder.Services.AddScoped<IProductDetailSizeRepository, ProductDetailSizeRepository>();
     }
 }
