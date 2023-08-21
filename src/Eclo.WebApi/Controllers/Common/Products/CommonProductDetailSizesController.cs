@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Eclo.WebApi.Controllers.Common.Products;
 
-[Route("api/admin/product/detail/sizes")]
+[Route("api/common/product/detail/sizes")]
 [ApiController]
 public class CommonProductDetailSizesController : ControllerBase
 {

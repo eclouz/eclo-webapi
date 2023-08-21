@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Eclo.WebApi.Controllers.Common.Products;
 
-[Route("api/admin/user/product/likes")]
+[Route("api/common/user/product/likes")]
 [ApiController]
 public class CommonUserProductLikesController : ControllerBase
 {

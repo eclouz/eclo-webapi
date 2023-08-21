@@ -25,16 +25,16 @@ public class AdminSubCategoriesController : AdminBaseController
         else return BadRequest(result.Errors);
     }
 
-    [HttpPut("{subCategoryId}")]
-    public async Task<IActionResult> UpdateAsync(long subCategoryId, [FromForm] SubCategoryUpdateDto dto)
+    [HttpPut("{subcategoryId}")]
+    public async Task<IActionResult> UpdateAsync(long subcategoryId, [FromForm] SubCategoryUpdateDto dto)
     {
         var updateValidator = new SubCategoryUpdateValidator();
         var validationResult = updateValidator.Validate(dto);
-        if (validationResult.IsValid) return Ok(await _service.UpdateAsync(subCategoryId, dto));
+        if (validationResult.IsValid) return Ok(await _service.UpdateAsync(subcategoryId, dto));
         else return BadRequest(validationResult.Errors);
     }
 
-    [HttpDelete("{subCategoryId}")]
-    public async Task<IActionResult> DeleteAsync(long subCategoryId)
-       => Ok(await _service.DeleteAsync(subCategoryId));
+    [HttpDelete("{subcategoryId}")]
+    public async Task<IActionResult> DeleteAsync(long subcategoryId)
+       => Ok(await _service.DeleteAsync(subcategoryId));
 }
