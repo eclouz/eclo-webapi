@@ -6,7 +6,7 @@ public class ProductDetailUpdateDto
 {
     public long ProductId { get; set; }
 
-    public IFormFile ImagePath { get; set; } = default!;
+    public IFormFile? ImagePath { get; set; }
 
     public string Color { get; set; } = String.Empty;
 }

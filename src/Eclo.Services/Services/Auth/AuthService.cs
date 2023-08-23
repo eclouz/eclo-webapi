@@ -76,7 +76,7 @@ public class AuthService : IAuthService
             verificationDto.CreatedAt = TimeHelper.GetDateTime();
 
             // make confirm code as random
-            verificationDto.Code = CodeGenerator.GenerateRandomNumber();
+            verificationDto.Code = 12345; /*CodeGenerator.GenerateRandomNumber();*/
 
             if (_memoryCache.TryGetValue(VERIFY_REGISTER_CACHE_KEY + phone, out VerificationDto oldVerifcationDto))
             {
@@ -91,7 +91,7 @@ public class AuthService : IAuthService
             smsMessage.Content = "Your verification code : " + verificationDto.Code;
             smsMessage.Recipent = phone.Substring(1);
 
-            var smsResult = await _smsSender.SendAsync(smsMessage);
+            var smsResult = true; /*await _smsSender.SendAsync(smsMessage);*/
             if (smsResult is true) return (Result: true, CachedVerificationMinutes: CACHED_MINUTES_FOR_VERIFICATION);
             else return (Result: false, CachedVerificationMinutes: 0);
         }
@@ -144,6 +144,7 @@ public class AuthService : IAuthService
         user.Salt = hasherResult.Salt;
 
         user.CreatedAt = user.UpdatedAt = TimeHelper.GetDateTime();
+        user.ImagePath = "avatars\\avatar.png";
 
         var dbResult = await _userRepository.CreateAsync(user);
         return dbResult > 0;

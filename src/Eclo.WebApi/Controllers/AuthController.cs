@@ -30,7 +30,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("register/send-code")]
-    public async Task<IActionResult> SendCodeRegisterAsync(string phone)
+    public async Task<IActionResult> SendCodeRegisterAsync([FromBody] string phone)
     {
         var result = PhoneNumberValidator.IsValid(phone);
         if (result == false) return BadRequest("Phone number is invalid!");

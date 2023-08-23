@@ -26,6 +26,7 @@ public static class ServiceLayerConfiguration
         builder.Services.AddScoped<IPaginator, Paginator>();
         builder.Services.AddScoped<IAuthService, AuthService>();
         builder.Services.AddScoped<ITokenService, TokenService>();
+        builder.Services.AddScoped<IIdentityService, IdentityService>();
         builder.Services.AddScoped<IBrandService, BrandService>();
         builder.Services.AddScoped<ICategoryService, CategoryService>();
         builder.Services.AddScoped<ISubCategoryService, SubCategoryService>();
