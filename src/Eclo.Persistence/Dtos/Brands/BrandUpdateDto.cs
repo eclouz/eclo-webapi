@@ -6,5 +6,5 @@ public class BrandUpdateDto
 {
     public string Name { get; set; } = String.Empty;
 
-    public IFormFile BrandIconPath { get; set; } = default!;
+    public IFormFile? BrandIconPath { get; set; }
 }

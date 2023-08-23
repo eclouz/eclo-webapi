@@ -15,8 +15,8 @@ public class BrandUpdateValidator : AbstractValidator<BrandUpdateDto>
         When(dto => dto.BrandIconPath is not null, () =>
         {
             int maxImageSizeMB = 5;
-            RuleFor(dto => dto.BrandIconPath.Length).LessThan(maxImageSizeMB * 1024 * 1024).WithMessage($"Image size must be less than {maxImageSizeMB} MB");
-            RuleFor(dto => dto.BrandIconPath.FileName).Must(predicate =>
+            RuleFor(dto => dto.BrandIconPath!.Length).LessThan(maxImageSizeMB * 1024 * 1024).WithMessage($"Image size must be less than {maxImageSizeMB} MB");
+            RuleFor(dto => dto.BrandIconPath!.FileName).Must(predicate =>
             {
                 FileInfo fileInfo = new FileInfo(predicate);
                 return MediaHelper.GetImageExtensions().Contains(fileInfo.Extension);

@@ -7,5 +7,5 @@ public interface IUserService
 {
     public Task<UserViewModel> GetByIdAsync(long userId);
 
-    public Task<bool> UpdateAsync(long userId, UserUpdateDto dto);
+    public Task<bool> UpdateAsync(long userId, string phone, UserUpdateDto dto);
 }

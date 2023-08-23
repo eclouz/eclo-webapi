@@ -6,5 +6,5 @@ public class ProductDetailFashionUpdateDto
 {
     public long ProductDetailId { get; set; }
 
-    public IFormFile ImagePath { get; set; } = default!;
+    public IFormFile? ImagePath { get; set; }
 }

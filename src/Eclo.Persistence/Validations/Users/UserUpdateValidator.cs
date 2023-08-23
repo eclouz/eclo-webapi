@@ -14,13 +14,19 @@ public class UserUpdateValidator : AbstractValidator<UserUpdateDto>
         RuleFor(dto => dto.LastName).NotNull().NotEmpty().WithMessage("Lastname is required!")
             .MaximumLength(30).WithMessage("Lastname must be less than 30 characters");
 
-        int maxImageSizeMB = 5;
-        RuleFor(dto => dto.ImagePath.Length).LessThan(maxImageSizeMB * 1024 * 1024).WithMessage($"Image size must be less than {maxImageSizeMB} MB");
-        RuleFor(dto => dto.ImagePath.FileName).Must(predicate =>
+        When(dto => dto.ImagePath is not null, () =>
         {
-            FileInfo fileInfo = new FileInfo(predicate);
-            return MediaHelper.GetImageExtensions().Contains(fileInfo.Extension);
-        }).WithMessage("This file type is not image file");
+            int maxImageSizeMB = 5;
+            RuleFor(dto => dto.ImagePath!.Length).LessThan(maxImageSizeMB * 1024 * 1024).WithMessage($"Image size must be less than {maxImageSizeMB} MB");
+            RuleFor(dto => dto.ImagePath!.FileName).Must(predicate =>
+            {
+                FileInfo fileInfo = new FileInfo(predicate);
+                return MediaHelper.GetImageExtensions().Contains(fileInfo.Extension);
+            }).WithMessage("This file type is not image file");
+        });
+
+        RuleFor(dto => dto.PhoneNumber).Must(phone => PhoneNumberValidator.IsValid(phone))
+           .WithMessage("Phone number is invalid! ex: +998xxYYYAABB");
 
         RuleFor(dto => dto.PassportSerialNumber).NotEmpty().NotNull().WithMessage("PassportSerialNumber is required!")
             .MinimumLength(7).WithMessage("PassportSerialNumber must be more than 7 characters!")
