@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using Eclo.Application.Utilities;
 using Eclo.DataAccess.Interfaces.Products;
-using Eclo.DataAccess.ViewModels.Products;
 using Eclo.Domain.Entities.Products;
 
 namespace Eclo.DataAccess.Repositories.Products
@@ -71,22 +70,22 @@ namespace Eclo.DataAccess.Repositories.Products
             }
         }
 
-        public async Task<IList<ProductViewModel>> GetAllAsync(PaginationParams @params)
+        public async Task<IList<ProductDetail>> GetAllAsync(PaginationParams @params)
         {
             try
             {
                 await _connection.OpenAsync();
 
-                string query = $"SELECT * FROM product_view order by id desc " +
+                string query = $"SELECT * FROM product_details order by id desc " +
                     $"offset {@params.GetSkipCount()} limit {@params.PageSize}";
 
-                var result = (await _connection.QueryAsync<ProductViewModel>(query)).ToList();
+                var result = (await _connection.QueryAsync<ProductDetail>(query)).ToList();
 
                 return result;
             }
             catch
             {
-                return new List<ProductViewModel>();
+                return new List<ProductDetail>();
             }
             finally
             {
@@ -114,13 +113,13 @@ namespace Eclo.DataAccess.Repositories.Products
             }
         }
 
-        public async Task<ProductViewModel?> GetByIdAsync(long id)
+        public async Task<ProductDetail?> GetByIdAsync(long id)
         {
             try
             {
                 await _connection.OpenAsync();
-                string query = $"SELECT * FROM product_view where id=@Id";
-                var result = await _connection.QuerySingleAsync<ProductViewModel>(query, new { Id = id });
+                string query = $"SELECT * FROM product_details where id=@Id";
+                var result = await _connection.QuerySingleAsync<ProductDetail>(query, new { Id = id });
 
                 return result;
             }
@@ -134,19 +133,19 @@ namespace Eclo.DataAccess.Repositories.Products
             }
         }
 
-        public async Task<(long ItemsCount, IList<ProductViewModel>)> SearchAsync(string search, PaginationParams @params)
+        public async Task<(long ItemsCount, IList<ProductDetail>)> SearchAsync(string search, PaginationParams @params)
         {
             try
             {
                 await _connection.OpenAsync();
-                string query = $"select * from product_view where product_name ilike '%{search}%'";
-                var result = (await _connection.QueryAsync<ProductViewModel>(query)).ToList();
+                string query = $"select * from product_details where product_name ilike '%{search}%'";
+                var result = (await _connection.QueryAsync<ProductDetail>(query)).ToList();
 
                 return (result.Count, result);
             }
             catch
             {
-                return (0, new List<ProductViewModel>());
+                return (0, new List<ProductDetail>());
             }
             finally
             {

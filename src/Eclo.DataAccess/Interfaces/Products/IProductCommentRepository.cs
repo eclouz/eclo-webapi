@@ -4,8 +4,8 @@ using Eclo.Domain.Entities.Products;
 
 namespace Eclo.DataAccess.Interfaces.Products;
 
-public interface IProductCommentRepository : IRepository<ProductComment, ProductCommentViewModel>,
-    IGetAll<ProductCommentViewModel>
+public interface IProductCommentRepository : IRepository<ProductComment, ProductComment>,
+    IGetAll<ProductComment>
 {
     public Task<ProductComment?> GetById(long id);
 }
