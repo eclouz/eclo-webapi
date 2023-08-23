@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using Eclo.Application.Utilities;
 using Eclo.DataAccess.Interfaces.Products;
-using Eclo.DataAccess.ViewModels.Products;
 using Eclo.Domain.Entities.Products;
 
 namespace Eclo.DataAccess.Repositories.Products;
@@ -73,22 +72,22 @@ public class ProductCommentRepository : BaseRepository, IProductCommentRepositor
         }
     }
 
-    public async Task<IList<ProductCommentViewModel>> GetAllAsync(PaginationParams @params)
+    public async Task<IList<ProductComment>> GetAllAsync(PaginationParams @params)
     {
         try
         {
             await _connection.OpenAsync();
 
-            string query = $"SELECT * FROM product_comment_view ORDER BY id DESC " +
+            string query = $"SELECT * FROM product_comments ORDER BY id DESC " +
                 $"OFFSET {@params.GetSkipCount()} LIMIT {@params.PageSize}";
 
-            var result = (await _connection.QueryAsync<ProductCommentViewModel>(query)).ToList();
+            var result = (await _connection.QueryAsync<ProductComment>(query)).ToList();
 
             return result;
         }
         catch
         {
-            return new List<ProductCommentViewModel>();
+            return new List<ProductComment>();
         }
         finally
         {
@@ -116,13 +115,13 @@ public class ProductCommentRepository : BaseRepository, IProductCommentRepositor
         }
     }
 
-    public async Task<ProductCommentViewModel?> GetByIdAsync(long id)
+    public async Task<ProductComment?> GetByIdAsync(long id)
     {
         try
         {
             await _connection.OpenAsync();
-            string query = "SELECT * FROM product_comment_view WHERE id = @Id";
-            var result = await _connection.QuerySingleAsync<ProductCommentViewModel>(query, new { Id = id });
+            string query = "SELECT * FROM product_comments WHERE id = @Id";
+            var result = await _connection.QuerySingleAsync<ProductComment>(query, new { Id = id });
 
             return result;
         }

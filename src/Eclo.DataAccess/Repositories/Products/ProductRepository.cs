@@ -72,27 +72,32 @@ public class ProductRepository : BaseRepository, IProductRepository
         }
     }
 
-    public async Task<IList<ProductViewModel>> GetAllAsync(PaginationParams @params)
+    public async Task<IList<Product>> GetAllAsync(PaginationParams @params)
     {
         try
         {
             await _connection.OpenAsync();
 
-            string query = $"SELECT * FROM product_view ORDER BY id DESC " +
+            string query = $"SELECT * FROM products ORDER BY id DESC " +
                 $"OFFSET {@params.GetSkipCount()} LIMIT {@params.PageSize}";
 
-            var result = (await _connection.QueryAsync<ProductViewModel>(query)).ToList();
+            var result = (await _connection.QueryAsync<Product>(query)).ToList();
 
             return result;
         }
         catch
         {
-            return new List<ProductViewModel>();
+            return new List<Product>();
         }
         finally
         {
             await _connection.CloseAsync();
         }
+    }
+
+    public Task<IList<ProductGetViewModel>> GetAllView(PaginationParams @params)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<Product?> GetById(long id)
@@ -115,13 +120,13 @@ public class ProductRepository : BaseRepository, IProductRepository
         }
     }
 
-    public async Task<ProductViewModel?> GetByIdAsync(long id)
+    public async Task<Product?> GetByIdAsync(long id)
     {
         try
         {
             await _connection.OpenAsync();
-            string query = "SELECT * FROM product_view WHERE id = @Id";
-            var result = await _connection.QuerySingleAsync<ProductViewModel>(query, new { Id = id });
+            string query = "SELECT * FROM products WHERE id = @Id";
+            var result = await _connection.QuerySingleAsync<Product>(query, new { Id = id });
 
             return result;
         }
@@ -135,23 +140,23 @@ public class ProductRepository : BaseRepository, IProductRepository
         }
     }
 
-    public async Task<(long ItemsCount, IList<ProductViewModel>)> SearchAsync(string search, PaginationParams @params)
+    public async Task<(long ItemsCount, IList<Product>)> SearchAsync(string search, PaginationParams @params)
     {
         try
         {
             await _connection.OpenAsync();
 
-            string query = $"SELECT * FROM product_view WHERE product_name ILIKE @search ORDER BY id DESC " +
+            string query = $"SELECT * FROM products WHERE product_name ILIKE @search ORDER BY id DESC " +
                 $"OFFSET {@params.GetSkipCount()} LIMIT {@params.PageSize}";
 
-            var result = (await _connection.QueryAsync<ProductViewModel>
+            var result = (await _connection.QueryAsync<Product>
                 (query, new { search = "%" + search + "%" })).ToList();
 
             return (result.Count, result);
         }
         catch
         {
-            return (0, new List<ProductViewModel>());
+            return (0, new List<Product>());
         }
         finally
         {

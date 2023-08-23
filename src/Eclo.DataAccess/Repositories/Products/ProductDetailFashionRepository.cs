@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using Eclo.Application.Utilities;
 using Eclo.DataAccess.Interfaces.Products;
-using Eclo.DataAccess.ViewModels.Products;
 using Eclo.Domain.Entities.Products;
 
 namespace Eclo.DataAccess.Repositories.Products;
@@ -71,22 +70,22 @@ public class ProductDetailFashionRepository : BaseRepository, IProductDetailFash
         }
     }
 
-    public async Task<IList<ProductDetailFashionViewModel>> GetAllAsync(PaginationParams @params)
+    public async Task<IList<ProductDetailFashion>> GetAllAsync(PaginationParams @params)
     {
         try
         {
             await _connection.OpenAsync();
 
-            string query = $"SELECT * FROM public.product_detail_fashion_view order by id desc " +
+            string query = $"SELECT * FROM public.product_detail_fashions order by id desc " +
                 $"offset {@params.GetSkipCount()} limit {@params.PageSize}";
 
-            var result = (await _connection.QueryAsync<ProductDetailFashionViewModel>(query)).ToList();
+            var result = (await _connection.QueryAsync<ProductDetailFashion>(query)).ToList();
 
             return result;
         }
         catch
         {
-            return new List<ProductDetailFashionViewModel>();
+            return new List<ProductDetailFashion>();
         }
         finally
         {
@@ -114,13 +113,13 @@ public class ProductDetailFashionRepository : BaseRepository, IProductDetailFash
         }
     }
 
-    public async Task<ProductDetailFashionViewModel?> GetByIdAsync(long id)
+    public async Task<ProductDetailFashion?> GetByIdAsync(long id)
     {
         try
         {
             await _connection.OpenAsync();
-            string query = $"SELECT * FROM public.product_detail_fashion_view where id=@Id";
-            var result = await _connection.QuerySingleAsync<ProductDetailFashionViewModel>(query, new { Id = id });
+            string query = $"SELECT * FROM public.product_detail_fashions where id=@Id";
+            var result = await _connection.QuerySingleAsync<ProductDetailFashion>(query, new { Id = id });
 
             return result;
         }
