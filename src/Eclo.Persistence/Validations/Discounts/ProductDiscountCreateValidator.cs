@@ -8,6 +8,6 @@ public class ProductDiscountCreateValidator : AbstractValidator<ProductDiscountC
     public ProductDiscountCreateValidator()
     {
         RuleFor(dto => dto.Description).NotNull().NotEmpty().WithMessage("Description field is required!")
-            .MinimumLength(10).WithMessage("Description field is required!");
+            .MinimumLength(3).WithMessage("Description field is required!");
     }
 }

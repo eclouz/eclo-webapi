@@ -1,6 +1,6 @@
 ﻿namespace Eclo.Domain.Entities.Discounts;
 
-public class ProductDiscount : Auditable
+public class ProductDiscount : Discount
 {
     public long ProductId { get; set; }
 
@@ -11,4 +11,6 @@ public class ProductDiscount : Auditable
     public DateTime StartAt { get; set; }
 
     public DateTime EndAt { get; set; }
+    
+    public string ProductDescription { get; set; } = String.Empty;
 }

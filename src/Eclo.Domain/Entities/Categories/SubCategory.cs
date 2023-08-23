@@ -1,4 +1,6 @@
-﻿namespace Eclo.Domain.Entities.Categories;
+﻿using Eclo.Domain.Entities.Brands;
+
+namespace Eclo.Domain.Entities.Categories;
 
 public class SubCategory : Auditable
 {
@@ -6,4 +8,5 @@ public class SubCategory : Auditable
 
     public string Name { get; set; } = String.Empty;
 
+    public string CategoryName { get; set; } = String.Empty;
 }
