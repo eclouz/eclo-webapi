@@ -52,7 +52,7 @@ public class ProductCommentService : IProductCommentService
         return dbResult > 0;
     }
 
-    public async Task<IList<ProductCommentViewModel>> GetAllAsync(PaginationParams @params)
+    public async Task<IList<ProductComment>> GetAllAsync(PaginationParams @params)
     {
         var pproductComments = await _repository.GetAllAsync(@params);
         var count = await _repository.CountAsync();
@@ -61,7 +61,7 @@ public class ProductCommentService : IProductCommentService
         return pproductComments;
     }
 
-    public async Task<ProductCommentViewModel> GetByIdAsync(long productCommentId)
+    public async Task<ProductComment> GetByIdAsync(long productCommentId)
     {
         var productComment = await _repository.GetByIdAsync(productCommentId);
         if (productComment == null) throw new ProductCommentNotFoundException();

@@ -2,7 +2,6 @@
 using Eclo.Application.Exceptions.Products;
 using Eclo.Application.Utilities;
 using Eclo.DataAccess.Interfaces.Products;
-using Eclo.DataAccess.ViewModels.Products;
 using Eclo.Domain.Entities.Products;
 using Eclo.Persistence.Dtos.Products;
 using Eclo.Persistence.Helpers;
@@ -58,7 +57,7 @@ public class ProductDetailFashionService : IProductDetailFashionService
         return dbResult > 0;
     }
 
-    public async Task<IList<ProductDetailFashionViewModel>> GetAllAsync(PaginationParams @params)
+    public async Task<IList<ProductDetailFashion>> GetAllAsync(PaginationParams @params)
     {
         var productDetailFashions = await _repository.GetAllAsync(@params);
         var count = await _repository.CountAsync();
@@ -67,7 +66,7 @@ public class ProductDetailFashionService : IProductDetailFashionService
         return productDetailFashions;
     }
 
-    public async Task<ProductDetailFashionViewModel> GetByIdAsync(long productDetailFashionId)
+    public async Task<ProductDetailFashion> GetByIdAsync(long productDetailFashionId)
     {
         var productDetailFashion = await _repository.GetByIdAsync(productDetailFashionId);
         if (productDetailFashion == null) throw new ProductNotFoundException();
