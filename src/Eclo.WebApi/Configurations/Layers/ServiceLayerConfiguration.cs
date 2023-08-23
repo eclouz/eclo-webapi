@@ -32,13 +32,13 @@ public static class ServiceLayerConfiguration
         builder.Services.AddScoped<IProductService, ProductService>();
         builder.Services.AddScoped<IProductDetailService, ProductDetailService>();
         builder.Services.AddScoped<IProductDetailFashionService, ProductDetailFashionService>();
+        builder.Services.AddScoped<IProductDiscountService, ProductDiscountService>();
         builder.Services.AddScoped<IProductCommentService, ProductCommentService>();
+        builder.Services.AddScoped<IProductDetailSizeService, ProductDetailSizeService>();
         builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<IUserProductLikeService, UserProductLikeService>();
         builder.Services.AddScoped<IAdminUserService, AdminUserService>();
         builder.Services.AddScoped<IDiscountService, DiscountService>();
-        builder.Services.AddScoped<IProductDiscountService, ProductDiscountService>();
-        builder.Services.AddScoped<IUserProductLikeService, UserProductLikeService>();
-        builder.Services.AddScoped<IProductDetailSizeService, ProductDetailSizeService>();
         builder.Services.AddSingleton<ISmsSender, SmsSender>();
     }
 }

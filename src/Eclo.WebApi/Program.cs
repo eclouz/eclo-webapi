@@ -1,6 +1,6 @@
 using Eclo.WebApi.Configurations.Layers;
 using Eclo.WebApi.Configurations;
-using Microsoft.AspNetCore.Diagnostics;
+using Eclo.WebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,9 +23,9 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 }
 
 app.UseHttpsRedirection();
-//app.UseCors("AllowAll");
+app.UseCors("AllowAll");
 app.UseStaticFiles();
-//app.UseMiddleware<ExceptionHandlerMiddleware>();
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

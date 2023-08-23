@@ -20,9 +20,9 @@ public class CommonSubCategoriesController : CommonBaseController
     public async Task<IActionResult> GetAllAsync([FromQuery] int page = 1)
       => Ok(await _service.GetAllAsync(new PaginationParams(page, maxPageSize)));
 
-    [HttpGet("{subCategoryId}")]
-    public async Task<IActionResult> GetByIdAsync(long subCategoryId)
-    => Ok(await _service.GetByIdAsync(subCategoryId));
+    [HttpGet("{subcategoryId}")]
+    public async Task<IActionResult> GetByIdAsync(long subcategoryId)
+    => Ok(await _service.GetByIdAsync(subcategoryId));
 
     [HttpGet("count")]
     public async Task<IActionResult> CountAsync()
