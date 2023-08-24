@@ -29,8 +29,8 @@ public class UserUpdateValidator : AbstractValidator<UserUpdateDto>
            .WithMessage("Phone number is invalid! ex: +998xxYYYAABB");
 
         RuleFor(dto => dto.PassportSerialNumber).NotEmpty().NotNull().WithMessage("PassportSerialNumber is required!")
-            .MinimumLength(7).WithMessage("PassportSerialNumber must be more than 7 characters!")
-            .MaximumLength(7).WithMessage("PassportSerialNumber must be less than 7 characters!");
+            .MinimumLength(9).WithMessage("PassportSerialNumber must be more than 9 characters!")
+            .MaximumLength(9).WithMessage("PassportSerialNumber must be less than 9 characters!");
         
         RuleFor(dto => dto.Region).NotEmpty().NotNull().WithMessage("Region is required!")
            .MinimumLength(3).WithMessage("Region must be more than 3 characters!")

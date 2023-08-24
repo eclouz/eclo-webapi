@@ -185,6 +185,7 @@ public class ProductService : IProductService
             productGetViewModel.ProductPrice = product[m].UnitPrice;
             productGetViewModel.BrandId = product[m].BrandId;
             productGetViewModel.SubCategoryId = product[m].SubCategoryId;
+            productGetViewModel.ProductDescription = product[m].Description;
             productGetViewModel.CreatedAt = product[m].CreatedAt;
             productGetViewModel.UpdatedAt = product[m].UpdatedAt;
 
@@ -297,6 +298,7 @@ public class ProductService : IProductService
             ProductViewModel productViewModel = new ProductViewModel();
             productViewModel.Id = product[i].Id;
             productViewModel.ProductName = product[i].Name;
+            productViewModel.ProductDescription = product[i].Description;
             productViewModel.ProductPrice = product[i].UnitPrice;
             productViewModel.BrandId = product[i].BrandId;
             for (int j = 0; j < brand.Count; j++)
@@ -365,6 +367,7 @@ public class ProductService : IProductService
         productGetViewModel.ProductPrice = product.UnitPrice;
         productGetViewModel.BrandId = product.BrandId;
         productGetViewModel.SubCategoryId = product.SubCategoryId;
+        productGetViewModel.ProductDescription = product.Description;
         productGetViewModel.CreatedAt = product.CreatedAt;
         productGetViewModel.UpdatedAt = product.UpdatedAt;
         

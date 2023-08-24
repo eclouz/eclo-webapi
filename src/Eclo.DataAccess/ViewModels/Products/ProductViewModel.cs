@@ -24,4 +24,7 @@ public class ProductViewModel
         = new List<float>();
 
     public bool ProductLiked { get; set; } = false;
+
+    public string ProductDescription { get; set; } = String.Empty;
+
 }
