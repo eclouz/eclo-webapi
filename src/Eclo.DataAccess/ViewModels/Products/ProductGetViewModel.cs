@@ -25,7 +25,7 @@ public class ProductGetViewModel : Auditable
 
     public double ProductPrice { get; set; }
 
-    public double ProductDescription { get; set; }
+    public string ProductDescription { get; set; } = String.Empty;
 
     public long SubCategoryId { get; set; }
 
