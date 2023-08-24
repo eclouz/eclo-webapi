@@ -176,9 +176,6 @@ public class ProductService : IProductService
         for (int m = 0; m < product.Count; m++)
         {
             ProductGetViewModel productGetViewModel = new ProductGetViewModel();
-            ProductDetail productDetails = new ProductDetail();
-            ProductDiscount productDiscount = new ProductDiscount();
-            SubCategory subCategory1 = new SubCategory();
 
             productGetViewModel.Id = product[m].Id;
             productGetViewModel.ProductName = product[m].Name;
@@ -200,6 +197,7 @@ public class ProductService : IProductService
             {
                 if (productGetViewModel.Id == productDetail[j].ProductId)
                 {
+                    ProductDetail productDetails = new ProductDetail();
                     productDetails.Id = productDetail[j].Id;
                     productDetails.ImagePath = productDetail[j].ImagePath;
                     productDetails.Color = productDetail[j].Color;
@@ -229,6 +227,7 @@ public class ProductService : IProductService
             {
                 if (productGetViewModel.Id == productDiscounts[j].ProductId)
                 {
+                    ProductDiscount productDiscount = new ProductDiscount();
                     productDiscount.Id = productDiscounts[j].Id;
                     productDiscount.Description = productDiscounts[j].Description;
                     productDiscount.StartAt = productDiscounts[j].StartAt;
@@ -251,6 +250,7 @@ public class ProductService : IProductService
             {
                 if (productGetViewModel.SubCategoryId == subCategory[j].Id)
                 {
+                    SubCategory subCategory1 = new SubCategory();
                     subCategory1.Id = subCategory[j].Id;
                     subCategory1.Name = subCategory[j].Name;
                     subCategory1.CategoryId = subCategory[j].CategoryId;
@@ -356,10 +356,6 @@ public class ProductService : IProductService
         var category = await _categoryRepository.GetAllAsync(@params);
 
         ProductGetViewModel productGetViewModel = new ProductGetViewModel();
-        ProductDetail productDetails = new ProductDetail();
-        ProductDiscount productDiscount = new ProductDiscount();
-        SubCategory subCategory1 = new SubCategory();
-
         productGetViewModel.Id = product.Id;
         productGetViewModel.ProductName = product.Name;
         productGetViewModel.ProductPrice = product.UnitPrice;
@@ -380,6 +376,7 @@ public class ProductService : IProductService
         {
             if (productGetViewModel.Id == productDetail[j].ProductId)
             {
+                ProductDetail productDetails = new ProductDetail();
                 productDetails.Id = productDetail[j].Id;
                 productDetails.ImagePath = productDetail[j].ImagePath;
                 productDetails.Color = productDetail[j].Color;
@@ -410,6 +407,7 @@ public class ProductService : IProductService
         {
             if (productGetViewModel.Id == productDiscounts[j].ProductId)
             {
+                ProductDiscount productDiscount = new ProductDiscount();
                 productDiscount.Id = productDiscounts[j].Id;
                 productDiscount.Description = productDiscounts[j].Description;
                 productDiscount.StartAt = productDiscounts[j].StartAt;
@@ -432,6 +430,7 @@ public class ProductService : IProductService
         {
             if (productGetViewModel.SubCategoryId == subCategory[j].Id)
             {
+                SubCategory subCategory1 = new SubCategory();
                 subCategory1.Id = subCategory[j].Id;
                 subCategory1.Name = subCategory[j].Name;
                 subCategory1.CategoryId = subCategory[j].CategoryId;
