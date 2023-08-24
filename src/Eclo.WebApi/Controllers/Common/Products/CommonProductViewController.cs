@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Eclo.WebApi.Controllers.Common.Products;
 
-[Route("api/common/products")]
+[Route("api/common/products/view")]
 [ApiController]
 public class CommonProductViewController : ControllerBase
 {
