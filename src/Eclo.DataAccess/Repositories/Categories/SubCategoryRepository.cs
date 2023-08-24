@@ -76,7 +76,7 @@ public class SubCategoryRepository : BaseRepository, ISubCategoryRepository
         {
             await _connection.OpenAsync();
 
-            string query = $"SELECT * FROM sub_categories ORDER BY id DESC " +
+            string query = $"SELECT * FROM subcategory_viewmodel ORDER BY id DESC " +
                 $"OFFSET {@params.GetSkipCount()} LIMIT {@params.PageSize};";
 
             var result = (await _connection.QueryAsync<SubCategory>(query)).ToList();
