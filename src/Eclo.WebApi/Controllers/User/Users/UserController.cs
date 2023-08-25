@@ -1,4 +1,5 @@
-﻿using Eclo.Persistence.Dtos.Users;
+﻿using Eclo.Application.Utilities;
+using Eclo.Persistence.Dtos.Users;
 using Eclo.Persistence.Validations.Users;
 using Eclo.Services.Interfaces.Auth;
 using Eclo.Services.Interfaces.Users;
@@ -32,4 +33,6 @@ public class UserController : UserBaseController
         if (validationResult.IsValid) return Ok(await _service.UpdateAsync(_identity.Id, _identity.PhoneNumber, dto));
         else return BadRequest(validationResult.Errors);
     }
+
+    
 }

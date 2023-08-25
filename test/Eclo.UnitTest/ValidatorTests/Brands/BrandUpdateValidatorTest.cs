@@ -10,12 +10,12 @@ namespace Eclo.UnitTest.ValidatorTests.Brands;
 public class BrandUpdateValidatorTest
 {
     [Theory]
-    [InlineData(3.1)]
-    [InlineData(3.01)]
-    [InlineData(4)]
-    [InlineData(5)]
     [InlineData(6)]
     [InlineData(7)]
+    [InlineData(8)]
+    [InlineData(9)]
+    [InlineData(9.5)]
+    [InlineData(5.1)]
     public void ShouldReturnWrongImageFileSize(double imageSizeMB)
     {
         byte[] byteImage = Encoding.UTF8.GetBytes("we sell an electronic products to our clients");
