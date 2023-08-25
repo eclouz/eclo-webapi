@@ -4,11 +4,13 @@ using Eclo.Application.Utilities;
 using Eclo.DataAccess.Interfaces.Users;
 using Eclo.DataAccess.Repositories.Users;
 using Eclo.DataAccess.ViewModels.Users;
+using Eclo.Domain.Entities.Users;
 using Eclo.Persistence.Dtos.Users;
 using Eclo.Persistence.Helpers;
 using Eclo.Services.Interfaces.Auth;
 using Eclo.Services.Interfaces.Common;
 using Eclo.Services.Interfaces.Users;
+using System.Numerics;
 
 namespace Eclo.Services.Services.Users;
 
@@ -108,4 +110,48 @@ public class UserService : IUserService
         return dbResult > 0;
     }
 
+    public async Task<bool> UpdatePhoneNumberAsync(string phoneNumber, UserUpdateDto dto)
+    {
+        var user = await _repository.GetByPhoneAsync(phoneNumber);
+        if (user is null) throw new UserNotFoundException();
+
+        // update user with new items 
+        user.FirstName = dto.FirstName;
+        user.LastName = dto.LastName;
+
+        if (dto.ImagePath is not null)
+        {
+            // delete old avatar
+            if (user.ImagePath != "avatars\\avatar.png")
+            {
+                var deleteResult = await _fileService.DeleteAvatarAsync(user.ImagePath);
+                if (deleteResult is false) throw new ImageNotFoundException();
+            }
+
+            // upload new avatar
+            string newImagePath = await _fileService.UploadAvatarAsync(dto.ImagePath);
+
+            // parse new path to avatar
+            user.ImagePath = newImagePath;
+        }
+        // else user old avatar is have to save
+
+        var checkPhone = await _repository.GetByPhoneAsync(dto.PhoneNumber);
+        if (checkPhone is null || phoneNumber == dto.PhoneNumber)
+        {
+            user.PhoneNumber = dto.PhoneNumber;
+        }
+        else throw new UserAlreadyExistsException(dto.PhoneNumber);
+
+        user.PassportSerialNumber = dto.PassportSerialNumber;
+        user.BirthDate = dto.BirthDate;
+        user.Region = dto.Region;
+        user.District = dto.District;
+        user.Address = dto.Address;
+        user.UpdatedAt = TimeHelper.GetDateTime();
+
+        var dbResult = await _repository.UpdatePhoneNumberAsync(phoneNumber, user);
+
+        return dbResult > 0;
+    }
 }

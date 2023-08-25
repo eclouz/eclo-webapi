@@ -1,5 +1,6 @@
 ﻿using Eclo.Application.Utilities;
 using Eclo.Persistence.Dtos.Users;
+using Eclo.Persistence.Validations.Products;
 using Eclo.Persistence.Validations.Users;
 using Eclo.Services.Interfaces.Auth;
 using Eclo.Services.Interfaces.Users;
@@ -34,5 +35,13 @@ public class UserController : UserBaseController
         else return BadRequest(validationResult.Errors);
     }
 
-    
+    [HttpPut("phoneNumber")]
+    public async Task<IActionResult> UpdatePhoneNumberAsync(string phoneNumber, [FromForm] UserUpdateDto dto)
+    {
+        var updateValidator = new UserUpdateValidator();
+        var validationResult = updateValidator.Validate(dto);
+        if (validationResult.IsValid) return Ok(await _service.UpdatePhoneNumberAsync(phoneNumber, dto));
+        else return BadRequest(validationResult.Errors);
+
+    }
 }

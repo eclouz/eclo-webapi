@@ -206,4 +206,30 @@ public class UserRepository : BaseRepository, IUserRepository
             await _connection.CloseAsync();
         }
     }
+
+    public async Task<int> UpdatePhoneNumberAsync(string phoneNumber, User entity)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+
+            string query = "UPDATE public.users SET " +
+                "first_name=@FirstName, last_name=@LastName, phone_number=@PhoneNumber, phone_number_confirmed=@PhoneNumberConfirmed, " +
+                    "password_hash=@PasswordHash, salt=@Salt, image_path=@ImagePath, passport_serial_number=@PassportSerialNumber, " +
+                        "birth_date=@BirthDate, region=@Region, district=@District, address=@Address, created_at=@CreatedAt, updated_at=@UpdatedAt " +
+                $"WHERE phone_number=@phoneNumber;";
+
+            var result = await _connection.ExecuteAsync(query, entity);
+
+            return result;
+        }
+        catch
+        {
+            return 0;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
 }
