@@ -1,4 +1,5 @@
-﻿using Eclo.Persistence.Dtos.Users;
+﻿using Eclo.Application.Utilities;
+using Eclo.Persistence.Dtos.Users;
 using Eclo.Persistence.Validations.Users;
 using Eclo.Services.Interfaces.Users;
 using Microsoft.AspNetCore.Mvc;
@@ -28,4 +29,6 @@ public class UserController : UserBaseController
         if (validationResult.IsValid) return Ok(await _service.UpdateAsync(userId, dto));
         else return BadRequest(validationResult.Errors);
     }
+
+    
 }

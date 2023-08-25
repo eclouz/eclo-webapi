@@ -8,12 +8,15 @@ namespace Eclo.WebApi.Controllers.Admin.Users;
 [ApiController]
 public class AdminUsersController : AdminBaseController
 {
+    private readonly IUserService _userService;
     private readonly IAdminUserService _service;
     private readonly int maxPageSize = 30;
 
-    public AdminUsersController(IAdminUserService service)
+    public AdminUsersController(IAdminUserService service,
+        IUserService userService)
     {
         this._service = service;
+        this._userService = userService;
     }
 
     [HttpGet]
@@ -35,4 +38,9 @@ public class AdminUsersController : AdminBaseController
     [HttpDelete("{userId}")]
     public async Task<IActionResult> DeleteAsync(long userId)
         => Ok(await _service.DeleteAsync(userId));
+
+
+    [HttpGet("userPhoneNumber")]
+    public async Task<IActionResult> GetByPhoneNumberAsync(string userPhoneNumber)
+        => Ok(await _userService.GetByPhoneAsync(userPhoneNumber, new PaginationParams(1, maxPageSize)));
 }
