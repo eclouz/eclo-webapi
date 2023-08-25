@@ -20,20 +20,15 @@ public class UserService : IUserService
     private readonly IFileService _fileService;
 
     public UserService(IUserRepository userRepository,
-        IFileService fileService, IAdminUserRepository adminUserRepository)
+        IFileService fileService, IAdminUserRepository adminUserRepository
+        , IIdentityService identity)
     {
         this._repository = userRepository;
         this._fileService = fileService;
         this._adminUserRepository = adminUserRepository;
-
-        IFileService fileService,
-        IIdentityService identity)
-    {
-        this._repository = userRepository;
-        this._fileService = fileService;
         this._identity = identity;
-
     }
+
 
     public async Task<UserViewModel> GetByIdAsync(long userId)
     {

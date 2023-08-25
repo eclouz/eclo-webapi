@@ -31,4 +31,8 @@ public class CommonProductDetailsController : CommonBaseController
     [HttpGet("search")]
     public async Task<IActionResult> SearchAsync(string search, [FromQuery] int page = 1)
         => Ok(await _service.SearchAsync(search, new PaginationParams(page, maxPageSize)));
+
+    [HttpGet("view/{id}")]
+    public async Task<IActionResult> GetByIdViewAsync(long id)
+        => Ok(await _service.GetByIdViewAsync(id, new PaginationParams(1, maxPageSize)));
 }
