@@ -48,6 +48,7 @@ public class UserService : IUserService
                 userViewModel.Id = users[i].Id;
                 userViewModel.FirstName = users[i].FirstName;
                 userViewModel.LastName = users[i].LastName;
+                userViewModel.PhoneNumber = users[i].PhoneNumber;
                 userViewModel.ImagePath = users[i].ImagePath;
                 userViewModel.BirthDate = users[i].BirthDate;
                 userViewModel.PassportSerialNumber = users[i].PassportSerialNumber;
