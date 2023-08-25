@@ -1,4 +1,5 @@
 ﻿using Eclo.Domain.Entities.Users;
+using Eclo.Domain.Enums;
 using Eclo.Persistence.Helpers;
 using Eclo.Services.Interfaces.Auth;
 using Microsoft.Extensions.Configuration;
@@ -25,7 +26,9 @@ public class TokenService : ITokenService
             new Claim("Id", user.Id.ToString()),
             new Claim("FirstName", user.FirstName),
             new Claim("LastName", user.LastName),
-            new Claim(ClaimTypes.MobilePhone, user.PhoneNumber)
+            new Claim("PhoneNumber", user.PhoneNumber),
+            new Claim(ClaimTypes.MobilePhone, user.PhoneNumber),
+            new Claim(ClaimTypes.Role, IdentityRole.User.ToString())
         };
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["SecurityKey"]!));

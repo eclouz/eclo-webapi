@@ -30,8 +30,11 @@ public class AdminUserService : IAdminUserService
         var user = await _repository.GetById(userId);
         if (user == null) throw new UserNotFoundException();
 
-        var result = await _fileService.DeleteAvatarAsync(user.ImagePath);
-        if (result == false) throw new ImageNotFoundException();
+        if (user.ImagePath != "avatars\\avatar.png")
+        {
+            var result = await _fileService.DeleteAvatarAsync(user.ImagePath);
+            //if (result == false) throw new ImageNotFoundException();
+        }
 
         var dbResult = await _repository.DeleteAsync(userId);
 

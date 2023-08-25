@@ -8,7 +8,9 @@ public class UserUpdateDto
 
     public string LastName { get; set; } = String.Empty;
     
-    public IFormFile ImagePath { get; set; } = default!;
+    public IFormFile? ImagePath { get; set; }
+
+    public string PhoneNumber { get; set; } = string.Empty;
 
     public string PassportSerialNumber { get; set; } = String.Empty;
 

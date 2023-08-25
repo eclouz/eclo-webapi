@@ -21,7 +21,7 @@ public class UserCreateValidator : AbstractValidator<UserCreateDto>
             .Must(phone => PhoneNumberValidator.IsValid(phone)).WithMessage("Phone number is incorrect!");
 
         RuleFor(dto => dto.PassportSerialNumber).NotEmpty().NotNull().WithMessage("PassportSerialNumber is required!")
-            .MinimumLength(7).WithMessage("PassportSerialNumber must be more than 7 characters!")
-            .MaximumLength(7).WithMessage("PassportSerialNumber must be less than 7 characters!");
+            .MinimumLength(9).WithMessage("PassportSerialNumber must be more than 9 characters!")
+            .MaximumLength(9).WithMessage("PassportSerialNumber must be less than 9 characters!");
     }
 }

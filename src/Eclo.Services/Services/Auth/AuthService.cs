@@ -144,6 +144,7 @@ public class AuthService : IAuthService
         user.Salt = hasherResult.Salt;
 
         user.CreatedAt = user.UpdatedAt = TimeHelper.GetDateTime();
+        user.ImagePath = "avatars\\avatar.png";
 
         var dbResult = await _userRepository.CreateAsync(user);
         return dbResult > 0;
