@@ -30,7 +30,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("register/send-code")]
-    public async Task<IActionResult> SendCodeRegisterAsync([FromForm] string phone)
+    public async Task<IActionResult> SendCodeRegisterAsync(string phone)
     {
         var result = PhoneNumberValidator.IsValid(phone);
         if (result == false) return BadRequest("Phone number is invalid!");
@@ -40,14 +40,14 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("register/verify")]
-    public async Task<IActionResult> VerifyRegisterAsync([FromForm] VerifyRegisterDto verifyRegisterDto)
+    public async Task<IActionResult> VerifyRegisterAsync([FromBody] VerifyRegisterDto verifyRegisterDto)
     {
         var serviceResult = await _authService.VerifyRegisterAsync(verifyRegisterDto.PhoneNumber, verifyRegisterDto.Code);
         return Ok(new { serviceResult.Result, serviceResult.Token });
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> LoginAsync([FromForm] LoginDto loginDto)
+    public async Task<IActionResult> LoginAsync([FromBody] LoginDto loginDto)
     {
         var validator = new LoginValidator();
         var valResult = validator.Validate(loginDto);
