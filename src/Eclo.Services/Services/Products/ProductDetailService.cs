@@ -12,14 +12,18 @@ namespace Eclo.Services.Services.Products;
 
 public class ProductDetailService : IProductDetailService
 {
+    private readonly IProductDetailSizeRepository _productDetailSizeRepository;
+    private readonly IProductDetailFashionRepository _productDetailFashionRepository;
     private readonly IProductDetailRepository _repository;
     private readonly IFileService _fileService;
     private readonly IPaginator _paginator;
 
     public ProductDetailService(IProductDetailRepository repository,
-        IFileService fileService,
-        IPaginator paginator)
+        IFileService fileService, IProductDetailSizeRepository productDetailSizeRepository,
+        IPaginator paginator, IProductDetailFashionRepository productDetailFashionRepository)
     {
+        this._productDetailFashionRepository = productDetailFashionRepository;
+        this._productDetailSizeRepository = productDetailSizeRepository;
         this._repository = repository;
         this._fileService = fileService;
         this._paginator = paginator;
@@ -72,6 +76,43 @@ public class ProductDetailService : IProductDetailService
         var productDetail = await _repository.GetByIdAsync(productDetailId);
         if (productDetail == null) throw new ProductNotFoundException();
         else return productDetail;
+    }
+
+    public async Task<ProductDetail> GetByIdViewAsync(long productDetailId, PaginationParams @params)
+    {
+        var productDetails = await _repository.GetAllAsync(@params);
+        var productDetailFashions = await _productDetailFashionRepository.GetAllAsync(@params);
+        var productDetailSizes = await _productDetailSizeRepository.GetAllAsync(@params);
+        
+        ProductDetail productDetail = new ProductDetail();
+        for (int i = 0; i < productDetails.Count; i++)
+        {
+            if (productDetailId == productDetails[i].Id)
+            {
+                productDetail.Id = productDetails[i].Id;
+                productDetail.Color = productDetails[i].Color;
+                productDetail.ImagePath = productDetails[i].ImagePath;
+                productDetail.ProductId = productDetails[i].ProductId;
+                productDetail.CreatedAt = productDetails[i].CreatedAt;
+                productDetail.UpdatedAt = productDetails[i].UpdatedAt;
+                for (int j = 0; j < productDetailFashions.Count; j++)
+                {
+                    if (productDetail.Id == productDetailFashions[j].ProductDetailId)
+                    {
+                        productDetail.ProductDetailFashions.Add(productDetailFashions[j]);
+                    }
+                }
+                for (int j = 0; j < productDetailSizes.Count; j++)
+                {
+                    if (productDetail.Id == productDetailSizes[j].ProductDetailId)
+                    {
+                        productDetail.ProductDetailSizes.Add(productDetailSizes[j]);
+                    }
+                }
+                break;
+            }
+        }
+        return productDetail;
     }
 
     public async Task<IList<ProductDetail>> SearchAsync(string search, PaginationParams @params)

@@ -15,6 +15,8 @@ public interface IProductDetailService
 
     public Task<IList<ProductDetail>> GetAllAsync(PaginationParams @params);
 
+    public Task<ProductDetail> GetByIdViewAsync(long productDetailId, PaginationParams @params);
+
     public Task<ProductDetail> GetByIdAsync(long productDetailId);
 
     public Task<bool> UpdateAsync(long productDetailId, ProductDetailUpdateDto dto);
