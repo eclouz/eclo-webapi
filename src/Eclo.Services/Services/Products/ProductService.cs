@@ -12,6 +12,7 @@ using Eclo.Persistence.Dtos.Products;
 using Eclo.Persistence.Helpers;
 using Eclo.Services.Interfaces.Common;
 using Eclo.Services.Interfaces.Products;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
 
 namespace Eclo.Services.Services.Products;
 
@@ -27,6 +28,7 @@ public class ProductService : IProductService
     private readonly IProductCommentRepository _productCommentRepository;
     private readonly IProductDiscountRepository _productDiscountRepository;
     private readonly ICategoryRepository _categoryRepository;
+    private readonly IUserProductLikeRepository _userProductLikeRepository;
 
     private readonly IPaginator _paginator;
 
@@ -38,6 +40,7 @@ public class ProductService : IProductService
         IProductDetailFashionRepository productDetailFashionRepository,
         IProductDetailSizeRepository productDetailSizeRepository,
         ISubCategoryRepository subCategoryRepository,
+        IUserProductLikeRepository userProductLikeRepository,
         IProductCommentRepository productCommentRepository,
         ICategoryRepository categoryRepository)
     {
@@ -52,6 +55,7 @@ public class ProductService : IProductService
         this._subCategoryRepository = subCategoryRepository;
         this._productDiscountRepository = productDiscountRepository;
         this._categoryRepository = categoryRepository;
+        this._userProductLikeRepository = userProductLikeRepository;
     }
 
     public async Task<long> CountAsync() => await _repository.CountAsync();
@@ -156,6 +160,67 @@ public class ProductService : IProductService
         _paginator.Paginate(count, @params);
 
         return products;
+    }
+
+    public async Task<IList<ProductViewModel>> GetAllUserIdViewAsync(long userId, PaginationParams @params)
+    {
+        var likes = await _userProductLikeRepository.GetAllAsync(@params);
+        var product = await _repository.GetAllAsync(@params);
+        var brand = await _brandRepository.GetAllAsync(@params);
+        var productDetail = await _productDetailRepository.GetAllAsync(@params);
+        var productDiscounts = await _productDiscountRepository.GetAllAsync(@params);
+        var discounts = await _discountRepository.GetAllAsync(@params);
+
+        List<ProductViewModel> list = new List<ProductViewModel>();
+        for (int i = 0; i < product.Count; i++)
+        {
+            ProductViewModel productViewModel = new ProductViewModel();
+            productViewModel.Id = product[i].Id;
+            productViewModel.ProductName = product[i].Name;
+            productViewModel.ProductDescription = product[i].Description;
+            productViewModel.ProductPrice = product[i].UnitPrice;
+            productViewModel.BrandId = product[i].BrandId;
+            for (int j = 0; j < brand.Count; j++)
+            {
+                if (productViewModel.BrandId == brand[j].Id)
+                {
+                    productViewModel.Brand.Add(brand[j]);
+                }
+            }
+            for (int j = 0; j < productDetail.Count; j++)
+            {
+                if (productViewModel.Id == productDetail[j].ProductId)
+                {
+                    productViewModel.ProductDetail.Add(productDetail[j]);
+                }
+            }
+            for (int j = 0; j < productDiscounts.Count; j++)
+            {
+                if (productViewModel.Id == productDiscounts[j].ProductId)
+                {
+                    long productDiscountId = productDiscounts[j].DiscountId;
+                    for (int k = 0; k < discounts.Count; k++)
+                    {
+                        if (productDiscountId == discounts[k].Id)
+                        {
+                            productViewModel.ProductDiscount.Add(discounts[k].Percentage);
+                        }
+                    }
+                }
+            }
+            for (int j = 0; j < likes.Count; j++)
+            {
+                if (userId == likes[j].UserId && productViewModel.Id == likes[j].ProductId && likes[j].IsLiked == true)
+                {
+                    productViewModel.ProductLiked = true;
+                }
+            }
+            list.Add(productViewModel);
+        }
+
+        var count = await _repository.CountAsync();
+        _paginator.Paginate(count, @params);
+        return list;
     }
 
     public async Task<IList<ProductGetViewModel>> GetAllView(PaginationParams @params)
@@ -342,6 +407,132 @@ public class ProductService : IProductService
         var product = await _repository.GetByIdAsync(productId);
         if (product == null) throw new ProductNotFoundException();
         else return product; 
+    }
+
+    public async Task<ProductGetViewModel> GetByIdUserViewAsync(long userId, long productId, PaginationParams @params)
+    {
+        var likes = await _userProductLikeRepository.GetAllAsync(@params);
+        var product = await _repository.GetByIdAsync(productId);
+        var brand = await _brandRepository.GetAllAsync(@params);
+        var productDetail = await _productDetailRepository.GetAllAsync(@params);
+        var productDiscounts = await _productDiscountRepository.GetAllAsync(@params);
+        var discounts = await _discountRepository.GetAllAsync(@params);
+        var productDetailFashion = await _productDetailFashionRepository.GetAllAsync(@params);
+        var productDetailSize = await _productDetailSizeRepository.GetAllAsync(@params);
+        var subCategory = await _subCategoryRepository.GetAllAsync(@params);
+        var productComment = await _productCommentRepository.GetAllAsync(@params);
+        var category = await _categoryRepository.GetAllAsync(@params);
+
+        ProductGetViewModel productGetViewModel = new ProductGetViewModel();
+        productGetViewModel.Id = product.Id;
+        productGetViewModel.ProductName = product.Name;
+        productGetViewModel.ProductPrice = product.UnitPrice;
+        productGetViewModel.BrandId = product.BrandId;
+        productGetViewModel.SubCategoryId = product.SubCategoryId;
+        productGetViewModel.ProductDescription = product.Description;
+        productGetViewModel.CreatedAt = product.CreatedAt;
+        productGetViewModel.UpdatedAt = product.UpdatedAt;
+
+        for (int j = 0; j < brand.Count; j++)
+        {
+            if (productGetViewModel.BrandId == brand[j].Id)
+            {
+                productGetViewModel.Brand.Add(brand[j]);
+            }
+        }
+
+        for (int j = 0; j < productDetail.Count; j++)
+        {
+            if (productGetViewModel.Id == productDetail[j].ProductId)
+            {
+                ProductDetail productDetails = new ProductDetail();
+                productDetails.Id = productDetail[j].Id;
+                productDetails.ImagePath = productDetail[j].ImagePath;
+                productDetails.Color = productDetail[j].Color;
+                productDetails.CreatedAt = productDetail[j].CreatedAt;
+                productDetails.UpdatedAt = productDetail[j].UpdatedAt;
+                productDetails.ProductId = productDetail[j].ProductId;
+                for (int i = 0; i < productDetailFashion.Count; i++)
+                {
+                    if (productDetails.Id == productDetailFashion[i].ProductDetailId)
+                    {
+                        productDetails.ProductDetailFashions.Add(productDetailFashion[i]);
+                    }
+                }
+
+                for (int i = 0; i < productDetailSize.Count; i++)
+                {
+                    if (productDetails.Id == productDetailSize[i].ProductDetailId)
+                    {
+                        productDetails.ProductDetailSizes.Add(productDetailSize[i]);
+                    }
+                }
+                productGetViewModel.ProductDetail.Add(productDetails);
+            }
+        }
+
+
+        for (int j = 0; j < productDiscounts.Count; j++)
+        {
+            if (productGetViewModel.Id == productDiscounts[j].ProductId)
+            {
+                ProductDiscount productDiscount = new ProductDiscount();
+                productDiscount.Id = productDiscounts[j].Id;
+                productDiscount.Description = productDiscounts[j].Description;
+                productDiscount.StartAt = productDiscounts[j].StartAt;
+                productDiscount.EndAt = productDiscounts[j].EndAt;
+                productDiscount.ProductId = productDiscounts[j].ProductId;
+                productDiscount.DiscountId = productDiscounts[j].DiscountId;
+                for (int k = 0; k < discounts.Count; k++)
+                {
+                    if (productDiscounts[j].ProductId == discounts[k].Id)
+                    {
+                        productDiscount.ProductDescription = discounts[k].Description;
+                        productDiscount.Percentage = discounts[k].Percentage;
+                    }
+                }
+                productGetViewModel.ProductDiscount.Add(productDiscount);
+            }
+        }
+
+        for (int j = 0; j < subCategory.Count; j++)
+        {
+            if (productGetViewModel.SubCategoryId == subCategory[j].Id)
+            {
+                SubCategory subCategory1 = new SubCategory();
+                subCategory1.Id = subCategory[j].Id;
+                subCategory1.Name = subCategory[j].Name;
+                subCategory1.CategoryId = subCategory[j].CategoryId;
+                subCategory1.CreatedAt = subCategory[j].CreatedAt;
+                subCategory1.UpdatedAt = subCategory[j].UpdatedAt;
+
+                for (int k = 0; k < category.Count; k++)
+                {
+                    if (subCategory1.CategoryId == category[k].Id)
+                    {
+                        subCategory1.CategoryName = category[k].Name;
+                    }
+                }
+                productGetViewModel.SubCategory.Add(subCategory1);
+            }
+        }
+
+        for (int j = 0; j < productComment.Count; j++)
+        {
+            if (productGetViewModel.Id == productComment[j].ProductId)
+            {
+                productGetViewModel.ProductComments.Add(productComment[j]);
+            }
+        }
+
+        for (int j = 0; j < likes.Count; j++)
+        {
+            if (userId == likes[j].UserId && productGetViewModel.Id == likes[j].ProductId && likes[j].IsLiked == true)
+            {
+                productGetViewModel.ProductLiked = true;
+            }
+        }
+        return productGetViewModel;
     }
 
     public async Task<ProductGetViewModel> GetByIdViewAsync(long productId, PaginationParams @params)

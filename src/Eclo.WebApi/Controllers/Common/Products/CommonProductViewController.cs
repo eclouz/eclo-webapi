@@ -1,8 +1,6 @@
 ﻿using Eclo.Application.Utilities;
 using Eclo.Services.Interfaces.Products;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Eclo.WebApi.Controllers.Common.Products;
 
@@ -12,7 +10,7 @@ public class CommonProductViewController : ControllerBase
 {
     private readonly IProductService _service;
     private readonly int maxPageSize = 30;
-    
+
     public CommonProductViewController(IProductService service)
     {
         this._service = service;
