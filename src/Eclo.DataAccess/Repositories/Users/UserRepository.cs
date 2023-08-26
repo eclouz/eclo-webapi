@@ -214,8 +214,7 @@ public class UserRepository : BaseRepository, IUserRepository
             await _connection.OpenAsync();
 
             string query = "UPDATE public.users SET " +
-                "first_name=@FirstName, last_name=@LastName, phone_number=@PhoneNumber, phone_number_confirmed=@PhoneNumberConfirmed, " +
-                    "password_hash=@PasswordHash, salt=@Salt, image_path=@ImagePath, passport_serial_number=@PassportSerialNumber, " +
+                "first_name=@FirstName, last_name=@LastName, image_path=@ImagePath, passport_serial_number=@PassportSerialNumber, " +
                         "birth_date=@BirthDate, region=@Region, district=@District, address=@Address, created_at=@CreatedAt, updated_at=@UpdatedAt " +
                 $"WHERE phone_number=@phoneNumber;";
 

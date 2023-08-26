@@ -122,11 +122,11 @@ public class UserService : IUserService
         if (dto.ImagePath is not null)
         {
             // delete old avatar
-            if (user.ImagePath != "avatars\\avatar.png")
-            {
+            //if (user.ImagePath != "avatars\\avatar.png")
+            //{
                 var deleteResult = await _fileService.DeleteAvatarAsync(user.ImagePath);
-                if (deleteResult is false) throw new ImageNotFoundException();
-            }
+                //if (deleteResult is false) throw new ImageNotFoundException();
+            //}
 
             // upload new avatar
             string newImagePath = await _fileService.UploadAvatarAsync(dto.ImagePath);
