@@ -20,10 +20,12 @@ public interface IProductService
     public Task<bool> UpdateAsync(long productId, ProductUpdateDto dto);
 
     public Task<IList<ProductViewModel>> GetAllViewAsync(PaginationParams @params);
+    public Task<IList<ProductViewModel>> GetAllUserIdViewAsync(long userId, PaginationParams @params);
 
     public Task<IList<ProductGetViewModel>> GetAllView(PaginationParams @params);
 
     public Task<ProductGetViewModel> GetByIdViewAsync(long productId, PaginationParams @params);
+    public Task<ProductGetViewModel> GetByIdUserViewAsync(long userId,long productId, PaginationParams @params);
 
     public Task<IList<ProductGetViewModel>> FiltrAsync(string category, int min, int max, List<string> subCategories, PaginationParams @params);
 
