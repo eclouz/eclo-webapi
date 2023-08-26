@@ -21,4 +21,9 @@ public class CommonProductFilterControllers : CommonBaseController
     [HttpGet]
     public async Task<IActionResult> GetAllFilterAsync([FromQuery] string category, [FromQuery] int min, [FromQuery] int max, [FromQuery] List<string> subCategories, [FromQuery] int page = 1)
     => Ok(await _service.FiltrAsync(category, min, max, subCategories, new PaginationParams(page, maxPageSize)));
+
+
+    [HttpGet("category")]
+    public async Task<IActionResult> GetAlluserIdFilterAsync([FromQuery] long userId, [FromQuery] string categoryName, [FromQuery] int min, [FromQuery] int max, [FromQuery] List<string> subCategoriesName, [FromQuery] int page = 1)
+    => Ok(await _service.FiltrUserIdAsync(userId, categoryName, min, max, subCategoriesName, new PaginationParams(page, maxPageSize)));
 }
