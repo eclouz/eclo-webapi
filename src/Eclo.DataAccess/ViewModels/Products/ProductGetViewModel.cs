@@ -37,6 +37,8 @@ public class ProductGetViewModel : Auditable
 
     public bool ProductLiked { get; set; } = false;
 
+    public long likedId { get; set; }
+
     public List<ProductComment> ProductComments { get; set; }
       = new List<ProductComment>();
 
