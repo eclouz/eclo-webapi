@@ -122,8 +122,8 @@ public class UserProductLikeRepository : BaseRepository, IUserProductLikeReposit
             await _connection.OpenAsync();
 
             string query = $"UPDATE public.user_product_likes " +
-                $"SET user_id=@UserId, product_id=@ProductId, is_liked=@IsLiked, " +
-                    $"created_at=@CreatedAt, updated_at=@UpdatedAt" +
+                $"SET user_id = @UserId, product_id = @ProductId, is_liked = @IsLiked, " +
+                    $"created_at = @CreatedAt, updated_at = @UpdatedAt " +
                         $"WHERE id = {id};";
 
             var result = await _connection.ExecuteAsync(query, entity);
