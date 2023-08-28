@@ -30,9 +30,8 @@ public class ProductCommentService : IProductCommentService
         {
             ProductId = dto.ProductId,
             UserId = dto.UserId,
-            ReplyCommentId = dto.ReplyCommentId,
             Comment = dto.Comment,
-            IsEdited = dto.IsEdited,
+            IsEdited = false,
             CreatedAt = TimeHelper.GetDateTime(),
             UpdatedAt = TimeHelper.GetDateTime()
         };
@@ -76,7 +75,6 @@ public class ProductCommentService : IProductCommentService
         // update product with new items 
         productComment.ProductId = dto.ProductId;
         productComment.UserId = dto.UserId;
-        productComment.ReplyCommentId = dto.ReplyCommentId;
         productComment.Comment = dto.Comment;
         productComment.IsEdited = dto.IsEdited;
         productComment.CreatedAt = TimeHelper.GetDateTime();

@@ -6,8 +6,6 @@ public class ProductCommentCreateDto
 
     public long UserId { get; set; }
 
-    public long ReplyCommentId { get; set; }
-
     public string Comment { get; set; } = String.Empty;
 
     public bool IsEdited { get; set; } = false;
