@@ -1,4 +1,5 @@
-﻿using Eclo.Application.Exceptions.Discounts;
+﻿using AutoMapper;
+using Eclo.Application.Exceptions.Discounts;
 using Eclo.Application.Utilities;
 using Eclo.DataAccess.Interfaces.Discounts;
 using Eclo.Domain.Entities.Discounts;
@@ -13,26 +14,23 @@ public class DiscountService : IDiscountService
 {
     private readonly IDiscountRepository _repository;
     private readonly IPaginator _paginator;
+    private readonly IMapper _mapper;
 
     public DiscountService(IDiscountRepository discountRepository,
-        IPaginator paginator)
+        IPaginator paginator,
+        IMapper mapper)
     {
         this._repository = discountRepository;
         this._paginator = paginator;
+        this._mapper = mapper;
     }
 
     public async Task<long> CountAsync() => await _repository.CountAsync();
 
     public async Task<bool> CreateAsync(DiscountCreateDto dto)
     {
-        Discount discount = new Discount()
-        {
-            Name = dto.Name,
-            Percentage = dto.Percentage,
-            Description = dto.Description,
-            CreatedAt = TimeHelper.GetDateTime(),
-            UpdatedAt = TimeHelper.GetDateTime()
-        };
+        Discount discount = _mapper.Map<Discount>(dto);
+        discount.CreatedAt = discount.UpdatedAt = TimeHelper.GetDateTime();
 
         var result = await _repository.CreateAsync(discount);
 

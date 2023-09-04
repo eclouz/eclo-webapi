@@ -1,4 +1,5 @@
-﻿using Eclo.Application.Exceptions.Products;
+﻿using AutoMapper;
+using Eclo.Application.Exceptions.Products;
 using Eclo.Application.Utilities;
 using Eclo.DataAccess.Interfaces.Brands;
 using Eclo.DataAccess.Interfaces.Categories;
@@ -12,7 +13,6 @@ using Eclo.Persistence.Dtos.Products;
 using Eclo.Persistence.Helpers;
 using Eclo.Services.Interfaces.Common;
 using Eclo.Services.Interfaces.Products;
-using Microsoft.AspNetCore.DataProtection.KeyManagement;
 
 namespace Eclo.Services.Services.Products;
 
@@ -29,7 +29,7 @@ public class ProductService : IProductService
     private readonly IProductDiscountRepository _productDiscountRepository;
     private readonly ICategoryRepository _categoryRepository;
     private readonly IUserProductLikeRepository _userProductLikeRepository;
-
+    private readonly IMapper _mapper;
     private readonly IPaginator _paginator;
 
     public ProductService(IProductRepository productRepository,
@@ -42,7 +42,8 @@ public class ProductService : IProductService
         ISubCategoryRepository subCategoryRepository,
         IUserProductLikeRepository userProductLikeRepository,
         IProductCommentRepository productCommentRepository,
-        ICategoryRepository categoryRepository)
+        ICategoryRepository categoryRepository,
+        IMapper mapper)
     {
         this._repository = productRepository;
         this._paginator = paginator;
@@ -56,22 +57,15 @@ public class ProductService : IProductService
         this._productDiscountRepository = productDiscountRepository;
         this._categoryRepository = categoryRepository;
         this._userProductLikeRepository = userProductLikeRepository;
+        this._mapper = mapper;
     }
 
     public async Task<long> CountAsync() => await _repository.CountAsync();
 
     public async Task<bool> CreateAsync(ProductCreateDto dto)
     {
-        Product product = new Product()
-        {
-            BrandId = dto.BrandId,
-            SubCategoryId = dto.SubCategoryId,
-            Name = dto.Name,
-            UnitPrice = dto.UnitPrice,
-            Description = dto.Description,
-            CreatedAt = TimeHelper.GetDateTime(),
-            UpdatedAt = TimeHelper.GetDateTime()
-        };
+        Product product = _mapper.Map<Product>(dto);
+        product.CreatedAt = product.UpdatedAt = TimeHelper.GetDateTime();
 
         var result = await _repository.CreateAsync(product);
         

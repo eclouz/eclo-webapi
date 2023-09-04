@@ -1,4 +1,5 @@
-﻿using Eclo.Application.Exceptions.Categories;
+﻿using AutoMapper;
+using Eclo.Application.Exceptions.Categories;
 using Eclo.Application.Utilities;
 using Eclo.DataAccess.Interfaces.Categories;
 using Eclo.Domain.Entities.Categories;
@@ -13,25 +14,23 @@ public class CategoryService : ICategoryService
 {
     private readonly ICategoryRepository _repository;
     private readonly IPaginator _paginator;
+    private readonly IMapper _mapper;
 
     public CategoryService(ICategoryRepository categoryRepository,
-        IPaginator paginator)
+        IPaginator paginator,
+        IMapper mapper)
     {
         this._repository = categoryRepository;
         this._paginator = paginator;
+        this._mapper = mapper;
     }
 
     public async Task<long> CountAsync() => await _repository.CountAsync();
 
     public async Task<bool> CreateAsync(CategoryCreateDto dto)
     {
-        Category category = new Category()
-        {
-            Name = dto.Name,
-            Description = dto.Description,
-            CreatedAt = TimeHelper.GetDateTime(),
-            UpdatedAt = TimeHelper.GetDateTime()
-        };
+        Category category = _mapper.Map<Category>(dto);
+        category.CreatedAt = category.UpdatedAt = TimeHelper.GetDateTime();
 
         var result = await _repository.CreateAsync(category);
         

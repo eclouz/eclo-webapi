@@ -14,6 +14,7 @@ builder.ConfigureSwaggerAuth();
 builder.ConfigureCORSPolicy();
 builder.ConfigureDataAccess();
 builder.ConfigureServiceLayer();
+builder.ConfigureWeb();
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
