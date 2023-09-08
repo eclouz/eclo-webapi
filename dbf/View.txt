@@ -78,3 +78,19 @@ subcategory_viewmodel
    FROM sub_categories subcategories
      JOIN categories ON subcategories.category_id = categories.id;
 
+order_view
+
+ SELECT orders.id AS order_id,
+    products.name AS product_name,
+    discounts.percentage AS discount_percentage,
+    order_details.quantity,
+    order_details.total_price,
+    orders.is_contracted,
+    orders.is_paid,
+    orders.status AS order_status
+   FROM orders
+     JOIN order_details ON orders.id = order_details.order_id
+     JOIN product_discounts ON order_details.product_discount_id = product_discounts.id
+     LEFT JOIN products ON product_discounts.product_id = products.id
+     LEFT JOIN discounts ON product_discounts.discount_id = discounts.id;
+
