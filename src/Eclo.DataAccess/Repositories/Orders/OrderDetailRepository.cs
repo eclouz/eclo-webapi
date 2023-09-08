@@ -6,14 +6,14 @@ using Eclo.Domain.Entities.Orders;
 
 namespace Eclo.DataAccess.Repositories.Orders;
 
-public class OrderRepository : BaseRepository, IOrderRepository
+public class OrderDetailRepository : BaseRepository, IOrderDetailRepository
 {
     public async Task<long> CountAsync()
     {
         try
         {
             await _connection.OpenAsync();
-            string query = "SELECT COUNT(*) FROM orders";
+            string query = "SELECT COUNT(*) FROM order_details";
             var result = await _connection.QuerySingleAsync<long>(query);
 
             return result;
@@ -28,17 +28,16 @@ public class OrderRepository : BaseRepository, IOrderRepository
         }
     }
 
-    public async Task<int> CreateAsync(Order entity)
+    public async Task<int> CreateAsync(OrderDetail entity)
     {
         try
         {
             await _connection.OpenAsync();
 
-            string query = "INSERT INTO public.orders " +
-                "(user_id, products_price, status, description, is_contracted, is_paid, " +
-                    "payment_type, created_at, updated_at) " +
-                        "VALUES (@UserId, @ProductsPrice, @Status, @Description, @IsContracted, " +
-                            "@IsPaid, @PaymentType, @CreatedAt, @UpdatedAt); ";
+            string query = "INSERT INTO public.order_details " +
+                "(order_id, product_discount_id, quantity, price, discount_price, total_price, created_at, updated_at) " +
+                    "VALUES (@OrderId, @ProductDiscountId, @Quantity, @Price, @DiscountPrice, " +
+                        "@TotalPrice, @CreatedAt, @UpdatedAt); ";
 
             var result = await _connection.ExecuteAsync(query, entity);
 
@@ -59,7 +58,7 @@ public class OrderRepository : BaseRepository, IOrderRepository
         try
         {
             await _connection.OpenAsync();
-            string query = "DELETE FROM orders WHERE id = @Id";
+            string query = "DELETE FROM order_details WHERE id = @Id";
             var result = await _connection.ExecuteAsync(query, new { Id = id });
 
             return result;
@@ -79,8 +78,8 @@ public class OrderRepository : BaseRepository, IOrderRepository
         try
         {
             await _connection.OpenAsync();
-
-            string query = $"SELECT * FROM orders ORDER BY id DESC " +
+            
+            string query = $"SELECT * FROM order_view ORDER BY id DESC " +
                 $"OFFSET {@params.GetSkipCount()} LIMIT {@params.PageSize}";
 
             var result = (await _connection.QueryAsync<OrderViewModel>(query)).ToList();
@@ -102,7 +101,7 @@ public class OrderRepository : BaseRepository, IOrderRepository
         try
         {
             await _connection.OpenAsync();
-            string query = "SELECT * FROM orders WHERE id = @Id";
+            string query = "SELECT * FROM order_details WHERE id = @Id";
             var result = await _connection.QuerySingleAsync<OrderViewModel>(query, new { Id = id });
 
             return result;
@@ -117,15 +116,39 @@ public class OrderRepository : BaseRepository, IOrderRepository
         }
     }
 
-    public async Task<int> UpdateAsync(long id, Order entity)
+    public async Task<(long ItemsCount, IList<OrderViewModel>)> SearchAsync(string search, PaginationParams @params)
     {
         try
         {
             await _connection.OpenAsync();
 
-            string query = $"UPDATE public.orders " +
-                $"SET user_id=@UserId, products_price=@ProductsPrice, status=@Status, description=@Description, " +
-                    $"is_contracted=@IsContracted, is_paid=@IsPaid, payment_type=@PaymentType, " +
+            string query = $"SELECT * FROM order_view WHERE product_name ILIKE @search ORDER BY id DESC " +
+                $"OFFSET {@params.GetSkipCount()} LIMIT {@params.PageSize}";
+
+            var result = (await _connection.QueryAsync<OrderViewModel>
+                (query, new { search = "%" + search + "%" })).ToList();
+
+            return (result.Count, result);
+        }
+        catch
+        {
+            return (0, new List<OrderViewModel>());
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<int> UpdateAsync(long id, OrderDetail entity)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+
+            string query = $"UPDATE public.order_details " +
+                $"SET order_id=@OrderId, product_discount_id=@ProductDiscountId, quantity=@Quantity, price=@Price, " +
+                    $"discount_price=@DiscountPrice, total_price=@TotalPrice, " +
                         $"created_at=@CreatedAt, updated_at=@UpdatedAt " +
                             $"WHERE id=@Id;";
 
