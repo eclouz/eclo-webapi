@@ -1,5 +1,5 @@
 ﻿using Eclo.Application.Utilities;
-using Eclo.Domain.Entities.Orders;
+using Eclo.DataAccess.ViewModels.Orders;
 
 namespace Eclo.Services.Interfaces.Orders;
 
@@ -9,7 +9,7 @@ public interface IOrderDetailService
 
     public Task<long> CountAsync();
 
-    public Task<IList<OrderDetail>> GetAllAsync(PaginationParams @params);
+    public Task<IList<OrderViewModel>> GetAllAsync(PaginationParams @params);
 
-    public Task<OrderDetail> GetByIdAsync(long orderDetailId);
+    public Task<OrderViewModel> GetByIdAsync(long orderDetailId);
 }
