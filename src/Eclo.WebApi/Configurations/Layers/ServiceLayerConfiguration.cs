@@ -1,4 +1,5 @@
-﻿using Eclo.Services.Interfaces.Auth;
+﻿using Eclo.Services.Interfaces.Admins;
+using Eclo.Services.Interfaces.Auth;
 using Eclo.Services.Interfaces.Brands;
 using Eclo.Services.Interfaces.Categories;
 using Eclo.Services.Interfaces.Common;
@@ -9,6 +10,7 @@ using Eclo.Services.Interfaces.Orders;
 using Eclo.Services.Interfaces.Payments;
 using Eclo.Services.Interfaces.Products;
 using Eclo.Services.Interfaces.Users;
+using Eclo.Services.Services.Admins;
 using Eclo.Services.Services.Auth;
 using Eclo.Services.Services.Brands;
 using Eclo.Services.Services.Categories;
@@ -50,6 +52,7 @@ public static class ServiceLayerConfiguration
         builder.Services.AddScoped<IOrderDetailService, OrderDetailService>();
         builder.Services.AddScoped<IPaymentService, PaymentService>();
         builder.Services.AddScoped<IHeadService, HeadService>();
+        builder.Services.AddScoped<IAdminService, AdminService>();
         builder.Services.AddSingleton<ISmsSender, SmsSender>();
     }
 }
