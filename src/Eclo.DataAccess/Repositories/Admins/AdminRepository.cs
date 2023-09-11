@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using Eclo.Application.Utilities;
 using Eclo.DataAccess.Interfaces.Admins;
-using Eclo.DataAccess.ViewModels.Users;
 using Eclo.Domain.Entities.Admins;
 
 namespace Eclo.DataAccess.Repositories.Admins;
