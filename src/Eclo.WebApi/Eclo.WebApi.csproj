@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <Folder Include="Accessors\" />
-    <Folder Include="Controllers\Head\" />
     <Folder Include="wwwroot\Avatars\" />
     <Folder Include="wwwroot\Storage\Icons\Brands\" />
     <Folder Include="wwwroot\Storage\Images\Products\" />

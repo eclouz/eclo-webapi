@@ -7,5 +7,4 @@ namespace Eclo.WebApi.Controllers.Common;
 [AllowAnonymous]
 public abstract class CommonBaseController : ControllerBase
 {
-
 }

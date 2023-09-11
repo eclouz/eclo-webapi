@@ -1,6 +1,6 @@
-﻿namespace Eclo.Domain.Entities.Admins;
+﻿namespace Eclo.Domain.Entities.Heads;
 
-public class Admin : Human
+public class Head : Human
 {
     public string PhoneNumber { get; set; } = String.Empty;
 
