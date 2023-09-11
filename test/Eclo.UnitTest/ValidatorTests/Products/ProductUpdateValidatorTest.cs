@@ -28,22 +28,17 @@ public class ProductUpdateValidatorTest
         var result = validator.Validate(productUpdateDto);
         Assert.False(result.IsValid);
     }
+
     [Theory]
-    [InlineData("Jean")]
-    [InlineData("Blazer")]
-    [InlineData("Suit")]
-    [InlineData("Sweatshirt")]
-    [InlineData("Shirt")]
-    [InlineData("Sweater")]
-    [InlineData("Swimwear")]
-    [InlineData("Jacket")]
-    [InlineData("Coat")]
-    [InlineData("Pant")]
-    public void ShouldReturnValidValidation(string name)
+    [InlineData("Cap", "qwertyop")]
+    [InlineData("Jeans", "Qqwerty12#")]
+    [InlineData("Jackets", "12qwerty")]
+    public void ShouldReturnValidValidation(string name, string description)
     {
         ProductUpdateDto productUpdateDto = new ProductUpdateDto()
         {
             Name = name,
+            Description = description
         };
         var validator = new ProductUpdateValidator();
         var result = validator.Validate(productUpdateDto);

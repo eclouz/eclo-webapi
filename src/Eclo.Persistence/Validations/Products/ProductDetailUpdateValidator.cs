@@ -14,8 +14,8 @@ public class ProductDetailUpdateValidator : AbstractValidator<ProductDetailUpdat
 
         When(dto => dto.ImagePath is not null, () =>
         {
-            int maxImageSizeMB = 5;
-            RuleFor(dto => dto.ImagePath!.Length).LessThan(maxImageSizeMB * 1024 * 1024).WithMessage($"Image size must be less than {maxImageSizeMB} MB");
+            int maxImageSizeMB = 3;
+            RuleFor(dto => dto.ImagePath!.Length).LessThan(maxImageSizeMB * 1024 * 1024 + 1).WithMessage($"Image size must be less than {maxImageSizeMB} MB");
             RuleFor(dto => dto.ImagePath!.FileName).Must(predicate =>
             {
                 FileInfo fileInfo = new FileInfo(predicate);

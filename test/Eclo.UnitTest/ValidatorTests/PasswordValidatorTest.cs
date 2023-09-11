@@ -36,7 +36,6 @@ public class PasswordValidatorTest
     [InlineData("@@@@@@@@@@@")]
     [InlineData("Aa@1")]
     [InlineData("AA_@@bb")]
-
     public void ShouldReturnWeakPassword(string password)
     {
         var result = PasswordValidator.IsStrongPassword(password);

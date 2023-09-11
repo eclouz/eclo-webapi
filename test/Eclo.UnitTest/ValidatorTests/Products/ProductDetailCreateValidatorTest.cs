@@ -1,12 +1,9 @@
-﻿using Eclo.Persistence.Dtos.Brands;
-using Eclo.Persistence.Validations.Brands;
-using Microsoft.AspNetCore.Http.Internal;
+﻿using Eclo.Persistence.Dtos.Products;
+using Eclo.Persistence.Validations.Products;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
 using System.Text;
 using Xunit;
-using Eclo.Persistence.Dtos.Products;
-using FluentValidation;
-using Eclo.Persistence.Validations.Products;
 
 namespace Eclo.UnitTest.ValidatorTests.Products;
 
