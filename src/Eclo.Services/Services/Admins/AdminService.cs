@@ -2,6 +2,7 @@
 using Eclo.DataAccess.Interfaces.Admins;
 using Eclo.Domain.Entities.Admins;
 using Eclo.Persistence.DTOs.Admins;
+using Eclo.Persistence.Helpers;
 using Eclo.Services.Interfaces.Admins;
 using Eclo.Services.Interfaces.Auth;
 using Eclo.Services.Interfaces.Common;
@@ -38,17 +39,23 @@ public class AdminService : IAdminService
         admin.FirstName = dto.FirstName;
         admin.LastName = dto.LastName;
         admin.PhoneNumber = dto.PhoneNumber;
-        admin.BirthDate = dto.BirthDate;
+        admin.PhoneNumberConfirmed = true;
         var security = PasswordHasher.Hash(dto.Password);
         admin.PasswordHash = security.Hash;
         admin.Salt = security.Salt;
-        admin.PhoneNumberConfirmed = true;
-
+        
         if (dto.ImagePath is not null)
         {
             string newImagePath = await _fileService.UploadAvatarAsync(dto.ImagePath);
             admin.ImagePath = newImagePath;
         }
+
+        admin.PassportSerialNumber = dto.PassportSerialNumber;
+        admin.BirthDate = dto.BirthDate;
+        admin.Region = dto.Region;
+        admin.District = dto.District;
+        admin.Address = dto.Address;
+        admin.CreatedAt = admin.UpdatedAt = TimeHelper.GetDateTime();
 
         var result = await _adminRepository.CreateAsync(admin);
         return result > 0;
@@ -69,7 +76,7 @@ public class AdminService : IAdminService
         throw new NotImplementedException();
     }
 
-    public Task<bool> UpdateAsync(long adminId, Admin dto)
+    public Task<bool> UpdateAsync(long adminId, AdminUpdateDto dto)
     {
         throw new NotImplementedException();
     }

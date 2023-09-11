@@ -5,6 +5,7 @@ using Eclo.Persistence.DTOs.Heads;
 using Eclo.Persistence.Helpers;
 using Eclo.Services.Interfaces.Common;
 using Eclo.Services.Interfaces.Heads;
+using Eclo.Services.Security;
 
 namespace Eclo.Services.Services.Heads;
 
@@ -27,7 +28,9 @@ public class HeadService : IHeadService
 
         head.FirstName = dto.FirstName;
         head.LastName = dto.LastName;
-
+        var security = PasswordHasher.Hash(dto.Password);
+        head.PasswordHash = security.Hash;
+        head.Salt = security.Salt;
         if (dto.ImagePath is not null)
         {
             if (head.ImagePath != "avatars\\avatar.png")
@@ -45,6 +48,7 @@ public class HeadService : IHeadService
         if (checkPhone is null || phone == dto.PhoneNumber)
         {
             head.PhoneNumber = dto.PhoneNumber;
+            head.PhoneNumberConfirmed = true;
         }
         else throw new UserAlreadyExistsException(dto.PhoneNumber);
 
