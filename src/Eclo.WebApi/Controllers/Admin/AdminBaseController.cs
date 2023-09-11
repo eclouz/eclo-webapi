@@ -8,5 +8,4 @@ namespace Eclo.WebApi.Controllers.Admin;
 [AllowAnonymous]
 public abstract class AdminBaseController : ControllerBase
 {
-
 }
