@@ -1,6 +1,4 @@
-﻿using Eclo.Application.Utilities;
-using Eclo.Persistence.Dtos.Users;
-using Eclo.Persistence.Validations.Products;
+﻿using Eclo.Persistence.Dtos.Users;
 using Eclo.Persistence.Validations.Users;
 using Eclo.Services.Interfaces.Auth;
 using Eclo.Services.Interfaces.Users;
