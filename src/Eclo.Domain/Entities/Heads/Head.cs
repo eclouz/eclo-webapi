@@ -6,11 +6,11 @@ public class Head : Human
 
     public bool PhoneNumberConfirmed { get; set; }
 
-    public string PasswordHash { get; set; } = String.Empty;
+    public string PasswordHash { get; set; } = string.Empty;
 
-    public string Salt { get; set; } = String.Empty;
+    public string Salt { get; set; } = string.Empty;
 
-    public string PassportSerialNumber { get; set; } = String.Empty;
+    public string PassportSerialNumber { get; set; } = string.Empty;
 
     public string Region { get; set; } = String.Empty;
 
