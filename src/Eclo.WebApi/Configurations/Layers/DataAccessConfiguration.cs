@@ -1,6 +1,7 @@
 ﻿using Eclo.DataAccess.Interfaces.Brands;
 using Eclo.DataAccess.Interfaces.Categories;
 using Eclo.DataAccess.Interfaces.Discounts;
+using Eclo.DataAccess.Interfaces.Heads;
 using Eclo.DataAccess.Interfaces.Orders;
 using Eclo.DataAccess.Interfaces.Payments;
 using Eclo.DataAccess.Interfaces.Products;
@@ -8,6 +9,7 @@ using Eclo.DataAccess.Interfaces.Users;
 using Eclo.DataAccess.Repositories.Brands;
 using Eclo.DataAccess.Repositories.Categories;
 using Eclo.DataAccess.Repositories.Discounts;
+using Eclo.DataAccess.Repositories.Heads;
 using Eclo.DataAccess.Repositories.Orders;
 using Eclo.DataAccess.Repositories.Payments;
 using Eclo.DataAccess.Repositories.Products;
@@ -35,6 +37,7 @@ public static class DataAccessConfiguration
         builder.Services.AddScoped<IProductDetailSizeRepository, ProductDetailSizeRepository>();
         builder.Services.AddScoped<IOrderRepository, OrderRepository>();
         builder.Services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
+        builder.Services.AddScoped<IHeadRepository, HeadRepository>();
         builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
     }
 }

@@ -3,6 +3,7 @@ using Eclo.Services.Interfaces.Brands;
 using Eclo.Services.Interfaces.Categories;
 using Eclo.Services.Interfaces.Common;
 using Eclo.Services.Interfaces.Discounts;
+using Eclo.Services.Interfaces.Heads;
 using Eclo.Services.Interfaces.Notifications;
 using Eclo.Services.Interfaces.Orders;
 using Eclo.Services.Interfaces.Payments;
@@ -13,6 +14,7 @@ using Eclo.Services.Services.Brands;
 using Eclo.Services.Services.Categories;
 using Eclo.Services.Services.Common;
 using Eclo.Services.Services.Discounts;
+using Eclo.Services.Services.Heads;
 using Eclo.Services.Services.Notifications;
 using Eclo.Services.Services.Orders;
 using Eclo.Services.Services.Payments;
@@ -47,6 +49,7 @@ public static class ServiceLayerConfiguration
         builder.Services.AddScoped<IOrderService, OrderService>();
         builder.Services.AddScoped<IOrderDetailService, OrderDetailService>();
         builder.Services.AddScoped<IPaymentService, PaymentService>();
+        builder.Services.AddScoped<IHeadService, HeadService>();
         builder.Services.AddSingleton<ISmsSender, SmsSender>();
     }
 }
