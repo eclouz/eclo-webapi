@@ -10,7 +10,7 @@ public interface IAdminService
 
     public Task<bool> CreateAsync(AdminCreateDto dto);
     
-    public Task<bool> UpdateAsync(long adminId, Admin dto);
+    public Task<bool> UpdateAsync(long adminId, AdminUpdateDto dto);
 
     public Task<bool> DeleteAsync(long adminId);
     
