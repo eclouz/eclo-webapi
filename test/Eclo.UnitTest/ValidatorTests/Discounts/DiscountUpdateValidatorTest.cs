@@ -1,6 +1,5 @@
 ﻿using Eclo.Persistence.Dtos.Discounts;
 using Eclo.Persistence.Validations.Discounts;
-using FluentValidation;
 using Xunit;
 
 namespace Eclo.UnitTest.ValidatorTests.Discounts;

@@ -138,6 +138,7 @@ public class ProductDetailUpdateValidatorTest
         var result = validator.Validate(productDetailUpdateDto);
         Assert.False(result.IsValid);
     }
+
     [Theory]
     [InlineData("Red")]
     [InlineData("White")]

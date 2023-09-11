@@ -1,10 +1,9 @@
 ﻿using Eclo.Persistence.Dtos.Products;
 using Eclo.Persistence.Validations.Products;
-using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
 using System.Text;
 using Xunit;
-using FluentValidation;
 
 namespace Eclo.UnitTest.ValidatorTests.Products;
 

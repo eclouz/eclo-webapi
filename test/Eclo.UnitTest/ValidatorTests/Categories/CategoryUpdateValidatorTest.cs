@@ -1,6 +1,5 @@
 ﻿using Eclo.Persistence.Dtos.Categories;
 using Eclo.Persistence.Validations.Categories;
-using FluentValidation;
 using Xunit;
 
 namespace Eclo.UnitTest.ValidatorTests.Categories;
@@ -29,22 +28,16 @@ public class CategoryUpdateValidatorTest
         var result = validator.Validate(categoryUpdateDto);
         Assert.False(result.IsValid);
     }
+
     [Theory]
-    [InlineData("Jeans")]
-    [InlineData("Blazer")]
-    [InlineData("Suits")]
-    [InlineData("Sweatshirts")]
-    [InlineData("Shirt")]
-    [InlineData("Sweaters")]
-    [InlineData("Swimwears")]
-    [InlineData("Jackets")]
-    [InlineData("Coats")]
-    [InlineData("Pants")]
-    public void ShouldReturnValidValidation(string name)
+    [InlineData("Jeans", "Desc")]
+    [InlineData("Cap", "Des")]
+    public void ShouldReturnValidValidation(string name, string description)
     {
         CategoryUpdateDto categoryUpdateDto = new CategoryUpdateDto()
         {
             Name = name,
+            Description = description
         };
         var validator = new CategoryUpdateValidator();
         var result = validator.Validate(categoryUpdateDto);

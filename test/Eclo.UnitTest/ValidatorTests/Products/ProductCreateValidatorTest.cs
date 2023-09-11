@@ -1,8 +1,5 @@
-﻿using Eclo.Persistence.Dtos.Discounts;
-using Eclo.Persistence.Dtos.Products;
-using Eclo.Persistence.Validations.Discounts;
+﻿using Eclo.Persistence.Dtos.Products;
 using Eclo.Persistence.Validations.Products;
-using FluentValidation;
 using Xunit;
 
 namespace Eclo.UnitTest.ValidatorTests.Products;
@@ -31,22 +28,17 @@ public class ProductCreateValidatorTest
         var result = validator.Validate(productCreateDto);
         Assert.False(result.IsValid);
     }
+
     [Theory]
-    [InlineData("Jean")]
-    [InlineData("Blazer")]
-    [InlineData("Suit")]
-    [InlineData("Sweatshirt")]
-    [InlineData("Shirt")]
-    [InlineData("Sweater")]
-    [InlineData("Swimwear")]
-    [InlineData("Jacket")]
-    [InlineData("Coat")]
-    [InlineData("Pant")]
-    public void ShouldReturnValidValidation(string name)
+    [InlineData("Cap", "qwertyop")]
+    [InlineData("Jeans", "Qqwerty12#")]
+    [InlineData("Jackets", "12qwerty")]
+    public void ShouldReturnValidValidation(string name, string description)
     {
         ProductCreateDto productCreateDto = new ProductCreateDto()
         {
             Name = name,
+            Description = description
         };
         var validator = new ProductCreateValidator();
         var result = validator.Validate(productCreateDto);
