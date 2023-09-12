@@ -33,7 +33,7 @@ public class AdminUserService : IAdminUserService
         if (user.ImagePath != "avatars\\avatar.png")
         {
             var result = await _fileService.DeleteAvatarAsync(user.ImagePath);
-            //if (result == false) throw new ImageNotFoundException();
+            if (result == false) throw new ImageNotFoundException();
         }
 
         var dbResult = await _repository.DeleteAsync(userId);
