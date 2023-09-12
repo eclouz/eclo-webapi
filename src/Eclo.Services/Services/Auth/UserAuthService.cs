@@ -13,7 +13,7 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace Eclo.Services.Services.Auth;
 
-public class AuthService : IAuthService
+public class UserAuthService : IUserAuthService
 {
     private readonly IMemoryCache _memoryCache;
     private readonly IUserRepository _userRepository;
@@ -25,7 +25,7 @@ public class AuthService : IAuthService
     private const string VERIFY_REGISTER_CACHE_KEY = "verify_register_";
     private const int VERIFICATION_MAXIMUM_ATTEMPTS = 3;
 
-    public AuthService(IMemoryCache memoryCache,
+    public UserAuthService(IMemoryCache memoryCache,
         IUserRepository userRepository,
         ISmsSender smsSender,
         ITokenService tokenService)
