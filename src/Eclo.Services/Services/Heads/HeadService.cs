@@ -3,6 +3,7 @@ using Eclo.Application.Exceptions.Users;
 using Eclo.DataAccess.Interfaces.Heads;
 using Eclo.Persistence.DTOs.Heads;
 using Eclo.Persistence.Helpers;
+using Eclo.Services.Interfaces.Auth;
 using Eclo.Services.Interfaces.Common;
 using Eclo.Services.Interfaces.Heads;
 using Eclo.Services.Security;
@@ -13,12 +14,15 @@ public class HeadService : IHeadService
 {
     private readonly IHeadRepository _headRepository;
     private readonly IFileService _fileService;
+    private readonly IIdentityService _identityService;
 
     public HeadService(IHeadRepository headRepository,
-        IFileService fileService)
+        IFileService fileService,
+        IIdentityService identityService)
     {
         this._headRepository = headRepository;
         this._fileService = fileService;
+        this._identityService = identityService;
     }
 
     public async Task<bool> UpdateAsync(long headId, string phone, HeadUpdateDto dto)
@@ -31,27 +35,15 @@ public class HeadService : IHeadService
         var security = PasswordHasher.Hash(dto.Password);
         head.PasswordHash = security.Hash;
         head.Salt = security.Salt;
+
         if (dto.ImagePath is not null)
         {
-            if (head.ImagePath != "avatars\\avatar.png")
-            {
-                var deleteResult = await _fileService.DeleteAvatarAsync(head.ImagePath);
-                if (deleteResult is false) throw new ImageNotFoundException();
-            }
-
             string newImagePath = await _fileService.UploadAvatarAsync(dto.ImagePath);
-
             head.ImagePath = newImagePath;
         }
 
-        var checkPhone = await _headRepository.GetByPhoneAsync(dto.PhoneNumber);
-        if (checkPhone is null || phone == dto.PhoneNumber)
-        {
-            head.PhoneNumber = dto.PhoneNumber;
-            head.PhoneNumberConfirmed = true;
-        }
-        else throw new UserAlreadyExistsException(dto.PhoneNumber);
-
+        head.PhoneNumber = dto.PhoneNumber;
+        head.PhoneNumberConfirmed = true;
         head.PassportSerialNumber = dto.PassportSerialNumber;
         head.BirthDate = dto.BirthDate;
         head.Region = dto.Region;

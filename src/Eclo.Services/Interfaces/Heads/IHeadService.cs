@@ -4,5 +4,5 @@ namespace Eclo.Services.Interfaces.Heads;
 
 public interface IHeadService
 {
-    public Task<bool> UpdateAsync(long userId, string phone, HeadUpdateDto dto);
+    public Task<bool> UpdateAsync(long headId, string phone, HeadUpdateDto dto);
 }
