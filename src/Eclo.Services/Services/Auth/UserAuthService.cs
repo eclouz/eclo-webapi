@@ -23,6 +23,7 @@ public class UserAuthService : IUserAuthService
     private const int CACHED_MINUTES_FOR_VERIFICATION = 5;
     private const string REGISTER_CACHE_KEY = "register_";
     private const string VERIFY_REGISTER_CACHE_KEY = "verify_register_";
+    private const string VERIFY_RESET_CACHE_KEY = "verify_reset_";
     private const int VERIFICATION_MAXIMUM_ATTEMPTS = 3;
 
     public UserAuthService(IMemoryCache memoryCache,
@@ -148,5 +149,59 @@ public class UserAuthService : IUserAuthService
 
         var dbResult = await _userRepository.CreateAsync(user);
         return dbResult > 0;
+    }
+
+    public async Task<(bool Result, int CachedVerificationMinutes)> SendCodeForResetPasswordAsync(string phone)
+    {
+        var user = await _userRepository.GetByPhoneAsync(phone);
+        if (user is null) throw new UserNotFoundException();
+        VerificationDto verificationDto = new VerificationDto();
+        verificationDto.Attempt = 0;
+        verificationDto.CreatedAt = TimeHelper.GetDateTime();
+        verificationDto.Code = CodeGenerator.GenerateRandomNumber();
+
+        if (_memoryCache.TryGetValue(VERIFY_RESET_CACHE_KEY + phone, out VerificationDto oldVerifcationDto))
+        {
+            _memoryCache.Remove(VERIFY_RESET_CACHE_KEY + phone);
+        }
+
+        _memoryCache.Set(VERIFY_RESET_CACHE_KEY + phone, verificationDto,
+            TimeSpan.FromMinutes(CACHED_MINUTES_FOR_VERIFICATION));
+
+        SmsMessage smsMessage = new SmsMessage();
+        smsMessage.Title = "Eclo";
+        smsMessage.Content = "Your verification code : " + verificationDto.Code;
+        smsMessage.Recipent = phone.Substring(1);
+
+
+        var smsResult = await _smsSender.SendAsync(smsMessage);
+        if (smsResult is true) return (Result: true, CachedVerificationMinutes: CACHED_MINUTES_FOR_VERIFICATION);
+        else return (Result: false, CachedVerificationMinutes: 0);
+    }
+
+    public async Task<(bool Result, string Token)> VerifyResetPasswordAsync(string phone, int code)
+    {
+        if (_memoryCache.TryGetValue(VERIFY_RESET_CACHE_KEY + phone, out VerificationDto verificationDto))
+        {
+            if (verificationDto.Attempt >= VERIFICATION_MAXIMUM_ATTEMPTS)
+                throw new VerificationTooManyRequestsException();
+            else if (verificationDto.Code == code)
+            {
+                var user = await _userRepository.GetByPhoneAsync(phone);
+                string token = _tokenService.GenerateToken(user).ToString();
+
+                return (Result: true, Token: token);
+            }
+            else
+            {
+                _memoryCache.Remove(VERIFY_REGISTER_CACHE_KEY + phone);
+                verificationDto.Attempt++;
+                _memoryCache.Set(VERIFY_REGISTER_CACHE_KEY + phone, verificationDto,
+                    TimeSpan.FromMinutes(CACHED_MINUTES_FOR_VERIFICATION));
+
+                return (Result: false, Token: "");
+            }
+        }
+        else throw new VerificationCodeExpiredException();
     }
 }
