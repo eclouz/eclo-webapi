@@ -1,10 +1,11 @@
-﻿using Eclo.Application.Utilities;
+﻿using Eclo.Application.Exceptions.Admins;
+using Eclo.Application.Exceptions.Files;
+using Eclo.Application.Utilities;
 using Eclo.DataAccess.Interfaces.Admins;
 using Eclo.Domain.Entities.Admins;
 using Eclo.Persistence.DTOs.Admins;
 using Eclo.Persistence.Helpers;
 using Eclo.Services.Interfaces.Admins;
-using Eclo.Services.Interfaces.Auth;
 using Eclo.Services.Interfaces.Common;
 using Eclo.Services.Security;
 
@@ -15,23 +16,17 @@ public class AdminService : IAdminService
     private readonly IAdminRepository _adminRepository;
     private readonly IFileService _fileService;
     private readonly IPaginator _paginator;
-    private readonly IIdentityService _identityService;
 
     public AdminService(IAdminRepository adminRepository,
         IFileService fileService,
-        IPaginator paginator,
-        IIdentityService identityService)
+        IPaginator paginator)
     {
         this._adminRepository = adminRepository;
         this._fileService = fileService;
         this._paginator = paginator;
-        this._identityService = identityService;
     }
 
-    public Task<long> CountAsync()
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<long> CountAsync() => await _adminRepository.CountAsync();
 
     public async Task<bool> CreateAsync(AdminCreateDto dto)
     {
@@ -61,19 +56,38 @@ public class AdminService : IAdminService
         return result > 0;
     }
 
-    public Task<bool> DeleteAsync(long adminId)
+    public async Task<bool> DeleteAsync(long adminId)
     {
-        throw new NotImplementedException();
+        var admin = await _adminRepository.GetByIdAsync(adminId);
+        if (admin == null) throw new AdminNotFoundException();
+
+        if (admin.ImagePath != null)
+        {
+            var result = await _fileService.DeleteAvatarAsync(admin.ImagePath);
+            if (result == false) throw new ImageNotFoundException();
+        }
+
+        var dbResult = await _adminRepository.DeleteAsync(adminId);
+
+        return dbResult > 0;
     }
 
-    public Task<IList<Admin>> GetAllAsync(PaginationParams @params)
+    public async Task<IList<Admin>> GetAllAsync(PaginationParams @params)
     {
-        throw new NotImplementedException();
+        var admins = await _adminRepository.GetAllAsync(@params);
+        var count = await _adminRepository.CountAsync();
+        _paginator.Paginate(count, @params);
+
+        return admins;
     }
 
-    public Task<IList<Admin>> SearchAsync(string search)
+    public async Task<IList<Admin>> SearchAsync(string search, PaginationParams @params)
     {
-        throw new NotImplementedException();
+        var admins = await _adminRepository.SearchAsync(search, @params);
+        var count = await _adminRepository.CountAsync();
+        _paginator.Paginate(count, @params);
+
+        return admins.Item2.ToList();
     }
 
     public Task<bool> UpdateAsync(long adminId, AdminUpdateDto dto)

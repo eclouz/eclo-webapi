@@ -1,4 +1,5 @@
-﻿using Eclo.Persistence.DTOs.Admins;
+﻿using Eclo.Application.Utilities;
+using Eclo.Persistence.DTOs.Admins;
 using Eclo.Persistence.Validations.Admins;
 using Eclo.Services.Interfaces.Admins;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,18 @@ public class HeadAdminsController : HeadBaseController
         this._adminService = adminService;
     }
 
+    [HttpGet]
+    public async Task<IActionResult> GetAllAsync([FromQuery] int page = 1)
+        => Ok(await _adminService.GetAllAsync(new PaginationParams(page, maxPageSize)));
+
+    [HttpGet("count")]
+    public async Task<IActionResult> CountAsync()
+        => Ok(await _adminService.CountAsync());
+
+    [HttpGet("search")]
+    public async Task<IActionResult> SearchAsync(string search, [FromQuery] int page = 1)
+        => Ok(await _adminService.SearchAsync(search, new PaginationParams(page, maxPageSize)));
+
     [HttpPost]
     public async Task<IActionResult> CreateAsync([FromForm] AdminCreateDto dto)
     {
@@ -25,4 +38,8 @@ public class HeadAdminsController : HeadBaseController
         if (validatorresult.IsValid) return Ok(await _adminService.CreateAsync(dto));
         else return BadRequest(validatorresult.Errors);
     }
+
+    [HttpDelete("{adminId}")]
+    public async Task<IActionResult> DeleteAsync(long adminId)
+        => Ok(await _adminService.DeleteAsync(adminId));
 }

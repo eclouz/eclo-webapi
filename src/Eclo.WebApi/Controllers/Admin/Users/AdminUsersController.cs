@@ -21,7 +21,7 @@ public class AdminUsersController : AdminBaseController
 
     [HttpGet]
     public async Task<IActionResult> GetAllAsync([FromQuery] int page = 1)
-    => Ok(await _service.GetAllAsync(new PaginationParams(page, maxPageSize)));
+        => Ok(await _service.GetAllAsync(new PaginationParams(page, maxPageSize)));
 
     [HttpGet("{userId}")]
     public async Task<IActionResult> GetByIdAsync(long userId)

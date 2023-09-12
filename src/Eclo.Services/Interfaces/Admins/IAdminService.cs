@@ -16,5 +16,5 @@ public interface IAdminService
     
     public Task<long> CountAsync();
     
-    public Task<IList<Admin>> SearchAsync(string search);
+    public Task<IList<Admin>> SearchAsync(string search, PaginationParams @params);
 }
