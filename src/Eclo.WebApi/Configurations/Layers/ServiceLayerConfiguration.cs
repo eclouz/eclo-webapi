@@ -32,7 +32,7 @@ public static class ServiceLayerConfiguration
         //-> DI containers, IoC containers
         builder.Services.AddScoped<IFileService, FileService>();
         builder.Services.AddScoped<IPaginator, Paginator>();
-        builder.Services.AddScoped<IAuthService, AuthService>();
+        builder.Services.AddScoped<IUserAuthService, UserAuthService>();
         builder.Services.AddScoped<ITokenService, TokenService>();
         builder.Services.AddScoped<IIdentityService, IdentityService>();
         builder.Services.AddScoped<IBrandService, BrandService>();
@@ -53,6 +53,8 @@ public static class ServiceLayerConfiguration
         builder.Services.AddScoped<IPaymentService, PaymentService>();
         builder.Services.AddScoped<IHeadService, HeadService>();
         builder.Services.AddScoped<IAdminService, AdminService>();
+        builder.Services.AddScoped<IAdminAuthService, AdminAuthService>();
+        builder.Services.AddScoped<IHeadAuthService, HeadAuthService>();
         builder.Services.AddSingleton<ISmsSender, SmsSender>();
     }
 }
