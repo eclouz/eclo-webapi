@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Eclo.UnitTest.ValidatorTests.Discounts;
 
-public class DiscauntCreateValidatorTest
+public class DiscountCreateValidatorTest
 {
     [Theory]
     [InlineData("AA")]
