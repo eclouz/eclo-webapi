@@ -2,7 +2,7 @@
 
 namespace Eclo.Services.Interfaces.Auth;
 
-public interface IAuthService
+public interface IUserAuthService
 {
     public Task<(bool Result, int CachedMinutes)> RegisterAsync(RegisterDto dto);
 
