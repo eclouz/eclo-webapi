@@ -5,6 +5,7 @@ namespace Eclo.WebApi.Controllers.Head;
 
 [ApiController]
 [Authorize(Roles = "Head")]
+//[AllowAnonymous]
 public class HeadBaseController : ControllerBase
 {
 }
