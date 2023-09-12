@@ -12,5 +12,4 @@ public class LoginValidator : AbstractValidator<LoginDto>
         RuleFor(dto => dto.Password).Must(password => PasswordValidator.IsStrongPassword(password).IsValid)
             .WithMessage("Password is not strong password!");
     }
-
 }
