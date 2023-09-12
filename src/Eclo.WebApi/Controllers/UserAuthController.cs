@@ -6,12 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Eclo.WebApi.Controllers;
 
-[Route("api/auth")]
+[Route("api/user/auth")]
 [ApiController]
-public class AuthController : ControllerBase
+public class UserAuthController : ControllerBase
 {
-    private readonly IAuthService _authService;
-    public AuthController(IAuthService authService)
+    private readonly IUserAuthService _authService;
+
+    public UserAuthController(IUserAuthService authService)
     {
         this._authService = authService;
     }
@@ -52,8 +53,8 @@ public class AuthController : ControllerBase
         var validator = new LoginValidator();
         var valResult = validator.Validate(loginDto);
         if (valResult.IsValid == false) return BadRequest(valResult.Errors);
-
         var serviceResult = await _authService.LoginAsync(loginDto);
+
         return Ok(new { serviceResult.Result, serviceResult.Token });
     }
 }
