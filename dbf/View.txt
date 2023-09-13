@@ -94,3 +94,19 @@ order_view
      LEFT JOIN products ON product_discounts.product_id = products.id
      LEFT JOIN discounts ON product_discounts.discount_id = discounts.id;
 
+product_admin_view
+
+  SELECT products.id AS product_id,
+    product_details.image_path AS product_image_path,
+    products.name AS product_name,
+    ( SELECT categories.name
+           FROM sub_categories
+             LEFT JOIN categories ON categories.id = sub_categories.category_id) AS product_category_name,
+    ( SELECT count(*) AS count
+           FROM user_product_likes
+          WHERE user_product_likes.product_id = products.id) AS product_likes,
+    products.unit_price AS product_price,
+    products.updated_at AS product_last_update
+   FROM products
+     LEFT JOIN product_details ON products.id = product_details.product_id;
+

@@ -221,6 +221,15 @@ public class ProductService : IProductService
         return products;
     }
 
+    public async Task<IList<ProductAdminViewModel>> GetAllProductsView(PaginationParams @params)
+    {
+        var products = await _repository.GetAllView(@params);
+        var count = await _repository.CountProductsViewAsync();
+        _paginator.Paginate(count, @params);
+
+        return products;
+    }
+
     public async Task<IList<ProductGetViewModel>> GetAllUserIdView(long userId, PaginationParams @params)
     {
         var likes = await _userProductLikeRepository.GetAllAsync(@params);
@@ -430,7 +439,6 @@ public class ProductService : IProductService
         var subCategory = await _subCategoryRepository.GetAllAsync(@params);
         var productComment = await _productCommentRepository.GetAllAsync(@params);
         var category = await _categoryRepository.GetAllAsync(@params);
-
 
         List<ProductGetViewModel> list = new List<ProductGetViewModel>();
         for (int m = 0; m < product.Count; m++)
