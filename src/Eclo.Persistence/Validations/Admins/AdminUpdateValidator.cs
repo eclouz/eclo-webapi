@@ -35,14 +35,5 @@ public class AdminUpdateValidator : AbstractValidator<AdminUpdateDto>
             FileInfo fileInfo = new FileInfo(predicate);
             return MediaHelper.GetImageExtensions().Contains(fileInfo.Extension);
         }).WithMessage("This file type is not image file");
-
-        RuleFor(dto => dto.Region).NotNull().NotEmpty().WithMessage("Region field is required!")
-            .MinimumLength(3).WithMessage("Region must be more than 3 characters");
-
-        RuleFor(dto => dto.District).NotNull().NotEmpty().WithMessage("Region field is required!")
-            .MinimumLength(3).WithMessage("Region must be more than 3 characters");
-
-        RuleFor(dto => dto.Address).NotNull().NotEmpty().WithMessage("Region field is required!")
-            .MinimumLength(3).WithMessage("Region must be more than 3 characters");
     }
 }

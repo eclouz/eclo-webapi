@@ -20,7 +20,7 @@ public class HeadController : HeadBaseController
         this._identityService = identityService;
     }
 
-    [HttpPut("headId")]
+    [HttpPut("{headId}")]
     public async Task<IActionResult> UpdateAsync([FromForm] HeadUpdateDto dto)
     {
         var updateValidator = new HeadUpdateValidator();
