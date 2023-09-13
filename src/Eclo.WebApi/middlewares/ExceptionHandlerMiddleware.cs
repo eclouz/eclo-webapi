@@ -44,6 +44,5 @@ public class ExceptionHandlerMiddleware
                 await httpContext.Response.WriteAsync("There is unknown error!");
             }
         }
-
     }
 }

@@ -1,4 +1,5 @@
-﻿using Eclo.Persistence.Dtos.Products;
+﻿using Eclo.Application.Utilities;
+using Eclo.Persistence.Dtos.Products;
 using Eclo.Persistence.Validations.Products;
 using Eclo.Services.Interfaces.Products;
 using Microsoft.AspNetCore.Mvc;
@@ -10,11 +11,16 @@ namespace Eclo.WebApi.Controllers.Admin.Products;
 public class AdminProductsController : AdminBaseController
 {
     private readonly IProductService _service;
+    private readonly int maxPageSize = 30;
 
     public AdminProductsController(IProductService service)
     {
         this._service = service;
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAllAsync([FromQuery] int page = 1)
+        => Ok(await _service.GetAllProductsView(new PaginationParams(page, maxPageSize)));
 
     [HttpPost]
     public async Task<IActionResult> CreateAsync([FromForm] ProductCreateDto dto)

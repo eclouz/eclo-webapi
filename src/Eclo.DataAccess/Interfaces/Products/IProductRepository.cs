@@ -10,5 +10,7 @@ public interface IProductRepository : IRepository<Product, Product>,
 {
     public Task<Product?> GetById(long id);
 
-    public Task<IList<ProductGetViewModel>> GetAllView(PaginationParams @params);
+    public Task<IList<ProductAdminViewModel>> GetAllView(PaginationParams @params);
+
+    public Task<long> CountProductsViewAsync();
 }

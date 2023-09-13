@@ -28,6 +28,26 @@ public class ProductRepository : BaseRepository, IProductRepository
         }
     }
 
+    public async Task<long> CountProductsViewAsync()
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = "SELECT COUNT(*) FROM product_admin_view";
+            var result = await _connection.QuerySingleAsync<long>(query);
+
+            return result;
+        }
+        catch
+        {
+            return 0;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
     public async Task<int> CreateAsync(Product entity)
     {
         try
@@ -95,9 +115,27 @@ public class ProductRepository : BaseRepository, IProductRepository
         }
     }
 
-    public Task<IList<ProductGetViewModel>> GetAllView(PaginationParams @params)
+    public async Task<IList<ProductAdminViewModel>> GetAllView(PaginationParams @params)
     {
-        throw new NotImplementedException();
+        try
+        {
+            await _connection.OpenAsync();
+
+            string query = $"SELECT * FROM product_admin_view ORDER BY product_id DESC " +
+                $"OFFSET {@params.GetSkipCount()} LIMIT {@params.PageSize}";
+
+            var result = (await _connection.QueryAsync<ProductAdminViewModel>(query)).ToList();
+
+            return result;
+        }
+        catch
+        {
+            return new List<ProductAdminViewModel>();
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
     }
 
     public async Task<Product?> GetById(long id)
