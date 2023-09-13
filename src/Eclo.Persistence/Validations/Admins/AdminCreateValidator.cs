@@ -29,20 +29,11 @@ public class AdminCreateValidator : AbstractValidator<AdminCreateDto>
         int maxImageSizeMB = 3;
         RuleFor(dto => dto.ImagePath.Length).LessThan(maxImageSizeMB * 1024 * 1024 + 1)
             .WithMessage($"Image size must be less than {maxImageSizeMB} MB");
-
+            
         RuleFor(dto => dto.ImagePath.FileName).Must(predicate =>
         {
             FileInfo fileInfo = new FileInfo(predicate);
             return MediaHelper.GetImageExtensions().Contains(fileInfo.Extension);
         }).WithMessage("This file type is not image file");
-
-        RuleFor(dto => dto.Region).NotNull().NotEmpty().WithMessage("Region field is required!")
-            .MinimumLength(3).WithMessage("Region must be more than 3 characters");
-
-        RuleFor(dto => dto.District).NotNull().NotEmpty().WithMessage("Region field is required!")
-            .MinimumLength(3).WithMessage("Region must be more than 3 characters");
-
-        RuleFor(dto => dto.Address).NotNull().NotEmpty().WithMessage("Region field is required!")
-            .MinimumLength(3).WithMessage("Region must be more than 3 characters");
     }
 }
