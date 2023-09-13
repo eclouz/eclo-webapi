@@ -2,17 +2,17 @@
 using Eclo.Services.Interfaces.Products;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Eclo.WebApi.Controllers.Admin.Products;
+namespace Eclo.WebApi.Controllers.User.Products;
 
-[Route("api/admin/user/product/likes")]
+[Route("api/user/product/likes")]
 [ApiController]
-public class AdminUserProductLikesController : ControllerBase
+public class UserProductLikesController : UserBaseController
 {
     private readonly IUserProductLikeService _service;
 
-    public AdminUserProductLikesController(IUserProductLikeService service)
+    public UserProductLikesController(IUserProductLikeService service)
     {
-        this._service = service;
+        _service = service;
     }
 
     [HttpPost]
@@ -23,9 +23,7 @@ public class AdminUserProductLikesController : ControllerBase
 
     [HttpPut("{likeId}")]
     public async Task<IActionResult> UpdateAsync(long likeId, [FromForm] UserProductLikeUpdateDto dto)
-    {
-        return Ok(await _service.UpdateAsync(likeId, dto));
-    }
+        => Ok(await _service.UpdateAsync(likeId, dto));
 
     [HttpDelete("{likeId}")]
     public async Task<IActionResult> DeleteAsync(long likeId)
