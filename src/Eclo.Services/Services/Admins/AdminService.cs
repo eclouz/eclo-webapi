@@ -3,6 +3,7 @@ using Eclo.Application.Exceptions.Files;
 using Eclo.Application.Utilities;
 using Eclo.DataAccess.Interfaces.Admins;
 using Eclo.Domain.Entities.Admins;
+using Eclo.Domain.Entities.Heads;
 using Eclo.Persistence.DTOs.Admins;
 using Eclo.Persistence.Helpers;
 using Eclo.Services.Interfaces.Admins;
@@ -90,8 +91,36 @@ public class AdminService : IAdminService
         return admins.Item2.ToList();
     }
 
-    public Task<bool> UpdateAsync(long adminId, AdminUpdateDto dto)
+    public async Task<bool> UpdateAsync(long adminId, AdminUpdateDto dto)
     {
-        throw new NotImplementedException();
+        var admin = await _adminRepository.GetByIdAsync(adminId);
+        if (admin == null) throw new AdminNotFoundException();
+
+        admin.FirstName = dto.FirstName;
+        admin.LastName = dto.LastName;
+        var security = PasswordHasher.Hash(dto.Password);
+        admin.PasswordHash = security.Hash;
+        admin.Salt = security.Salt;
+
+        if (dto.ImagePath is not null)
+        {
+            var deleteResult = await _fileService.DeleteAvatarAsync(admin.ImagePath);
+            if (deleteResult is false) throw new ImageNotFoundException();
+
+            string newImagePath = await _fileService.UploadAvatarAsync(dto.ImagePath);
+            admin.ImagePath = newImagePath;
+        }
+        admin.PhoneNumber = dto.PhoneNumber;
+        admin.PhoneNumberConfirmed = true;
+        admin.PassportSerialNumber = dto.PassportSerialNumber;
+        admin.BirthDate = dto.BirthDate;
+        admin.Region = dto.Region;
+        admin.District = dto.District;
+        admin.Address = dto.Address;
+        admin.UpdatedAt = TimeHelper.GetDateTime();
+
+        var dbResult = await _adminRepository.UpdateAsync(adminId, admin);
+
+        return dbResult > 0;
     }
 }

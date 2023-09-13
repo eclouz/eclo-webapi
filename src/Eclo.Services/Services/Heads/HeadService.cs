@@ -38,6 +38,9 @@ public class HeadService : IHeadService
 
         if (dto.ImagePath is not null)
         {
+            var deleteResult = await _fileService.DeleteAvatarAsync(head.ImagePath);
+            if (deleteResult is false) throw new ImageNotFoundException();
+
             string newImagePath = await _fileService.UploadAvatarAsync(dto.ImagePath);
             head.ImagePath = newImagePath;
         }
