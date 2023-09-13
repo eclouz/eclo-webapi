@@ -109,4 +109,3 @@ product_admin_view
     products.updated_at AS product_last_update
    FROM products
      LEFT JOIN product_details ON products.id = product_details.product_id;
-
