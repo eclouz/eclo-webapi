@@ -23,9 +23,7 @@ public class UserProductLikesController : UserBaseController
 
     [HttpPut("{likeId}")]
     public async Task<IActionResult> UpdateAsync(long likeId, [FromForm] UserProductLikeUpdateDto dto)
-    {
-        return Ok(await _service.UpdateAsync(likeId, dto));
-    }
+        => Ok(await _service.UpdateAsync(likeId, dto));
 
     [HttpDelete("{likeId}")]
     public async Task<IActionResult> DeleteAsync(long likeId)
