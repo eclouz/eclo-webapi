@@ -2,15 +2,12 @@
 using Eclo.Application.Exceptions.Users;
 using Eclo.Application.Utilities;
 using Eclo.DataAccess.Interfaces.Users;
-using Eclo.DataAccess.Repositories.Users;
 using Eclo.DataAccess.ViewModels.Users;
-using Eclo.Domain.Entities.Users;
 using Eclo.Persistence.Dtos.Users;
 using Eclo.Persistence.Helpers;
 using Eclo.Services.Interfaces.Auth;
 using Eclo.Services.Interfaces.Common;
 using Eclo.Services.Interfaces.Users;
-using System.Numerics;
 
 namespace Eclo.Services.Services.Users;
 
@@ -30,7 +27,6 @@ public class UserService : IUserService
         this._adminUserRepository = adminUserRepository;
         this._identity = identity;
     }
-
 
     public async Task<UserViewModel> GetByIdAsync(long userId)
     {
