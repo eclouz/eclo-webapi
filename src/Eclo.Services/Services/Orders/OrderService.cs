@@ -2,6 +2,9 @@
 using Eclo.Application.Utilities;
 using Eclo.DataAccess.Interfaces.Orders;
 using Eclo.DataAccess.ViewModels.Orders;
+using Eclo.Domain.Entities.Orders;
+using Eclo.Persistence.Dtos.Orders;
+using Eclo.Persistence.Helpers;
 using Eclo.Services.Interfaces.Common;
 using Eclo.Services.Interfaces.Orders;
 
@@ -19,6 +22,26 @@ public class OrderService : IOrderService
         this._paginator = paginator;
     }
     public async Task<long> CountAsync() => await _orderRepository.CountAsync();
+
+    public async Task<bool> CreateAsync(OrderCreateDto orderCreateDto)
+    {
+        Order order = new Order()
+        {
+            UserId = orderCreateDto.UserId,
+            ProductsPrice = orderCreateDto.ProductsPrice,
+            Status = orderCreateDto.Status,
+            Description = orderCreateDto.Description,
+            IsContracted = orderCreateDto.IsContracted,
+            IsPaid = orderCreateDto.IsPaid,
+            PaymentType = orderCreateDto.PaymentType,
+            CreatedAt = TimeHelper.GetDateTime(),
+            UpdatedAt = TimeHelper.GetDateTime()
+    };
+
+        var result = await _orderRepository.CreateAsync(order);
+
+        return result > 0;
+    }
 
     public async Task<bool> DeleteAsync(long orderId)
     {
