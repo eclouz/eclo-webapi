@@ -7,5 +7,4 @@ public class Discount : Auditable
     public float Percentage { get; set; }
 
     public string Description { get; set; } = String.Empty;
-
 }

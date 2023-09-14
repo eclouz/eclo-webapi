@@ -6,11 +6,13 @@ public class OrderViewModel
 
     public string ProductName { get; set; } = String.Empty;
 
+    public double ProductPrice { get; set; }
+
     public Int16 DiscountPercentage { get; set; }
 
     public int Quantity { get; set; }
 
-    public float TotalPrice { get; set; }
+    public double TotalPrice { get; set; }
 
     public bool IsContracted { get; set; }
 
