@@ -102,8 +102,8 @@ public class OrderRepository : BaseRepository, IOrderRepository
         try
         {
             await _connection.OpenAsync();
-            string query = "SELECT * FROM orders WHERE id = @Id";
-            var result = await _connection.QuerySingleAsync<OrderViewModel>(query, new { Id = id });
+            string query = "SELECT * FROM order_view WHERE order_id = @OrderId";
+            var result = await _connection.QuerySingleAsync<OrderViewModel>(query, new { OrderId = id });
 
             return result;
         }

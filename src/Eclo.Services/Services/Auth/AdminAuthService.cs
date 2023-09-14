@@ -1,6 +1,7 @@
 ﻿using Eclo.Application.Exceptions.Admins;
 using Eclo.Application.Exceptions.Auth;
 using Eclo.DataAccess.Interfaces.Admins;
+using Eclo.DataAccess.Interfaces.Heads;
 using Eclo.Persistence.Dtos.Auth;
 using Eclo.Services.Interfaces.Auth;
 using Eclo.Services.Security;
@@ -10,23 +11,38 @@ namespace Eclo.Services.Services.Auth;
 public class AdminAuthService : IAdminAuthService
 {
     private readonly IAdminRepository _adminRepository;
+    private readonly IHeadRepository _headRepository;
     private readonly ITokenService _tokenService;
 
     public AdminAuthService(IAdminRepository adminRepository,
+        IHeadRepository headRepository,
         ITokenService tokenService)
     {
         this._adminRepository = adminRepository;
+        this._headRepository = headRepository;
         this._tokenService = tokenService;
     }
     public async Task<(bool Result, string Token)> LoginAsync(LoginDto loginDto)
     {
-        var admin = await _adminRepository.GetByPhoneNumberAsync(loginDto.PhoneNumber);
-        if (admin == null) throw new AdminNotFoundException();
+        var head = await _headRepository.GetByPhoneAsync(loginDto.PhoneNumber);
+        if (head == null)
+        {
+            var admin = await _adminRepository.GetByPhoneNumberAsync(loginDto.PhoneNumber);
+            if (admin == null) throw new AdminNotFoundException();
 
-        var hasherResult = PasswordHasher.Verify(loginDto.Password, admin.PasswordHash, admin.Salt);
-        if (hasherResult == false) throw new PasswordNotMatchException();
+            var hasherResult = PasswordHasher.Verify(loginDto.Password, admin.PasswordHash, admin.Salt);
+            if (hasherResult == false) throw new PasswordNotMatchException();
 
-        string token = await _tokenService.GenerateToken(admin);
-        return (Result: true, Token: token);
+            string token = await _tokenService.GenerateToken(admin);
+            return (Result: true, Token: token);
+        }
+        else
+        {
+            var hasherResult = PasswordHasher.Verify(loginDto.Password, head.PasswordHash, head.Salt);
+            if (hasherResult == false) throw new PasswordNotMatchException();
+
+            string token = await _tokenService.GenerateToken(head);
+            return (Result: true, Token: token);
+        }
     }
 }
