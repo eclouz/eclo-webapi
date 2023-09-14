@@ -173,7 +173,6 @@ public class UserAuthService : IUserAuthService
         smsMessage.Content = "Your verification code : " + verificationDto.Code;
         smsMessage.Recipent = phone.Substring(1);
 
-
         var smsResult = await _smsSender.SendAsync(smsMessage);
         if (smsResult is true) return (Result: true, CachedVerificationMinutes: CACHED_MINUTES_FOR_VERIFICATION);
         else return (Result: false, CachedVerificationMinutes: 0);
