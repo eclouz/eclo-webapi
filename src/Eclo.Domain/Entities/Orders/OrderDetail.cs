@@ -8,9 +8,9 @@ public class OrderDetail : Auditable
 
     public int Quantity { get; set; }
 
-    public float Price { get; set; }
+    public double Price { get; set; }
 
-    public float DiscountPrice { get; set; }
+    public double DiscountPrice { get; set; }
 
-    public float TotalPrice { get; set; }
+    public double TotalPrice { get; set; }
 }

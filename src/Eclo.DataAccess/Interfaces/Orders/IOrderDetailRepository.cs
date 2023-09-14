@@ -7,4 +7,5 @@ namespace Eclo.DataAccess.Interfaces.Orders;
 public interface IOrderDetailRepository : IRepository<OrderDetail, OrderViewModel>,
     IGetAll<OrderViewModel>, ISearchable<OrderViewModel>
 {
+    public Task<long> CountOrderViewAsync();
 }

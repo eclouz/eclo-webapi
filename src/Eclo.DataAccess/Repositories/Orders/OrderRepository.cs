@@ -80,7 +80,7 @@ public class OrderRepository : BaseRepository, IOrderRepository
         {
             await _connection.OpenAsync();
 
-            string query = $"SELECT * FROM orders ORDER BY id DESC " +
+            string query = $"SELECT * FROM order_view ORDER BY order_id DESC " +
                 $"OFFSET {@params.GetSkipCount()} LIMIT {@params.PageSize}";
 
             var result = (await _connection.QueryAsync<OrderViewModel>(query)).ToList();

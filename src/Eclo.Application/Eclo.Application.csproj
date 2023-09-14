@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="LogicServices\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Eclo.Domain\Eclo.Domain.csproj" />
   </ItemGroup>
 
