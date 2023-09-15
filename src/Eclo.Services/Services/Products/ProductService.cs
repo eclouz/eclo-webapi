@@ -147,11 +147,11 @@ public class ProductService : IProductService
         return list;
     }
 
-    public async Task<IList<ProductGetViewModel>> FiltrUserIdAsync(long userId, string category, int min, int max, List<string> subCategories, PaginationParams @params)
+    public async Task<IList<ProductGetViewModels>> FiltrUserIdAsync(long userId, string category, int min, int max, List<string> subCategories, PaginationParams @params)
     {
         var product = await GetAllUserIdView(userId, @params);
 
-        List<ProductGetViewModel> list = new List<ProductGetViewModel>();
+        List<ProductGetViewModels> list = new List<ProductGetViewModels>();
 
         if (category != "" && min == 0 && max == 0 && subCategories.Count == 0)
         {
@@ -230,7 +230,7 @@ public class ProductService : IProductService
         return products;
     }
 
-    public async Task<IList<ProductGetViewModel>> GetAllUserIdView(long userId, PaginationParams @params)
+    public async Task<IList<ProductGetViewModels>> GetAllUserIdView(long userId, PaginationParams @params)
     {
         var likes = await _userProductLikeRepository.GetAllAsync(@params);
         var product = await _repository.GetAllAsync(@params);
@@ -245,10 +245,10 @@ public class ProductService : IProductService
         var category = await _categoryRepository.GetAllAsync(@params);
 
 
-        List<ProductGetViewModel> list = new List<ProductGetViewModel>();
+        List<ProductGetViewModels> list = new List<ProductGetViewModels>();
         for (int m = 0; m < product.Count; m++)
         {
-            ProductGetViewModel productGetViewModel = new ProductGetViewModel();
+            ProductGetViewModels productGetViewModel = new ProductGetViewModels();
 
             productGetViewModel.Id = product[m].Id;
             productGetViewModel.ProductName = product[m].Name;
@@ -301,22 +301,14 @@ public class ProductService : IProductService
             {
                 if (productGetViewModel.Id == productDiscounts[j].ProductId)
                 {
-                    ProductDiscount productDiscount = new ProductDiscount();
-                    productDiscount.Id = productDiscounts[j].Id;
-                    productDiscount.Description = productDiscounts[j].Description;
-                    productDiscount.StartAt = productDiscounts[j].StartAt;
-                    productDiscount.EndAt = productDiscounts[j].EndAt;
-                    productDiscount.ProductId = productDiscounts[j].ProductId;
-                    productDiscount.DiscountId = productDiscounts[j].DiscountId;
+                    long productDiscountId = productDiscounts[j].DiscountId;
                     for (int k = 0; k < discounts.Count; k++)
                     {
-                        if (productDiscounts[j].ProductId == discounts[k].Id)
+                        if (productDiscountId == discounts[k].Id)
                         {
-                            productDiscount.ProductDescription = discounts[k].Description;
-                            productDiscount.Percentage = discounts[k].Percentage;
+                            productGetViewModel.ProductDiscount.Add(discounts[k].Percentage);
                         }
                     }
-                    productGetViewModel.ProductDiscount.Add(productDiscount);
                 }
             }
 

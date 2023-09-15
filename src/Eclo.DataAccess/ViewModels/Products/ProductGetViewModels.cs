@@ -1,12 +1,17 @@
-﻿using Eclo.Domain.Entities;
-using Eclo.Domain.Entities.Brands;
+﻿using Eclo.Domain.Entities.Brands;
 using Eclo.Domain.Entities.Categories;
 using Eclo.Domain.Entities.Discounts;
 using Eclo.Domain.Entities.Products;
+using Eclo.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Eclo.DataAccess.ViewModels.Products;
 
-public class ProductGetViewModel : Auditable
+public class ProductGetViewModels : Auditable
 {
     public string ProductName { get; set; } = String.Empty;
 
@@ -27,8 +32,8 @@ public class ProductGetViewModel : Auditable
     public List<SubCategory> SubCategory { get; set; }
         = new List<SubCategory>();
 
-    public List<ProductDiscount> ProductDiscount { get; set; }
-        = new List<ProductDiscount>();
+    public List<float> ProductDiscount { get; set; }
+        = new List<float>();
 
     public bool ProductLiked { get; set; } = false;
 
