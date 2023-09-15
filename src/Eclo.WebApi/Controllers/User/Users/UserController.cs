@@ -20,7 +20,7 @@ public class UserController : UserBaseController
         this._service = service;
     }
 
-    [HttpGet("{userId}")]
+    [HttpGet]
     public async Task<IActionResult> GetByIdAsync()
         => Ok(await _service.GetByIdAsync(_identity.Id));
 

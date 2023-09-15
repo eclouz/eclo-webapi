@@ -28,9 +28,9 @@ public class UserService : IUserService
         this._identity = identity;
     }
 
-    public async Task<UserViewModel> GetByIdAsync(long userId)
+    public async Task<UserViewModel> GetByIdAsync(long id)
     {
-        var user = await _repository.GetByIdAsync(userId);
+        var user = await _repository.GetByIdAsync(_identity.Id);
         if (user == null) throw new UserNotFoundException();
         else return user;
     }
