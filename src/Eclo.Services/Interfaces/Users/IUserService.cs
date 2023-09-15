@@ -7,7 +7,7 @@ namespace Eclo.Services.Interfaces.Users;
 
 public interface IUserService
 {
-    public Task<UserViewModel> GetByIdAsync(long userId);
+    public Task<UserViewModel> GetByIdAsync(long id);
 
     public Task<UserViewModel> GetByPhoneAsync(string phoneNumber, PaginationParams @params);
   
