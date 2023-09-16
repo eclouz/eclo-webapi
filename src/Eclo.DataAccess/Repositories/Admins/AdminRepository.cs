@@ -97,6 +97,28 @@ public class AdminRepository : BaseRepository, IAdminRepository
         }
     }
 
+    public async Task<IList<Admin>> GetAllAsync()
+    {
+        try
+        {
+            await _connection.OpenAsync();
+
+            string query = "SELECT * FROM public.admins Order By id Desc ";
+
+            var result = (await _connection.QueryAsync<Admin>(query)).ToList();
+
+            return result;
+        }
+        catch
+        {
+            return new List<Admin>();
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
     public async Task<Admin?> GetByIdAsync(long id)
     {
         try
