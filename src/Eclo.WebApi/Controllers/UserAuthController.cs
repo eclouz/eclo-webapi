@@ -72,7 +72,19 @@ public class UserAuthController : ControllerBase
     public async Task<IActionResult> VerifyResetPasswordAsync([FromBody] VerifyRegisterDto verifyRegisterDto)
     {
         var result = await _authService.VerifyResetPasswordAsync(verifyRegisterDto.PhoneNumber, verifyRegisterDto.Code);
-
         return Ok(new { result.Result, result.Token });
+    }
+
+    [HttpPut("reset/update-password")]
+    public async Task<IActionResult> UpdatePasswordAsync([FromForm] ResetPasswordDto resetPasswordDto)
+    {
+        var validator = new ResetPasswordValidator();
+        var validatorResult = validator.Validate(resetPasswordDto);
+        if (validatorResult.IsValid)
+        {
+            var result =  await _authService.UpdatePasswordAsync(resetPasswordDto);
+            return Ok(new { result.Result, result.CachedMinutes });
+        }
+        else return BadRequest(validatorResult.Errors);
     }
 }
