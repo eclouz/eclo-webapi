@@ -30,30 +30,41 @@ public class AdminService : IAdminService
 
     public async Task<bool> CreateAsync(AdminCreateDto dto)
     {
-        var admin = new Admin();
-        admin.FirstName = dto.FirstName;
-        admin.LastName = dto.LastName;
-        admin.PhoneNumber = dto.PhoneNumber;
-        admin.PhoneNumberConfirmed = true;
-        var security = PasswordHasher.Hash(dto.Password);
-        admin.PasswordHash = security.Hash;
-        admin.Salt = security.Salt;
-        
-        if (dto.ImagePath is not null)
+        var admins = await _adminRepository.GetAllAsync();
+        bool check = false;
+        for (var i = 0; i < admins.Count; i++)
         {
-            string newImagePath = await _fileService.UploadAvatarAsync(dto.ImagePath);
-            admin.ImagePath = newImagePath;
+            if (admins[i].PhoneNumber == dto.PhoneNumber) throw new AdminAlreadyExistsException();
+            else check = true;
         }
+        if (check)
+        {
+            var admin = new Admin();
+            admin.FirstName = dto.FirstName;
+            admin.LastName = dto.LastName;
+            admin.PhoneNumber = dto.PhoneNumber;
+            admin.PhoneNumberConfirmed = true;
+            var security = PasswordHasher.Hash(dto.Password);
+            admin.PasswordHash = security.Hash;
+            admin.Salt = security.Salt;
 
-        admin.PassportSerialNumber = dto.PassportSerialNumber;
-        admin.BirthDate = dto.BirthDate;
-        admin.Region = dto.Region;
-        admin.District = dto.District;
-        admin.Address = dto.Address;
-        admin.CreatedAt = admin.UpdatedAt = TimeHelper.GetDateTime();
+            if (dto.ImagePath is not null)
+            {
+                string newImagePath = await _fileService.UploadAvatarAsync(dto.ImagePath);
+                admin.ImagePath = newImagePath;
+            }
 
-        var result = await _adminRepository.CreateAsync(admin);
-        return result > 0;
+            admin.PassportSerialNumber = dto.PassportSerialNumber;
+            admin.BirthDate = dto.BirthDate;
+            admin.Region = dto.Region;
+            admin.District = dto.District;
+            admin.Address = dto.Address;
+            admin.CreatedAt = admin.UpdatedAt = TimeHelper.GetDateTime();
+
+            var result = await _adminRepository.CreateAsync(admin);
+            return result > 0;
+        }
+        else throw new AdminAlreadyExistsException();
     }
 
     public async Task<bool> DeleteAsync(long adminId)

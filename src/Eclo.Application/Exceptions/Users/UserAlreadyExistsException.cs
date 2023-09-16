@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Eclo.Application.Exceptions.Users;
+﻿namespace Eclo.Application.Exceptions.Users;
 
 public class UserAlreadyExistsException : AlreadyExistsException
 {
