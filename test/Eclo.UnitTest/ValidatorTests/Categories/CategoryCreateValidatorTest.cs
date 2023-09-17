@@ -11,11 +11,11 @@ public class CategoryCreateValidatorTest
     [InlineData("001", " ")]
     [InlineData("05", "")]
     [InlineData("50", "WW")]
-    [InlineData("QE45dsfaAd45","#A")]
-    [InlineData("A","We")]
-    [InlineData("A514-A","tt")]
+    [InlineData("QE45dsfaAd45", "#A")]
+    [InlineData("A", "We")]
+    [InlineData("A514-A", "tt")]
     [InlineData("/_fcdAA", "%w")]
-    [InlineData("AA_=","#2")]
+    [InlineData("AA_=", "#2")]
     [InlineData("electronic products, we sell an electronic products to our clients, we sell an electronic products to our clients", "22")]
     public void ShouldReturnInValidValidation(string name, string description)
     {

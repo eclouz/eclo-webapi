@@ -1,7 +1,6 @@
 ﻿using Eclo.DataAccess.Common;
 using Eclo.DataAccess.ViewModels.Users;
 using Eclo.Domain.Entities.Users;
-using static Dapper.SqlMapper;
 
 namespace Eclo.DataAccess.Interfaces.Users;
 

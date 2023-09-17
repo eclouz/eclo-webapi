@@ -82,7 +82,7 @@ public class UserAuthController : ControllerBase
         var validatorResult = validator.Validate(resetPasswordDto);
         if (validatorResult.IsValid)
         {
-            var result =  await _authService.UpdatePasswordAsync(resetPasswordDto);
+            var result = await _authService.UpdatePasswordAsync(resetPasswordDto);
             return Ok(new { result.Result, result.CachedMinutes });
         }
         else return BadRequest(validatorResult.Errors);

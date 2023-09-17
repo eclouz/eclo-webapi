@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using Eclo.Application.Utilities;
 using Eclo.DataAccess.Interfaces.Payments;
-using Eclo.DataAccess.ViewModels.Orders;
 using Eclo.Domain.Entities.Payments;
 
 namespace Eclo.DataAccess.Repositories.Payments;

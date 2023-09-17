@@ -36,7 +36,7 @@ public class OrderService : IOrderService
             PaymentType = orderCreateDto.PaymentType,
             CreatedAt = TimeHelper.GetDateTime(),
             UpdatedAt = TimeHelper.GetDateTime()
-    };
+        };
 
         var result = await _orderRepository.CreateAsync(order);
 

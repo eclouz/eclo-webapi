@@ -27,7 +27,7 @@ public interface IProductService
     public Task<IList<ProductGetViewModels>> GetAllUserIdView(long userId, PaginationParams @params);
 
     public Task<ProductGetViewModel> GetByIdViewAsync(long productId, PaginationParams @params);
-    public Task<ProductGetViewModel> GetByIdUserViewAsync(long userId,long productId, PaginationParams @params);
+    public Task<ProductGetViewModel> GetByIdUserViewAsync(long userId, long productId, PaginationParams @params);
 
     public Task<IList<ProductGetViewModel>> FiltrAsync(string category, int min, int max, List<string> subCategories, PaginationParams @params);
     public Task<IList<ProductGetViewModels>> FiltrUserIdAsync(long userId, string category, int min, int max, List<string> subCategories, PaginationParams @params);

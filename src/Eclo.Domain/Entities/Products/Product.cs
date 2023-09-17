@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Eclo.Domain.Entities.Products;
+﻿namespace Eclo.Domain.Entities.Products;
 
 public class Product : Auditable
 {

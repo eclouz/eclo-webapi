@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Eclo.Domain.Entities.Users;
+﻿namespace Eclo.Domain.Entities.Users;
 
 public class User : Human
 {

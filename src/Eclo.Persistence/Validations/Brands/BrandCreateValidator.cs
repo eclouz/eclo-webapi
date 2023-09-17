@@ -11,14 +11,13 @@ public class BrandCreateValidator : AbstractValidator<BrandCreateDto>
             .MinimumLength(3).WithMessage("Brand name must be more than 3 characters!")
             .MaximumLength(50).WithMessage("Brand name must be less than 50 characters!");
 
-        int maxImageSizeMB = 5;
+        int maxImageSizeMB = 3;
         RuleFor(dto => dto.BrandIconPath).NotEmpty().NotNull().WithMessage("Image field is required");
-        RuleFor(dto => dto.BrandIconPath.Length).LessThan(maxImageSizeMB * 1024 * 1024).WithMessage($"Image size must be less than {maxImageSizeMB} MB");
+        RuleFor(dto => dto.BrandIconPath.Length).LessThan(maxImageSizeMB * 1024 * 1024 + 1).WithMessage($"Image size must be less than {maxImageSizeMB} MB");
         RuleFor(dto => dto.BrandIconPath.FileName).Must(predicate =>
         {
             FileInfo fileInfo = new FileInfo(predicate);
             return MediaHelper.GetImageExtensions().Contains(fileInfo.Extension);
         }).WithMessage("This file type is not image file");
     }
-
 }

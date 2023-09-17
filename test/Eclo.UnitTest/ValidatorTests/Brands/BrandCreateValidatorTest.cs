@@ -45,7 +45,7 @@ public class BrandCreateValidatorTest
         IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, imageSizeInBytes, "data", "file.png");
         BrandCreateDto brandCreateDto = new BrandCreateDto()
         {
-            Name = "electronic products",
+            Name = "Electronic products",
             BrandIconPath = imageFile
         };
         var validator = new BrandCreateValidator();
@@ -65,7 +65,7 @@ public class BrandCreateValidatorTest
         IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, byteImage.Length, "data", imagename);
         BrandCreateDto brandCreateDto = new BrandCreateDto()
         {
-            Name = "electronic products",
+            Name = "Electronic products",
             BrandIconPath = imageFile
         };
         var validator = new BrandCreateValidator();
@@ -97,7 +97,7 @@ public class BrandCreateValidatorTest
         IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, byteImage.Length, "data", imagename);
         BrandCreateDto brandCreateDto = new BrandCreateDto()
         {
-            Name = "electronic products",
+            Name = "Electronic products",
             BrandIconPath = imageFile
         };
         var validator = new BrandCreateValidator();
@@ -105,14 +105,25 @@ public class BrandCreateValidatorTest
         Assert.False(result.IsValid);
     }
 
-    [Fact]
-    public void ShouldReturnValidValidation()
+    [Theory]
+    [InlineData("Adidas")]
+    [InlineData("Eagle")]
+    [InlineData("Puma")]
+    [InlineData("Nike")]
+    [InlineData("Air Jordan")]
+    [InlineData("Gucci")]
+    [InlineData("H&M")]
+    [InlineData("Versace")]
+    [InlineData("Tommy Hilfiger")]
+    [InlineData("Calvin Klein")]
+    [InlineData("Forever 21")]
+    public void ShouldReturnValidValidation(string name)
     {
         byte[] byteImage = Encoding.UTF8.GetBytes("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s");
         IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, byteImage.Length, "data", "file.jpg");
         BrandCreateDto brandCreateDto = new BrandCreateDto()
         {
-            Name = "electronic products",
+            Name = name,
             BrandIconPath = imageFile
         };
         var validator = new BrandCreateValidator();
@@ -122,6 +133,8 @@ public class BrandCreateValidatorTest
 
     [Theory]
     [InlineData("AA")]
+    [InlineData("")]
+    [InlineData(" ")]
     [InlineData("A")]
     [InlineData("electronic products, we sell an electronic products to our clients, we sell an electronic products to our clients")]
     public void ShouldReturnInValidValidation(string name)

@@ -1,7 +1,6 @@
 ﻿using Eclo.Application.Exceptions.Products;
 using Eclo.Application.Utilities;
 using Eclo.DataAccess.Interfaces.Products;
-using Eclo.DataAccess.ViewModels.Products;
 using Eclo.Domain.Entities.Products;
 using Eclo.Persistence.Dtos.Products;
 using Eclo.Persistence.Helpers;

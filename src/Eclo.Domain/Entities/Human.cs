@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Eclo.Domain.Entities;
+﻿namespace Eclo.Domain.Entities;
 
 public class Human : Auditable
 {

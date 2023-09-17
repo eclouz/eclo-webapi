@@ -1,5 +1,5 @@
-using Eclo.WebApi.Configurations.Layers;
 using Eclo.WebApi.Configurations;
+using Eclo.WebApi.Configurations.Layers;
 using Eclo.WebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);

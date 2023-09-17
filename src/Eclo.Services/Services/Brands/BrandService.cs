@@ -30,7 +30,7 @@ public class BrandService : IBrandService
     public async Task<bool> CreatAsync(BrandCreateDto dto)
     {
         string iconpath = await _fileService.UploadIconAsync(dto.BrandIconPath);
-        
+
         Brand brand = new Brand()
         {
             BrandIconPath = iconpath,
@@ -40,7 +40,7 @@ public class BrandService : IBrandService
         };
 
         var result = await _repository.CreateAsync(brand);
-        
+
         return result > 0;
     }
 
@@ -53,7 +53,7 @@ public class BrandService : IBrandService
         if (result == false) throw new ImageNotFoundException();
 
         var dbResult = await _repository.DeleteAsync(brandId);
-        
+
         return dbResult > 0;
     }
 
