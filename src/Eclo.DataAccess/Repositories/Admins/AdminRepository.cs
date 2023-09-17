@@ -32,7 +32,7 @@ public class AdminRepository : BaseRepository, IAdminRepository
         try
         {
             await _connection.OpenAsync();
-            
+
             string query = "INSERT INTO public.admins(first_name, last_name, phone_number, phone_number_confirmed, " +
                  "password_hash, salt, image_path, passport_serial_number, " +
                      "birth_date, region, district, address, created_at, updated_at) " +
@@ -209,4 +209,3 @@ public class AdminRepository : BaseRepository, IAdminRepository
         }
     }
 }
- 

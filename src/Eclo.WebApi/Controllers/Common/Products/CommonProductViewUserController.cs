@@ -1,6 +1,5 @@
 ﻿using Eclo.Application.Utilities;
 using Eclo.Services.Interfaces.Products;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Eclo.WebApi.Controllers.Common.Products;

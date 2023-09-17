@@ -10,12 +10,12 @@ namespace Eclo.UnitTest.ValidatorTests.Admins;
 public class AdminCreateValidatorTest
 {
     [Theory]
-    [InlineData("Abdulaziz","Orazbaev","KA0561687", "+998933644016", "#CSharp2023")]
-    [InlineData("Gulnur","Boranbaeva","CK0561687", "+998903644016", "#CSharp2023")]
-    [InlineData("Sherzod","Yuldashev","AD0561687", "+998883644016", "#CSharp2023")]
-    [InlineData("Adriano","Guliermo","AD0561687", "+998713644016", "#CSharp2023")]
-    [InlineData("Beknazar","Rasulov","KK0561687", "+998913644016", "#CSharp2023")]
-    [InlineData("Aza","Kim","AA0561687", "+998943644016", "#CSharp2023")]
+    [InlineData("Abdulaziz", "Orazbaev", "KA0561687", "+998933644016", "#CSharp2023")]
+    [InlineData("Gulnur", "Boranbaeva", "CK0561687", "+998903644016", "#CSharp2023")]
+    [InlineData("Sherzod", "Yuldashev", "AD0561687", "+998883644016", "#CSharp2023")]
+    [InlineData("Adriano", "Guliermo", "AD0561687", "+998713644016", "#CSharp2023")]
+    [InlineData("Beknazar", "Rasulov", "KK0561687", "+998913644016", "#CSharp2023")]
+    [InlineData("Aza", "Kim", "AA0561687", "+998943644016", "#CSharp2023")]
     public void ShouldReturnValidValidationResult(string firstname, string lastname, string passportSerialNumber, string phone, string password)
     {
         byte[] byteImage = Encoding.UTF8.GetBytes("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s");
@@ -39,7 +39,7 @@ public class AdminCreateValidatorTest
     [InlineData("", "orazbaev", "aa0561687", "+998335103545545", "@@#@$%$^")]
     [InlineData("A", "Orazbaev989", " KA0561687", "+998335107545", "1111111")]
     [InlineData("#", "123124234", "KA05616", "+998338103545", "AAAAAAAAA")]
-    [InlineData("13234242", "#", "KA0561687978", "+998335103544","     ")]
+    [InlineData("13234242", "#", "KA0561687978", "+998335103544", "     ")]
     [InlineData("", "", " 0561687", "-998335108545", "AA")]
     [InlineData(" ", " ", "", "+9978335106545", "AAAA11")]
     [InlineData("abdulazizbekxantemirjuniorasfsf", "asfsdhgthtrhwrthrhrhrhrhwr", "000987896237", "+998335103543", "hhaa@@11")]

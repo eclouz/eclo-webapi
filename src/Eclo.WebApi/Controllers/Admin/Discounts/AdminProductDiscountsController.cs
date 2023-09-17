@@ -24,7 +24,7 @@ public class AdminProductDiscountsController : ControllerBase
         if (result.IsValid) return Ok(await _service.CreateAsync(dto));
         else return BadRequest(result.Errors);
     }
-    
+
     [HttpPut("{dicountId}")]
     public async Task<IActionResult> UpdateAsync(long dicountId, [FromForm] ProductDiscountUpdateDto dto)
     {

@@ -41,7 +41,7 @@ public class UserService : IUserService
         UserViewModel userViewModel = new UserViewModel();
         for (int i = 0; i < users.Count; i++)
         {
-            if(phoneNumber == users[i].PhoneNumber)
+            if (phoneNumber == users[i].PhoneNumber)
             {
                 userViewModel.Id = users[i].Id;
                 userViewModel.FirstName = users[i].FirstName;
@@ -73,7 +73,7 @@ public class UserService : IUserService
         if (dto.ImagePath is not null)
         {
             // delete old avatar
-            if (user.ImagePath != "avatars\\avatar.png") 
+            if (user.ImagePath != "avatars\\avatar.png")
             {
                 var deleteResult = await _fileService.DeleteAvatarAsync(user.ImagePath);
                 if (deleteResult is false) throw new ImageNotFoundException();
@@ -86,9 +86,9 @@ public class UserService : IUserService
             user.ImagePath = newImagePath;
         }
         // else user old avatar is have to save
-        
+
         var checkPhone = await _repository.GetByPhoneAsync(dto.PhoneNumber);
-        if(checkPhone is null || phone == dto.PhoneNumber)
+        if (checkPhone is null || phone == dto.PhoneNumber)
         {
             user.PhoneNumber = dto.PhoneNumber;
         }
@@ -101,7 +101,7 @@ public class UserService : IUserService
         user.Address = dto.Address;
         user.UpdatedAt = TimeHelper.GetDateTime();
 
-        var dbResult = await _repository.UpdateAsync(userId , user);
+        var dbResult = await _repository.UpdateAsync(userId, user);
 
         return dbResult > 0;
     }
@@ -120,8 +120,8 @@ public class UserService : IUserService
             // delete old avatar
             //if (user.ImagePath != "avatars\\avatar.png")
             //{
-                var deleteResult = await _fileService.DeleteAvatarAsync(user.ImagePath);
-                //if (deleteResult is false) throw new ImageNotFoundException();
+            var deleteResult = await _fileService.DeleteAvatarAsync(user.ImagePath);
+            //if (deleteResult is false) throw new ImageNotFoundException();
             //}
 
             // upload new avatar

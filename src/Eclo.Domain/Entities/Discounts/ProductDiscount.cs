@@ -6,11 +6,11 @@ public class ProductDiscount : Discount
 
     public long DiscountId { get; set; }
 
-    public string Description { get; set; } = String.Empty;
+    //public string Description { get; set; } = String.Empty;
 
     public DateTime StartAt { get; set; }
 
     public DateTime EndAt { get; set; }
-    
+
     public string ProductDescription { get; set; } = String.Empty;
 }

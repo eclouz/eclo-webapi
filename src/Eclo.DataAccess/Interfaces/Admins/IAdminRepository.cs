@@ -1,7 +1,5 @@
-﻿using Eclo.Application.Utilities;
-using Eclo.DataAccess.Common;
+﻿using Eclo.DataAccess.Common;
 using Eclo.Domain.Entities.Admins;
-using static Dapper.SqlMapper;
 
 namespace Eclo.DataAccess.Interfaces.Admins;
 

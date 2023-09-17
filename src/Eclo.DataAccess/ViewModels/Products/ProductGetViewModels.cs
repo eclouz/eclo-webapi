@@ -1,13 +1,7 @@
-﻿using Eclo.Domain.Entities.Brands;
+﻿using Eclo.Domain.Entities;
+using Eclo.Domain.Entities.Brands;
 using Eclo.Domain.Entities.Categories;
-using Eclo.Domain.Entities.Discounts;
 using Eclo.Domain.Entities.Products;
-using Eclo.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Eclo.DataAccess.ViewModels.Products;
 

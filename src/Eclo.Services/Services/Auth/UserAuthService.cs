@@ -236,7 +236,7 @@ public class UserAuthService : IUserAuthService
     public async Task<(bool Result, int CachedMinutes)> UpdatePasswordAsync(ResetPasswordDto dto)
     {
         var user = await _userRepository.GetByPhoneAsync(dto.PhoneNumber);
-        if ( user is null ) throw new UserNotFoundException();
+        if (user is null) throw new UserNotFoundException();
 
         if (_memoryCache.TryGetValue(REGISTER_CACHE_KEY + dto.PhoneNumber, out ResetPasswordDto cachedResetPasswordDto))
         {

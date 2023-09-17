@@ -35,7 +35,7 @@ public class ProductService : IProductService
     public ProductService(IProductRepository productRepository,
         IPaginator paginator, IBrandRepository brandRepository,
         IProductDetailRepository productDetailRepository,
-        IDiscountRepository discountRepository, 
+        IDiscountRepository discountRepository,
         IProductDiscountRepository productDiscountRepository,
         IProductDetailFashionRepository productDetailFashionRepository,
         IProductDetailSizeRepository productDetailSizeRepository,
@@ -68,7 +68,7 @@ public class ProductService : IProductService
         product.CreatedAt = product.UpdatedAt = TimeHelper.GetDateTime();
 
         var result = await _repository.CreateAsync(product);
-        
+
         return result > 0;
     }
 
@@ -88,7 +88,7 @@ public class ProductService : IProductService
 
         List<ProductGetViewModel> list = new List<ProductGetViewModel>();
 
-        if (category != "" && min==0 && max==0 && subCategories.Count==0)
+        if (category != "" && min == 0 && max == 0 && subCategories.Count == 0)
         {
             for (int i = 0; i < product.Count; i++)
             {
@@ -99,11 +99,11 @@ public class ProductService : IProductService
             }
         }
 
-        else if (category != "" && min <= max && min>0 && subCategories.Count == 0)
+        else if (category != "" && min <= max && min > 0 && subCategories.Count == 0)
         {
             for (int i = 0; i < product.Count; i++)
             {
-                if (category == product[i].SubCategory[0].CategoryName && 
+                if (category == product[i].SubCategory[0].CategoryName &&
                     product[i].ProductPrice >= min && product[i].ProductPrice <= max)
                 {
                     list.Add(product[i]);
@@ -117,7 +117,7 @@ public class ProductService : IProductService
             {
                 for (int i = 0; i < product.Count; i++)
                 {
-                    if (category == product[i].SubCategory[0].CategoryName && 
+                    if (category == product[i].SubCategory[0].CategoryName &&
                         subCategories[j] == product[i].SubCategory[0].Name)
                     {
                         list.Add(product[i]);
@@ -582,7 +582,7 @@ public class ProductService : IProductService
                     long productDiscountId = productDiscounts[j].DiscountId;
                     for (int k = 0; k < discounts.Count; k++)
                     {
-                        if(productDiscountId == discounts[k].Id)
+                        if (productDiscountId == discounts[k].Id)
                         {
                             productViewModel.ProductDiscount.Add(discounts[k].Percentage);
                         }
@@ -601,7 +601,7 @@ public class ProductService : IProductService
     {
         var product = await _repository.GetByIdAsync(productId);
         if (product == null) throw new ProductNotFoundException();
-        else return product; 
+        else return product;
     }
 
     public async Task<ProductGetViewModel> GetByIdUserViewAsync(long userId, long productId, PaginationParams @params)
@@ -753,7 +753,7 @@ public class ProductService : IProductService
         productGetViewModel.ProductDescription = product.Description;
         productGetViewModel.CreatedAt = product.CreatedAt;
         productGetViewModel.UpdatedAt = product.UpdatedAt;
-        
+
         for (int j = 0; j < brand.Count; j++)
         {
             if (productGetViewModel.BrandId == brand[j].Id)
@@ -761,7 +761,7 @@ public class ProductService : IProductService
                 productGetViewModel.Brand.Add(brand[j]);
             }
         }
-        
+
         for (int j = 0; j < productDetail.Count; j++)
         {
             if (productGetViewModel.Id == productDetail[j].ProductId)
@@ -792,7 +792,7 @@ public class ProductService : IProductService
             }
         }
 
-        
+
         for (int j = 0; j < productDiscounts.Count; j++)
         {
             if (productGetViewModel.Id == productDiscounts[j].ProductId)
@@ -826,14 +826,14 @@ public class ProductService : IProductService
                 subCategory1.CategoryId = subCategory[j].CategoryId;
                 subCategory1.CreatedAt = subCategory[j].CreatedAt;
                 subCategory1.UpdatedAt = subCategory[j].UpdatedAt;
-                
+
                 for (int k = 0; k < category.Count; k++)
                 {
                     if (subCategory1.CategoryId == category[k].Id)
                     {
                         subCategory1.CategoryName = category[k].Name;
                     }
-                }      
+                }
                 productGetViewModel.SubCategory.Add(subCategory1);
             }
         }
@@ -855,7 +855,7 @@ public class ProductService : IProductService
         var count = await _repository.CountAsync();
         _paginator.Paginate(count, @params);
 
-        return products.Item2.ToList(); 
+        return products.Item2.ToList();
     }
 
     public async Task<bool> UpdateAsync(long productId, ProductUpdateDto dto)

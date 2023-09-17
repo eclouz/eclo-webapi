@@ -8,7 +8,7 @@ public class UserCreateValidator : AbstractValidator<UserCreateDto>
     public UserCreateValidator()
     {
         RuleFor(dto => dto.Address).NotEmpty().NotNull().WithMessage("Address is required!");
-            
+
         RuleFor(dto => dto.District).NotEmpty().NotNull().WithMessage("District is required!")
             .MinimumLength(3).WithMessage("District must be more than 3 characters!")
             .MaximumLength(50).WithMessage("District must be less than 50 characters!");

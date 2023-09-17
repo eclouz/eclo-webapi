@@ -38,8 +38,8 @@ public class OrderDetailService : IOrderDetailService
             ProductDiscountId = orderDetailCreateDto.ProductDiscountId,
             Quantity = orderDetailCreateDto.Quantity,
             Price = orderDetailCreateDto.Price,
-            DiscountPrice = GetTotalPrice.DiscountPrice(discounts!.Percentage,orderDetailCreateDto.Price),
-            TotalPrice = GetTotalPrice.TotalPrice(discounts!.Percentage, orderDetailCreateDto.Price,orderDetailCreateDto.Quantity),
+            DiscountPrice = GetTotalPrice.DiscountPrice(discounts!.Percentage, orderDetailCreateDto.Price),
+            TotalPrice = GetTotalPrice.TotalPrice(discounts!.Percentage, orderDetailCreateDto.Price, orderDetailCreateDto.Quantity),
             CreatedAt = TimeHelper.GetDateTime(),
             UpdatedAt = TimeHelper.GetDateTime()
         };

@@ -1,5 +1,4 @@
 ﻿using Eclo.Persistence.Dtos.Auth;
-using Eclo.Persistence.Validations;
 using Eclo.Persistence.Validations.Auth;
 using Xunit;
 

@@ -24,7 +24,7 @@ public class UserRepository : BaseRepository, IUserRepository
         }
         finally
         {
-            await _connection.CloseAsync(); 
+            await _connection.CloseAsync();
         }
     }
 
@@ -33,7 +33,7 @@ public class UserRepository : BaseRepository, IUserRepository
         try
         {
             await _connection.OpenAsync();
-            
+
             string query = "INSERT INTO public.users(first_name, last_name, phone_number, phone_number_confirmed, " +
                 "password_hash, salt, image_path, passport_serial_number, " +
                     "birth_date, region, district, address, created_at, updated_at) " +
@@ -61,7 +61,7 @@ public class UserRepository : BaseRepository, IUserRepository
         {
             await _connection.OpenAsync();
             string query = "DELETE FROM public.users WHERE id=@Id;";
-            var result=await _connection.ExecuteAsync(query, new { Id=id });
+            var result = await _connection.ExecuteAsync(query, new { Id = id });
 
             return result;
         }
@@ -83,9 +83,9 @@ public class UserRepository : BaseRepository, IUserRepository
 
             string query = "SELECT * FROM public.user_view Order By id Desc " +
                 $"Offset {@params.GetSkipCount()} Limit {@params.PageSize}";
-            
+
             var result = (await _connection.QueryAsync<UserViewModel>(query)).ToList();
-            
+
             return result;
         }
         catch
@@ -125,7 +125,7 @@ public class UserRepository : BaseRepository, IUserRepository
             await _connection.OpenAsync();
             string query = "Select * From user_view where id=@Id";
             var result = await _connection.QuerySingleAsync<UserViewModel>(query, new { Id = id });
-           
+
             return result;
         }
         catch
@@ -162,13 +162,13 @@ public class UserRepository : BaseRepository, IUserRepository
         try
         {
             await _connection.OpenAsync();
-         
+
             string query = $"Select * From user_view Where first_name ILIKE @search Order By first_name " +
                 $"Offset {@params.GetSkipCount()} Limit {@params.PageSize}";
-            
+
             var result = (await _connection.QueryAsync<UserViewModel>(query, new { search = "%" + search + "%" })).ToList();
             long count = result.LongCount();
-            
+
             return (count, result);
         }
         catch
@@ -192,9 +192,9 @@ public class UserRepository : BaseRepository, IUserRepository
                     "password_hash=@PasswordHash, salt=@Salt, image_path=@ImagePath, passport_serial_number=@PassportSerialNumber, " +
                         "birth_date=@BirthDate, region=@Region, district=@District, address=@Address, created_at=@CreatedAt, updated_at=@UpdatedAt " +
                 $"WHERE id={id};";
-            
+
             var result = await _connection.ExecuteAsync(query, entity);
-            
+
             return result;
         }
         catch

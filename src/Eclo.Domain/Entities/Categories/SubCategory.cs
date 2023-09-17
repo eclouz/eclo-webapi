@@ -1,6 +1,4 @@
-﻿using Eclo.Domain.Entities.Brands;
-
-namespace Eclo.Domain.Entities.Categories;
+﻿namespace Eclo.Domain.Entities.Categories;
 
 public class SubCategory : Auditable
 {

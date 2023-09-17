@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Eclo.Domain.Entities.Categories;
+﻿namespace Eclo.Domain.Entities.Categories;
 
 public class Category : Auditable
 {

@@ -1,5 +1,4 @@
 ﻿using Eclo.Application.Utilities;
-using Eclo.DataAccess.ViewModels.Products;
 using Eclo.Domain.Entities.Products;
 using Eclo.Persistence.Dtos.Products;
 

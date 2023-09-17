@@ -21,7 +21,7 @@ public class AdminBrandsController : AdminBaseController
     {
         var validator = new BrandCreateValidator();
         var result = validator.Validate(dto);
-        if(result.IsValid) return Ok(await _service.CreatAsync(dto));
+        if (result.IsValid) return Ok(await _service.CreatAsync(dto));
         else return BadRequest(result.Errors);
     }
 
@@ -30,7 +30,7 @@ public class AdminBrandsController : AdminBaseController
     {
         var updateValidator = new BrandUpdateValidator();
         var validationResult = updateValidator.Validate(dto);
-        if(validationResult.IsValid) return Ok(await _service.UpdateAsync(brandId, dto));
+        if (validationResult.IsValid) return Ok(await _service.UpdateAsync(brandId, dto));
         else return BadRequest(validationResult.Errors);
     }
 

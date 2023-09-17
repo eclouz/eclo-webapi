@@ -33,7 +33,7 @@ public class CategoryService : ICategoryService
         category.CreatedAt = category.UpdatedAt = TimeHelper.GetDateTime();
 
         var result = await _repository.CreateAsync(category);
-        
+
         return result > 0;
     }
 
@@ -43,7 +43,7 @@ public class CategoryService : ICategoryService
         if (category == null) throw new CategoryNotFoundException();
 
         var dbResult = await _repository.DeleteAsync(categoryId);
-        
+
         return dbResult > 0;
     }
 

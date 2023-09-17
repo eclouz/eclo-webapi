@@ -98,7 +98,7 @@ public class OrderDetailRepository : BaseRepository, IOrderDetailRepository
         try
         {
             await _connection.OpenAsync();
-            
+
             string query = $"SELECT * FROM order_view ORDER BY order_id DESC " +
                 $"OFFSET {@params.GetSkipCount()} LIMIT {@params.PageSize}";
 

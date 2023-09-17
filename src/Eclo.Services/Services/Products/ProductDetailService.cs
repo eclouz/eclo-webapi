@@ -83,7 +83,7 @@ public class ProductDetailService : IProductDetailService
         var productDetails = await _repository.GetAllAsync(@params);
         var productDetailFashions = await _productDetailFashionRepository.GetAllAsync(@params);
         var productDetailSizes = await _productDetailSizeRepository.GetAllAsync(@params);
-        
+
         ProductDetail productDetail = new ProductDetail();
         for (int i = 0; i < productDetails.Count; i++)
         {

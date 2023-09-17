@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Eclo.Domain.Entities.Brands;
+﻿namespace Eclo.Domain.Entities.Brands;
 
 public class Brand : Auditable
 {
