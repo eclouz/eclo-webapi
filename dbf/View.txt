@@ -96,16 +96,48 @@ order_view
 
 product_admin_view
 
-  SELECT products.id AS product_id,
+   SELECT products.id AS product_id,
+    product_details.id AS product_detail_id,
     product_details.image_path AS product_image_path,
     products.name AS product_name,
     ( SELECT categories.name
            FROM sub_categories
-             LEFT JOIN categories ON categories.id = sub_categories.category_id) AS product_category_name,
+             LEFT JOIN categories ON categories.id = sub_categories.category_id
+         LIMIT 1) AS product_category_name,
     ( SELECT count(*) AS count
            FROM user_product_likes
-          WHERE user_product_likes.product_id = products.id) AS product_likes,
+          WHERE user_product_likes.product_id = products.id
+         LIMIT 1) AS product_likes,
     products.unit_price AS product_price,
     products.updated_at AS product_last_update
    FROM products
-     LEFT JOIN product_details ON products.id = product_details.product_id;
+     JOIN product_details ON products.id = product_details.product_id;
+
+product_result_view
+
+ SELECT DISTINCT ON (product_admin_view.product_id) product_admin_view.product_id,
+    product_admin_view.product_detail_id,
+    product_admin_view.product_image_path,
+    product_admin_view.product_name,
+    product_admin_view.product_category_name,
+    product_admin_view.product_likes,
+    product_admin_view.product_price,
+    product_admin_view.product_last_update
+   FROM product_admin_view;
+
+product_detail_view
+
+ SELECT product_details.id,
+    products.id AS product_id,
+    product_details.image_path,
+    product_details.color
+   FROM product_details
+     LEFT JOIN products ON products.id = product_details.product_id;
+
+product_admin_detail_fashion_view
+
+ SELECT product_detail_fashions.id,
+    product_details.id AS product_detail_id,
+    product_detail_fashions.image_path
+   FROM product_detail_fashions
+     LEFT JOIN product_details ON product_details.id = product_detail_fashions.product_detail_id;
