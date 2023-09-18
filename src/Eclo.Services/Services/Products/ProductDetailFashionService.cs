@@ -2,6 +2,7 @@
 using Eclo.Application.Exceptions.Products;
 using Eclo.Application.Utilities;
 using Eclo.DataAccess.Interfaces.Products;
+using Eclo.DataAccess.ViewModels.Products;
 using Eclo.Domain.Entities.Products;
 using Eclo.Persistence.Dtos.Products;
 using Eclo.Persistence.Helpers;
@@ -63,6 +64,12 @@ public class ProductDetailFashionService : IProductDetailFashionService
         var count = await _repository.CountAsync();
         _paginator.Paginate(count, @params);
 
+        return productDetailFashions;
+    }
+
+    public async Task<IList<ProductAdminDetailFashionViewModel>> GetAllFashionsAsync(long productDetailId)
+    {
+        var productDetailFashions = await _repository.GetAllFashionsAsync(productDetailId);
         return productDetailFashions;
     }
 
