@@ -57,6 +57,12 @@ public class ProductDetailSizeService : IProductDetailSizeService
         return productDetailSize;
     }
 
+    public async Task<IList<ProductDetailSize>> GetAllByProductDetailIdAsync(long productDetailId)
+    {
+        var productDetailSizes = await _repository.GetAllByProductDetailIdAsync(productDetailId);
+        return productDetailSizes;
+    }
+
     public async Task<ProductDetailSize> GetByIdAsync(long productDetailSizeId)
     {
         var productDetailSize = await _repository.GetByIdAsync(productDetailSizeId);

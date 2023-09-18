@@ -14,6 +14,8 @@ public interface IProductDetailSizeService
 
     public Task<IList<ProductDetailSize>> GetAllAsync(PaginationParams @params);
 
+    public Task<IList<ProductDetailSize>> GetAllByProductDetailIdAsync(long productDetailId);
+
     public Task<ProductDetailSize> GetByIdAsync(long productDetailSizeId);
 
     public Task<bool> UpdateAsync(long productDetailSizeId, ProductDetailSizeUpdateDto dto);
