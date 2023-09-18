@@ -24,7 +24,7 @@ public class UserController : UserBaseController
     public async Task<IActionResult> GetByIdAsync()
         => Ok(await _service.GetByIdAsync(_identity.Id));
 
-    [HttpPut("{userId}")]
+    [HttpPut("userId")]
     public async Task<IActionResult> UpdateAsync([FromForm] UserUpdateDto dto)
     {
         var updateValidator = new UserUpdateValidator();

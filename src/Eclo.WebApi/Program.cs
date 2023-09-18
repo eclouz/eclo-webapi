@@ -1,5 +1,6 @@
 using Eclo.WebApi.Configurations;
 using Eclo.WebApi.Configurations.Layers;
+using Eclo.WebApi.middlewares;
 using Eclo.WebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +28,7 @@ app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 app.UseStaticFiles();
 app.UseMiddleware<ExceptionHandlerMiddleware>();
+app.UseMiddleware<CrossOriginAccessMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

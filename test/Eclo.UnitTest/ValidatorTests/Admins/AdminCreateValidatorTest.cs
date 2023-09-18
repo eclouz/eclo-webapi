@@ -10,32 +10,6 @@ namespace Eclo.UnitTest.ValidatorTests.Admins;
 public class AdminCreateValidatorTest
 {
     [Theory]
-    [InlineData("Abdulaziz", "Orazbaev", "KA0561687", "+998933644016", "#CSharp2023")]
-    [InlineData("Gulnur", "Boranbaeva", "CK0561687", "+998903644016", "#CSharp2023")]
-    [InlineData("Sherzod", "Yuldashev", "AD0561687", "+998883644016", "#CSharp2023")]
-    [InlineData("Adriano", "Guliermo", "AD0561687", "+998713644016", "#CSharp2023")]
-    [InlineData("Beknazar", "Rasulov", "KK0561687", "+998913644016", "#CSharp2023")]
-    [InlineData("Aza", "Kim", "AA0561687", "+998943644016", "#CSharp2023")]
-    public void ShouldReturnValidValidationResult(string firstname, string lastname, string passportSerialNumber, string phone, string password)
-    {
-        byte[] byteImage = Encoding.UTF8.GetBytes("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s");
-        IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, byteImage.Length, "data", "file.jpg");
-        var adminCreateDto = new AdminCreateDto()
-        {
-            FirstName = firstname,
-            LastName = lastname,
-            PassportSerialNumber = passportSerialNumber,
-            PhoneNumber = phone,
-            Password = password,
-            ImagePath = imageFile
-        };
-
-        var admin = new AdminCreateValidator();
-        var result = admin.Validate(adminCreateDto);
-        Assert.True(result.IsValid);
-    }
-
-    [Theory]
     [InlineData("", "orazbaev", "aa0561687", "+998335103545545", "@@#@$%$^")]
     [InlineData("A", "Orazbaev989", " KA0561687", "+998335107545", "1111111")]
     [InlineData("#", "123124234", "KA05616", "+998338103545", "AAAAAAAAA")]
@@ -63,6 +37,34 @@ public class AdminCreateValidatorTest
         var result = admin.Validate(adminCreateDto);
         Assert.False(result.IsValid);
     }
+
+    [Theory]
+    [InlineData("Abdulaziz", "Orazbaev", "KA0561687", "+998933644016", "#CSharp2023")]
+    [InlineData("Gulnur", "Boranbaeva", "CK0561687", "+998903644016", "#CSharp2023")]
+    [InlineData("Sherzod", "Yuldashev", "AD0561687", "+998883644016", "#CSharp2023")]
+    [InlineData("Adriano", "Guliermo", "AD0561687", "+998713644016", "#CSharp2023")]
+    [InlineData("Beknazar", "Rasulov", "KK0561687", "+998913644016", "#CSharp2023")]
+    [InlineData("Aza", "Kim", "AA0561687", "+998943644016", "#CSharp2023")]
+    public void ShouldReturnValidValidationResult(string firstname, string lastname, string passportSerialNumber, string phone, string password)
+    {
+        byte[] byteImage = Encoding.UTF8.GetBytes("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s");
+        IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, byteImage.Length, "data", "file.jpg");
+        var adminCreateDto = new AdminCreateDto()
+        {
+            FirstName = firstname,
+            LastName = lastname,
+            PassportSerialNumber = passportSerialNumber,
+            PhoneNumber = phone,
+            Password = password,
+            ImagePath = imageFile
+        };
+
+        var admin = new AdminCreateValidator();
+        var result = admin.Validate(adminCreateDto);
+        Assert.True(result.IsValid);
+    }
+
+   
 
     [Theory]
     [InlineData(6)]
