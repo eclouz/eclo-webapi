@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Eclo.Application.Utilities;
 using Eclo.DataAccess.Interfaces.Products;
+using Eclo.DataAccess.ViewModels.Products;
 using Eclo.Domain.Entities.Products;
 
 namespace Eclo.DataAccess.Repositories.Products
@@ -93,6 +94,28 @@ namespace Eclo.DataAccess.Repositories.Products
             }
         }
 
+        public async Task<IList<ProductDetailViewModel>> GetAllProductDetailsAsync(long productId)
+        {
+            try
+            {
+                await _connection.OpenAsync();
+
+                string query = $"SELECT * FROM product_detail_view where product_id=@ProductId";
+
+                var result = (await _connection.QueryAsync<ProductDetailViewModel>(query, new { ProductId = productId })).ToList();
+
+                return result;
+            }
+            catch
+            {
+                return new List<ProductDetailViewModel>();
+            }
+            finally
+            {
+                await _connection.CloseAsync();
+            }
+        }
+
         public async Task<ProductDetail?> GetById(long id)
         {
             try
@@ -120,6 +143,26 @@ namespace Eclo.DataAccess.Repositories.Products
                 await _connection.OpenAsync();
                 string query = $"SELECT * FROM product_details where id=@Id";
                 var result = await _connection.QuerySingleAsync<ProductDetail>(query, new { Id = id });
+
+                return result;
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                await _connection.CloseAsync();
+            }
+        }
+
+        public async Task<ProductDetailViewModel?> GetByProductIdAsync(long id)
+        {
+            try
+            {
+                await _connection.OpenAsync();
+                string query = $"SELECT * FROM product_detail_view where product_id=@Id";
+                var result = await _connection.QuerySingleAsync<ProductDetailViewModel>(query, new { ProductId = id });
 
                 return result;
             }
