@@ -16,6 +16,10 @@ public class AdminProductDetailsController : AdminBaseController
         this._service = service;
     }
 
+    [HttpGet("{productId}")]
+    public async Task<IActionResult> GetAllAsync(long productId)
+        => Ok(await _service.GetAllProductDetailsAsync(productId));
+
     [HttpPost]
     public async Task<IActionResult> CreateAsync([FromForm] ProductDetailCreateDto dto)
     {

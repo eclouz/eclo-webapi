@@ -1,4 +1,5 @@
 ﻿using Eclo.Application.Utilities;
+using Eclo.DataAccess.ViewModels.Products;
 using Eclo.Domain.Entities.Products;
 using Eclo.Persistence.Dtos.Products;
 
@@ -13,6 +14,8 @@ public interface IProductDetailService
     public Task<long> CountAsync();
 
     public Task<IList<ProductDetail>> GetAllAsync(PaginationParams @params);
+
+    public Task<IList<ProductDetailViewModel>> GetAllProductDetailsAsync(long productId);
 
     public Task<ProductDetail> GetByIdViewAsync(long productDetailId, PaginationParams @params);
 
