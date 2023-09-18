@@ -1,6 +1,6 @@
 ﻿namespace Eclo.DataAccess.ViewModels.Products;
 
-public class ProductAdminViewModel
+public class ProductResultViewModel
 {
 
     public long ProductId { get; set; }
