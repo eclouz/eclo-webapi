@@ -94,6 +94,28 @@ public class ProductDetailSizeRepository : BaseRepository, IProductDetailSizeRep
         }
     }
 
+    public async Task<IList<ProductDetailSize>> GetAllByProductDetailIdAsync(long productDetailId)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+
+            string query = $"SELECT * FROM product_detail_sizes where product_detail_id = @ProductDetailId";
+
+            var result = (await _connection.QueryAsync<ProductDetailSize>(query, new { ProductDetailId = productDetailId})).ToList();
+
+            return result;
+        }
+        catch
+        {
+            return new List<ProductDetailSize>();
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
     public async Task<ProductDetailSize?> GetByIdAsync(long id)
     {
         try

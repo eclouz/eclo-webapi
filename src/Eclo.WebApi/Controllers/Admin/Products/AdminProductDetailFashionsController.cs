@@ -17,7 +17,7 @@ public class AdminProductDetailFashionsController : AdminBaseController
     }
 
     [HttpGet("{productDetailId}")]
-    public async Task<IActionResult> GetAllHasionsAsync(long productDetailId)
+    public async Task<IActionResult> GetAllFashionsAsync(long productDetailId)
         => Ok(await _service.GetAllFashionsAsync(productDetailId));
         
     [HttpPost]

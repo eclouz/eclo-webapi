@@ -16,6 +16,10 @@ public class AdminProductDetailSizesController : ControllerBase
         this._service = service;
     }
 
+    [HttpGet("{productDetailId}")]
+    public async Task<IActionResult> GetAllSizesASync(long productDetailId)
+        => Ok(await _service.GetAllByProductDetailIdAsync(productDetailId));
+
     [HttpPost]
     public async Task<IActionResult> CreateAsync([FromForm] ProductDetailSizeCreateDto dto)
     {
