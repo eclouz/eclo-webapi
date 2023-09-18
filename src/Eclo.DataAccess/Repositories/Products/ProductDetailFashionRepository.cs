@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Eclo.Application.Utilities;
 using Eclo.DataAccess.Interfaces.Products;
+using Eclo.DataAccess.ViewModels.Products;
 using Eclo.Domain.Entities.Products;
 
 namespace Eclo.DataAccess.Repositories.Products;
@@ -86,6 +87,28 @@ public class ProductDetailFashionRepository : BaseRepository, IProductDetailFash
         catch
         {
             return new List<ProductDetailFashion>();
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
+    public async Task<IList<ProductAdminDetailFashionViewModel>> GetAllFashionsAsync(long productDetailId)
+    {
+        try
+        {
+            await _connection.OpenAsync();
+
+            string query = $"SELECT * FROM product_admin_detail_fashion_view where product_detail_id = @ProductDetailId";
+
+            var result = (await _connection.QueryAsync<ProductAdminDetailFashionViewModel>(query, new { ProductDetailId = productDetailId })).ToList();
+
+            return result;
+        }
+        catch
+        {
+            return new List<ProductAdminDetailFashionViewModel>();
         }
         finally
         {

@@ -221,7 +221,7 @@ public class ProductService : IProductService
         return products;
     }
 
-    public async Task<IList<ProductAdminViewModel>> GetAllProductsView(PaginationParams @params)
+    public async Task<IList<ProductResultViewModel>> GetAllProductsView(PaginationParams @params)
     {
         var products = await _repository.GetAllView(@params);
         var count = await _repository.CountProductsViewAsync();

@@ -1,4 +1,5 @@
 ﻿using Eclo.Application.Utilities;
+using Eclo.DataAccess.ViewModels.Products;
 using Eclo.Domain.Entities.Products;
 using Eclo.Persistence.Dtos.Products;
 
@@ -13,6 +14,8 @@ public interface IProductDetailFashionService
     public Task<long> CountAsync();
 
     public Task<IList<ProductDetailFashion>> GetAllAsync(PaginationParams @params);
+
+    public Task<IList<ProductAdminDetailFashionViewModel>> GetAllFashionsAsync(long productDetailId);
 
     public Task<ProductDetailFashion> GetByIdAsync(long productDetailFashionId);
 
