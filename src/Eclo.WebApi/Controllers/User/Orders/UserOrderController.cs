@@ -11,6 +11,7 @@ public class UserOrderController : UserBaseController
 {
     private readonly IOrderService _orderService;
     private readonly int maxPageSize = 30;
+
     public UserOrderController(IOrderService orderService)
     {
         this._orderService = orderService;
@@ -26,7 +27,7 @@ public class UserOrderController : UserBaseController
 
     [HttpGet("count")]
     public async Task<IActionResult> CountAsync()
-        => Ok(await _orderService.CountAsync());
+        => Ok(await _orderService.CountOrderViewAsync());
 
     [HttpPost]
     public async Task<IActionResult> CreateAsync([FromForm] OrderCreateDto orderCreateDto)

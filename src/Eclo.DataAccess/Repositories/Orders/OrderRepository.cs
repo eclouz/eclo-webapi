@@ -28,6 +28,26 @@ public class OrderRepository : BaseRepository, IOrderRepository
         }
     }
 
+    public async Task<long> CountOrderViewAsync()
+    {
+        try
+        {
+            await _connection.OpenAsync();
+            string query = "SELECT COUNT(*) FROM order_view";
+            var result = await _connection.QuerySingleAsync<long>(query);
+
+            return result;
+        }
+        catch
+        {
+            return 0;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
+
     public async Task<int> CreateAsync(Order entity)
     {
         try
