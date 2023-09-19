@@ -10,7 +10,7 @@ public class SubCategoryCreateValidator : AbstractValidator<SubCategoryCreateDto
         RuleFor(dto => dto.CategoryId)
             .NotEmpty().NotNull().WithMessage("CategoryId is required!")
             .GreaterThan(0).WithMessage("CategoryId must be greater than zero.")
-            .GreaterThanOrEqualTo(10000).WithMessage("CategoryId cannot exceed 10000.");
+            .LessThanOrEqualTo(10000).WithMessage("CategoryId cannot exceed 10000.");
 
         RuleFor(dto => dto.Name)
             .NotEmpty().NotNull().WithMessage("Name field is required!")

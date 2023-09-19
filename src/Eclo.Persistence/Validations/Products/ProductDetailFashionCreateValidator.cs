@@ -10,7 +10,7 @@ public class ProductDetailFashionCreateValidator : AbstractValidator<ProductDeta
     {
         RuleFor(dto => dto.ProductDetailId)
             .GreaterThan(0).WithMessage("ProductDetailId must be greater than zero.")
-            .GreaterThanOrEqualTo(10000).WithMessage("ProductDetailId cannot exceed 10000.");
+            .LessThanOrEqualTo(10000).WithMessage("ProductDetailId cannot exceed 10000.");
 
         int maxImageSizeMB = 3;
         RuleFor(dto => dto.ImagePath).NotEmpty().NotNull().WithMessage("Image field is required");
