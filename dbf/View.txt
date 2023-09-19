@@ -96,9 +96,7 @@ order_view
 
 product_admin_view
 
-   SELECT products.id AS product_id,
-    product_details.id AS product_detail_id,
-    product_details.image_path AS product_image_path,
+    SELECT products.id AS product_id,
     products.name AS product_name,
     ( SELECT categories.name
            FROM sub_categories
@@ -110,8 +108,7 @@ product_admin_view
          LIMIT 1) AS product_likes,
     products.unit_price AS product_price,
     products.updated_at AS product_last_update
-   FROM products
-     JOIN product_details ON products.id = product_details.product_id;
+   FROM products;
 
 product_result_view
 

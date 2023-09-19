@@ -33,7 +33,7 @@ public class ProductRepository : BaseRepository, IProductRepository
         try
         {
             await _connection.OpenAsync();
-            string query = "SELECT COUNT(*) FROM product_result_view";
+            string query = "SELECT COUNT(*) FROM product_admin_view";
             var result = await _connection.QuerySingleAsync<long>(query);
 
             return result;
@@ -115,22 +115,22 @@ public class ProductRepository : BaseRepository, IProductRepository
         }
     }
 
-    public async Task<IList<ProductResultViewModel>> GetAllView(PaginationParams @params)
+    public async Task<IList<ProductAdminViewModel>> GetAllView(PaginationParams @params)
     {
         try
         {
             await _connection.OpenAsync();
 
-            string query = $"SELECT * FROM product_result_view ORDER BY product_id DESC " +
+            string query = $"SELECT * FROM product_admin_view ORDER BY product_id DESC " +
                 $"OFFSET {@params.GetSkipCount()} LIMIT {@params.PageSize}";
 
-            var result = (await _connection.QueryAsync<ProductResultViewModel>(query)).ToList();
+            var result = (await _connection.QueryAsync<ProductAdminViewModel>(query)).ToList();
 
             return result;
         }
         catch
         {
-            return new List<ProductResultViewModel>();
+            return new List<ProductAdminViewModel>();
         }
         finally
         {
