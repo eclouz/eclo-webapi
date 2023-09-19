@@ -10,7 +10,7 @@ public class ProductDetailUpdateValidator : AbstractValidator<ProductDetailUpdat
     {
         RuleFor(dto => dto.ProductId)
             .GreaterThan(0).WithMessage("ProductId must be greater than zero.")
-            .GreaterThanOrEqualTo(10000).WithMessage("ProductId cannot exceed 10000.");
+            .LessThanOrEqualTo(10000).WithMessage("ProductId cannot exceed 10000.");
 
         RuleFor(dto => dto.Color)
             .NotEmpty().NotNull().WithMessage("Color is required!")

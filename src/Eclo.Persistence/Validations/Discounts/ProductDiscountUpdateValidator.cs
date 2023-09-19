@@ -9,11 +9,11 @@ public class ProductDiscountUpdateValidator : AbstractValidator<ProductDiscountU
     {
         RuleFor(dto => dto.ProductId)
             .GreaterThan(0).WithMessage("ProductId must be greater than zero.")
-            .GreaterThanOrEqualTo(10000).WithMessage("ProductId cannot exceed 10000.");
+            .LessThanOrEqualTo(10000).WithMessage("ProductId cannot exceed 10000.");
 
         RuleFor(dto => dto.DiscountId)
             .GreaterThan(0).WithMessage("DiscountId must be greater than zero.")
-            .GreaterThanOrEqualTo(10000).WithMessage("DiscountId cannot exceed 10000.");
+            .LessThanOrEqualTo(10000).WithMessage("DiscountId cannot exceed 10000.");
 
         RuleFor(dto => dto.Description)
             .MinimumLength(3).WithMessage("Description field is required!");

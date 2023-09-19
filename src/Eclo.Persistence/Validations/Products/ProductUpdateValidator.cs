@@ -9,11 +9,11 @@ public class ProductUpdateValidator : AbstractValidator<ProductUpdateDto>
     {
         RuleFor(dto => dto.BrandId)
             .GreaterThan(0).WithMessage("BrandId must be greater than zero.")
-            .GreaterThanOrEqualTo(10000).WithMessage("BrandId cannot exceed 10000.");
+            .LessThanOrEqualTo(10000).WithMessage("BrandId cannot exceed 10000.");
 
         RuleFor(dto => dto.SubCategoryId)
             .GreaterThan(0).WithMessage("SubCategoryId must be greater than zero.")
-            .GreaterThanOrEqualTo(10000).WithMessage("SubCategoryId cannot exceed 10000.");
+            .LessThanOrEqualTo(10000).WithMessage("SubCategoryId cannot exceed 10000.");
 
         RuleFor(dto => dto.Name)
             .Length(3, 50).WithMessage("Name must be between 3 and 50 characters.")

@@ -10,12 +10,12 @@ public class ProductCreateValidator : AbstractValidator<ProductCreateDto>
         RuleFor(dto => dto.BrandId)
             .NotEmpty().NotNull().WithMessage("BrandId is required!")
             .GreaterThan(0).WithMessage("BrandId must be greater than zero.")
-            .GreaterThanOrEqualTo(10000).WithMessage("BrandId cannot exceed 10000.");
+            .LessThanOrEqualTo(10000).WithMessage("BrandId cannot exceed 10000.");
 
         RuleFor(dto => dto.SubCategoryId)
             .NotEmpty().NotNull().WithMessage("SubCategoryId is required!")
             .GreaterThan(0).WithMessage("SubCategoryId must be greater than zero.")
-            .GreaterThanOrEqualTo(10000).WithMessage("SubCategoryId cannot exceed 10000.");
+            .LessThanOrEqualTo(10000).WithMessage("SubCategoryId cannot exceed 10000.");
 
         RuleFor(dto => dto.Name)
             .NotNull().NotEmpty().WithMessage("Name field is required!")

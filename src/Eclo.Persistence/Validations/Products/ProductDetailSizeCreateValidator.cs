@@ -10,7 +10,7 @@ public class ProductDetailSizeCreateValidator : AbstractValidator<ProductDetailS
         RuleFor(dto => dto.ProductDetailId)
             .NotEmpty().NotNull().WithMessage("ProductDetailId is required!")
             .GreaterThan(0).WithMessage("ProductDetailId must be greater than zero.")
-            .GreaterThanOrEqualTo(10000).WithMessage("ProductDetailId cannot exceed 10000.");
+            .LessThanOrEqualTo(10000).WithMessage("ProductDetailId cannot exceed 10000.");
 
         RuleFor(dto => dto.Size)
             .Must(size => SizeValidator.IsValid(size)).WithMessage("Size is invalid! ex: XL, XXL,")

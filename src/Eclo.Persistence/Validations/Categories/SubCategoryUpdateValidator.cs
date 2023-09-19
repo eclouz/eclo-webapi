@@ -9,7 +9,7 @@ public class SubCategoryUpdateValidator : AbstractValidator<SubCategoryUpdateDto
     {
         RuleFor(dto => dto.CategoryId)
             .GreaterThan(0).WithMessage("CategoryId must be greater than zero.")
-            .GreaterThanOrEqualTo(10000).WithMessage("CategoryId cannot exceed 10000.");
+            .LessThanOrEqualTo(10000).WithMessage("CategoryId cannot exceed 10000.");
 
         RuleFor(dto => dto.Name)
             .Length(3, 50).WithMessage("Name must be between 3 and 50 characters.")
