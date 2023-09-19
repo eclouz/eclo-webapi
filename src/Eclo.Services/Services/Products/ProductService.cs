@@ -153,7 +153,31 @@ public class ProductService : IProductService
 
         List<ProductGetViewModels> list = new List<ProductGetViewModels>();
 
-        if (category != "" && min == 0 && max == 0 && subCategories.Count == 0)
+        if (category == "All" && min <= max && min > 0 && subCategories.Count == 0)
+        {
+            for (int i = 0; i < product.Count; i++)
+            {
+                if (product[i].ProductPrice >= min && product[i].ProductPrice <= max)
+                {
+                    list.Add(product[i]);
+                }
+            }
+        }
+        else if (category == "All" && min <= max && min > 0 && subCategories.Count > 0)
+        {
+            for (int j = 0; j < subCategories.Count; j++)
+            {
+                for (int i = 0; i < product.Count; i++)
+                {
+                    if (subCategories[j] == product[i].SubCategory[0].Name &&
+                        product[i].ProductPrice >= min && product[i].ProductPrice <= max)
+                    {
+                        list.Add(product[i]);
+                    }
+                }
+            }
+        }
+        else if (category != "" && min == 0 && max == 0 && subCategories.Count == 0)
         {
             for (int i = 0; i < product.Count; i++)
             {
@@ -206,7 +230,6 @@ public class ProductService : IProductService
                 }
             }
         }
-
         //var count = list.Count;
         //_paginator.Paginate(count, @params);
         return list;
