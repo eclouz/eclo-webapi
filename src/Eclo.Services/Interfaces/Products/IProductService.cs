@@ -23,7 +23,7 @@ public interface IProductService
     public Task<IList<ProductViewModel>> GetAllUserIdViewAsync(long userId, PaginationParams @params);
 
     public Task<IList<ProductGetViewModel>> GetAllView(PaginationParams @params);
-    public Task<IList<ProductResultViewModel>> GetAllProductsView(PaginationParams @params);
+    public Task<IList<ProductAdminViewModel>> GetAllProductsView(PaginationParams @params);
     public Task<IList<ProductGetViewModels>> GetAllUserIdView(long userId, PaginationParams @params);
 
     public Task<ProductGetViewModel> GetByIdViewAsync(long productId, PaginationParams @params);
