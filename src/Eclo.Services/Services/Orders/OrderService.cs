@@ -23,6 +23,8 @@ public class OrderService : IOrderService
     }
     public async Task<long> CountAsync() => await _orderRepository.CountAsync();
 
+    public async Task<long> CountOrderViewAsync() => await _orderRepository.CountOrderViewAsync();
+
     public async Task<bool> CreateAsync(OrderCreateDto orderCreateDto)
     {
         Order order = new Order()
@@ -56,7 +58,7 @@ public class OrderService : IOrderService
     public async Task<IList<OrderViewModel>> GetAllAsync(PaginationParams @params)
     {
         var orders = await _orderRepository.GetAllAsync(@params);
-        var count = await _orderRepository.CountAsync();
+        var count = await _orderRepository.CountOrderViewAsync();
         _paginator.Paginate(count, @params);
 
         return orders;

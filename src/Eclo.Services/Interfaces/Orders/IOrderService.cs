@@ -12,6 +12,8 @@ public interface IOrderService
 
     public Task<long> CountAsync();
 
+    public Task<long> CountOrderViewAsync();
+
     public Task<IList<OrderViewModel>> GetAllAsync(PaginationParams @params);
 
     public Task<OrderViewModel> GetByIdAsync(long orderId);
