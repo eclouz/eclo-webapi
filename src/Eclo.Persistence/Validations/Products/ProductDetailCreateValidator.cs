@@ -8,9 +8,14 @@ public class ProductDetailCreateValidator : AbstractValidator<ProductDetailCreat
 {
     public ProductDetailCreateValidator()
     {
-        RuleFor(dto => dto.Color).NotEmpty().NotNull().WithMessage("Color is required!")
-            .MinimumLength(3).WithMessage("Color must be more than 3 characters!")
-            .MaximumLength(50).WithMessage("Color must be less than 50 characters!");
+        RuleFor(dto => dto.ProductId)
+            .GreaterThan(0).WithMessage("ProductId must be greater than zero.")
+            .GreaterThanOrEqualTo(10000).WithMessage("ProductId cannot exceed 10000.");
+
+        RuleFor(dto => dto.Color)
+            .NotEmpty().NotNull().WithMessage("Color is required!")
+            .Length(3,50).WithMessage("Color must be between 3 and 50 characters.")
+            .Matches("^[A-Za-z]+$").WithMessage("Color can only contain letters");
 
         int maxImageSizeMB = 3;
         RuleFor(dto => dto.ImagePath).NotEmpty().NotNull().WithMessage("Image field is required");
