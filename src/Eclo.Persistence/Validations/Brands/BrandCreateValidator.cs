@@ -7,9 +7,11 @@ public class BrandCreateValidator : AbstractValidator<BrandCreateDto>
 {
     public BrandCreateValidator()
     {
-        RuleFor(dto => dto.Name).NotEmpty().NotNull().WithMessage("Brand name is required!")
-            .MinimumLength(3).WithMessage("Brand name must be more than 3 characters!")
-            .MaximumLength(50).WithMessage("Brand name must be less than 50 characters!");
+        RuleFor(dto => dto.Name)
+            .NotEmpty().NotNull().WithMessage("Name is required!")
+            .Length(3, 50).WithMessage("Name must be between 3 and 50 characters.")
+            .Matches("^[A-Za-z0-9]+$").WithMessage("Name can only contain letters")
+            .Matches(@"[""!@$%^&*(){}:;<>,.?/+\-_=|'[\]~\\]").WithMessage("Name must contain one or more special characters.");
 
         int maxImageSizeMB = 3;
         RuleFor(dto => dto.BrandIconPath).NotEmpty().NotNull().WithMessage("Image field is required");

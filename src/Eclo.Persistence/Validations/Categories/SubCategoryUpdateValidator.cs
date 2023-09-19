@@ -7,8 +7,12 @@ public class SubCategoryUpdateValidator : AbstractValidator<SubCategoryUpdateDto
 {
     public SubCategoryUpdateValidator()
     {
-        RuleFor(dto => dto.Name).NotEmpty().NotNull().WithMessage("SubCategory name is required!")
-                .MinimumLength(3).WithMessage("SubCategory name must be more than 3 characters!")
-                .MaximumLength(50).WithMessage("SubCategory name must be less than 50 characters!");
+        RuleFor(dto => dto.CategoryId)
+            .GreaterThan(0).WithMessage("CategoryId must be greater than zero.")
+            .GreaterThanOrEqualTo(10000).WithMessage("CategoryId cannot exceed 10000.");
+
+        RuleFor(dto => dto.Name)
+            .Length(3, 50).WithMessage("Name must be between 3 and 50 characters.")
+            .Matches("^[A-Za-z0-9]+$").WithMessage("Name can only contain letters");
     }
 }

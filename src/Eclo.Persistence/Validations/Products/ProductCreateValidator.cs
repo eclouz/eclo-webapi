@@ -7,12 +7,27 @@ public class ProductCreateValidator : AbstractValidator<ProductCreateDto>
 {
     public ProductCreateValidator()
     {
-        RuleFor(dto => dto.Name).NotNull().NotEmpty().WithMessage("Product name field is required!")
-            .MinimumLength(3).WithMessage("Product name must be more than 3 characters")
-            .MaximumLength(50).WithMessage("Product name must be less than 50 characters");
+        RuleFor(dto => dto.BrandId)
+            .NotEmpty().NotNull().WithMessage("BrandId is required!")
+            .GreaterThan(0).WithMessage("BrandId must be greater than zero.")
+            .GreaterThanOrEqualTo(10000).WithMessage("BrandId cannot exceed 10000.");
 
-        RuleFor(dto => dto.Description).NotNull().NotEmpty().WithMessage("Description field is required!")
+        RuleFor(dto => dto.SubCategoryId)
+            .NotEmpty().NotNull().WithMessage("SubCategoryId is required!")
+            .GreaterThan(0).WithMessage("SubCategoryId must be greater than zero.")
+            .GreaterThanOrEqualTo(10000).WithMessage("SubCategoryId cannot exceed 10000.");
+
+        RuleFor(dto => dto.Name)
+            .NotNull().NotEmpty().WithMessage("Name field is required!")
+            .Length(3, 50).WithMessage("Name must be between 3 and 50 characters.")
+            .Matches("^[A-Za-z0-9]+$").WithMessage("Name can only contain letters");
+
+        RuleFor(dto => dto.UnitPrice)
+            .NotNull().NotEmpty().WithMessage("UnitPrice field is required!")
+            .GreaterThanOrEqualTo(0.0).WithMessage("Percentage must be greater than or equal to zero.");
+
+        RuleFor(dto => dto.Description)
+            .NotNull().NotEmpty().WithMessage("Description field is required!")
             .MinimumLength(3).WithMessage("Description field is required!");
-
     }
 }
