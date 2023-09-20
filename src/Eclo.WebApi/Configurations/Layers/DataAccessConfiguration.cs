@@ -42,5 +42,6 @@ public static class DataAccessConfiguration
         builder.Services.AddScoped<IHeadRepository, HeadRepository>();
         builder.Services.AddScoped<IAdminRepository, AdminRepository>();
         builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+        builder.Services.AddScoped<ICardRepository, CardRepository>();
     }
 }
