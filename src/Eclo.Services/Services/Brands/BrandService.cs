@@ -78,7 +78,6 @@ public class BrandService : IBrandService
         var brand = await _repository.GetByIdAsync(brandId);
         if (brand is null) throw new BrandNotFoundException();
 
-        // update brand with new items
         brand.Name = dto.Name;
 
         if (dto.BrandIconPath is not null)

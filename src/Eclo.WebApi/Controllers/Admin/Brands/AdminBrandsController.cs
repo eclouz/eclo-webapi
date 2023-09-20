@@ -35,6 +35,5 @@ public class AdminBrandsController : AdminBaseController
     }
 
     [HttpDelete("{brandId}")]
-    public async Task<IActionResult> DeleteAsync(long brandId)
-        => Ok(await _service.DeleteAsync(brandId));
+    public async Task<IActionResult> DeleteAsync(long brandId) => Ok(await _service.DeleteAsync(brandId));
 }

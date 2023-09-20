@@ -9,13 +9,15 @@ public class ProductDetailCreateValidator : AbstractValidator<ProductDetailCreat
     public ProductDetailCreateValidator()
     {
         RuleFor(dto => dto.ProductId)
+            .NotEmpty().NotNull().WithMessage("ProductId is required!")
             .GreaterThan(0).WithMessage("ProductId must be greater than zero.")
-            .LessThan(10000).WithMessage("ProductId cannot exceed 10000.");
+            .LessThanOrEqualTo(10000).WithMessage("ProductId cannot exceed 10000.");
 
         RuleFor(dto => dto.Color)
             .NotEmpty().NotNull().WithMessage("Color is required!")
             .Length(3,50).WithMessage("Color must be between 3 and 50 characters.")
-            .Matches("^[A-Za-z]+$").WithMessage("Color can only contain letters");
+            .Matches("^[A-Za-z]+$").WithMessage("Color can only contain letters")
+            .Must(ShouldStartWithUpper).WithMessage("Color must start with Uppercase letter.");
 
         int maxImageSizeMB = 3;
         RuleFor(dto => dto.ImagePath).NotEmpty().NotNull().WithMessage("Image field is required");
@@ -25,5 +27,11 @@ public class ProductDetailCreateValidator : AbstractValidator<ProductDetailCreat
             FileInfo fileInfo = new FileInfo(predicate);
             return MediaHelper.GetImageExtensions().Contains(fileInfo.Extension);
         }).WithMessage("This file type is not image file");
+    }
+
+    private bool ShouldStartWithUpper(string name)
+    {
+        if (string.IsNullOrEmpty(name)) return false;
+        return char.IsUpper(name[0]);
     }
 }

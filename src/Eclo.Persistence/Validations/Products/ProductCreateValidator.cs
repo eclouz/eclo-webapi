@@ -20,11 +20,11 @@ public class ProductCreateValidator : AbstractValidator<ProductCreateDto>
         RuleFor(dto => dto.Name)
             .NotNull().NotEmpty().WithMessage("Name field is required!")
             .Length(3, 50).WithMessage("Name must be between 3 and 50 characters.")
-            .Matches("^[A-Za-z0-9]+$").WithMessage("Name can only contain letters");
+            .Matches("^[A-Za-z0-9]+$").WithMessage("Name can only contain letters")
 
         RuleFor(dto => dto.UnitPrice)
             .NotNull().NotEmpty().WithMessage("UnitPrice field is required!")
-            .GreaterThanOrEqualTo(0.0).WithMessage("Percentage must be greater than or equal to zero.");
+            .GreaterThan(0).WithMessage("Percentage must be greater than zero.");
 
         RuleFor(dto => dto.Description)
             .NotNull().NotEmpty().WithMessage("Description field is required!")

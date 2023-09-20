@@ -10,6 +10,7 @@ public class ProductDetailFashionUpdateValidator : AbstractValidator<ProductDeta
     public ProductDetailFashionUpdateValidator()
     {
         RuleFor(dto => dto.ProductDetailId)
+            .NotEmpty().NotNull().WithMessage("ProductDetailId is required!")
             .GreaterThan(0).WithMessage("ProductDetailId must be greater than zero.")
             .LessThanOrEqualTo(10000).WithMessage("ProductDetailId cannot exceed 10000.");
 
