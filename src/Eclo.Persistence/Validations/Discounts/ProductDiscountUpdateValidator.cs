@@ -8,17 +8,21 @@ public class ProductDiscountUpdateValidator : AbstractValidator<ProductDiscountU
     public ProductDiscountUpdateValidator()
     {
         RuleFor(dto => dto.ProductId)
+            .NotEmpty().NotNull().WithMessage("ProductId is required!")
             .GreaterThan(0).WithMessage("ProductId must be greater than zero.")
             .LessThanOrEqualTo(10000).WithMessage("ProductId cannot exceed 10000.");
 
         RuleFor(dto => dto.DiscountId)
+            .NotEmpty().NotNull().WithMessage("DiscountId is required!")
             .GreaterThan(0).WithMessage("DiscountId must be greater than zero.")
             .LessThanOrEqualTo(10000).WithMessage("DiscountId cannot exceed 10000.");
 
         RuleFor(dto => dto.Description)
+            .NotNull().NotEmpty().WithMessage("Description field is required!")
             .MinimumLength(3).WithMessage("Description field is required!");
 
         RuleFor(dto => dto.StartAt)
+            .NotNull().NotEmpty().WithMessage("StartAt field is required!")
             .Must(ValidDate).WithMessage("StartAt is invalid!");
 
         RuleFor(dto => dto.EndAt)

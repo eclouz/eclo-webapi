@@ -23,16 +23,16 @@ public class ProductDiscountCreateValidator : AbstractValidator<ProductDiscountC
 
         RuleFor(dto => dto.StartAt)
             .NotNull().NotEmpty().WithMessage("StartAt field is required!")
-            .Must(ValidDateOfBirth).WithMessage("StartAt is invalid!");
+            .Must(ValidDate).WithMessage("StartAt is invalid!");
 
         RuleFor(dto => dto.EndAt)
             .NotNull().NotEmpty().WithMessage("EndAt field is required!")
-            .Must(ValidDateOfBirth).WithMessage("EndAt is invalid!");
+            .Must(ValidDate).WithMessage("EndAt is invalid!");
     }
 
-    private bool ValidDateOfBirth(DateTime birthDate)
+    private bool ValidDate(DateTime date)
     {
-        if (birthDate > DateTime.Now) return false;
+        if (date > DateTime.Now) return false;
         else return true;
     }
 }

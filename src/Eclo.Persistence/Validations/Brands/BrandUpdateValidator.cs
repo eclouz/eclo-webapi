@@ -9,9 +9,12 @@ public class BrandUpdateValidator : AbstractValidator<BrandUpdateDto>
     public BrandUpdateValidator()
     {
         RuleFor(dto => dto.Name)
+            .NotEmpty().NotNull().WithMessage("Name is required!")
             .Length(3, 50).WithMessage("Name must be between 3 and 50 characters.")
-            .Matches("^[A-Za-z0-9]+$").WithMessage("Name can only contain letters")
-            .Matches(@"[""!@$%^&*(){}:;<>,.?/+\-_=|'[\]~\\]").WithMessage("Name must contain one or more special characters.");
+            .Must(ShouldStartWithUpperOrDigit).WithMessage("Name must start with Uppercase letter or digit.");
+            //.Matches("^[A-Za-z]+$").WithMessage("Name can only contain letters");
+            //.Matches("^[0-9]+$").WithMessage("Name must contain one or more numbers.");
+            //.Matches(@"[""!@$%^&*(){}:;<>,.?/+\-_=|'[\]~\\]").WithMessage("Name must contain one or more special characters.");
 
         When(dto => dto.BrandIconPath is not null, () =>
         {
@@ -23,5 +26,11 @@ public class BrandUpdateValidator : AbstractValidator<BrandUpdateDto>
                 return MediaHelper.GetImageExtensions().Contains(fileInfo.Extension);
             }).WithMessage("This file type is not image file");
         });
+    }
+
+    private bool ShouldStartWithUpperOrDigit(string name)
+    {
+        if (string.IsNullOrEmpty(name)) return false;
+        return char.IsUpper(name[0]) || char.IsDigit(name[0]);
     }
 }
