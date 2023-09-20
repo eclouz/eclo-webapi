@@ -5,14 +5,14 @@ using Eclo.Domain.Entities.Payments;
 
 namespace Eclo.DataAccess.Repositories.Payments;
 
-public class PaymentRepository : BaseRepository, IPaymentRepository
+public class CardRepository : BaseRepository, ICardRepository
 {
     public async Task<long> CountAsync()
     {
         try
         {
             await _connection.OpenAsync();
-            string query = "SELECT COUNT(*) FROM payments";
+            string query = "SELECT COUNT(*) FROM user_cards";
             var result = await _connection.QuerySingleAsync<long>(query);
 
             return result;
@@ -27,15 +27,15 @@ public class PaymentRepository : BaseRepository, IPaymentRepository
         }
     }
 
-    public async Task<int> CreateAsync(Payment entity)
+    public async Task<int> CreateAsync(Card entity)
     {
         try
         {
             await _connection.OpenAsync();
 
-            string query = "INSERT INTO public.payments " +
-                "(order_detail_id, transaction_status, description, created_at, updated_at) " +
-                "VALUES (@OrderDetailId, @TransactionStatus, @Description, @CreatedAt, @UpdatedAt); ";
+            string query = "INSERT INTO public.user_cards " +
+                "(user_id, card_holder_name, card_number, balance, pin_code, expired_month, expired_year, is_active, created_at, " +
+                    "updated_at) VALUES (@UserId, @CardHolderName, @CardNumber, @Balance, @PinCode, @ExpiredMonth, @ExpiredYear, @IsActive, @CreatedAt, @UpdatedAt); ";
 
             var result = await _connection.ExecuteAsync(query, entity);
 
@@ -56,7 +56,7 @@ public class PaymentRepository : BaseRepository, IPaymentRepository
         try
         {
             await _connection.OpenAsync();
-            string query = "DELETE FROM payments WHERE id = @Id";
+            string query = "DELETE FROM user_cards WHERE id = @Id";
             var result = await _connection.ExecuteAsync(query, new { Id = id });
 
             return result;
@@ -71,22 +71,22 @@ public class PaymentRepository : BaseRepository, IPaymentRepository
         }
     }
 
-    public async Task<IList<Payment>> GetAllAsync(PaginationParams @params)
+    public async Task<IList<Card>> GetAllAsync(PaginationParams @params)
     {
         try
         {
             await _connection.OpenAsync();
 
-            string query = $"SELECT * FROM payments ORDER BY id DESC " +
+            string query = $"SELECT * FROM user_cards ORDER BY id DESC " +
                 $"OFFSET {@params.GetSkipCount()} LIMIT {@params.PageSize}";
 
-            var result = (await _connection.QueryAsync<Payment>(query)).ToList();
+            var result = (await _connection.QueryAsync<Card>(query)).ToList();
 
             return result;
         }
         catch
         {
-            return new List<Payment>();
+            return new List<Card>();
         }
         finally
         {
@@ -94,13 +94,13 @@ public class PaymentRepository : BaseRepository, IPaymentRepository
         }
     }
 
-    public async Task<Payment?> GetByIdAsync(long id)
+    public async Task<Card?> GetByIdAsync(long id)
     {
         try
         {
             await _connection.OpenAsync();
-            string query = "SELECT * FROM payments WHERE id = @Id";
-            var result = await _connection.QuerySingleAsync<Payment>(query, new { Id = id });
+            string query = "SELECT * FROM user_cards WHERE id = @Id";
+            var result = await _connection.QuerySingleAsync<Card>(query, new { Id = id });
 
             return result;
         }
@@ -114,23 +114,23 @@ public class PaymentRepository : BaseRepository, IPaymentRepository
         }
     }
 
-    public async Task<(long ItemsCount, IList<Payment>)> SearchAsync(string search, PaginationParams @params)
+    public async Task<(long ItemsCount, IList<Card>)> SearchAsync(string search, PaginationParams @params)
     {
         try
         {
             await _connection.OpenAsync();
 
-            string query = $"SELECT * FROM payments WHERE transaction_status ILIKE @search ORDER BY id DESC " +
+            string query = $"SELECT * FROM user_cards WHERE card_holder_name ILIKE @search ORDER BY id DESC " +
                 $"OFFSET {@params.GetSkipCount()} LIMIT {@params.PageSize}";
 
-            var result = (await _connection.QueryAsync<Payment>
+            var result = (await _connection.QueryAsync<Card>
                 (query, new { search = "%" + search + "%" })).ToList();
 
             return (result.Count, result);
         }
         catch
         {
-            return (0, new List<Payment>());
+            return (0, new List<Card>());
         }
         finally
         {
@@ -138,16 +138,21 @@ public class PaymentRepository : BaseRepository, IPaymentRepository
         }
     }
 
-    public async Task<int> UpdateAsync(long id, Payment entity)
+    public async Task<int> UpdateAsync(long id, Card entity)
     {
         try
         {
             await _connection.OpenAsync();
 
-            string query = $"UPDATE public.payments SET " +
-                $"order_detail_id=@OrderDetailId, transaction_status=@TransactionStatus, " +
-                    $"description=@Description, created_at=@CreatedAt, updated_at=@UpdatedAt " +
-                        $"WHERE id = @Id; ";
+            string query = $"UPDATE public.user_cards " +
+                $"SET user_id=@UserId, card_holder_name=@CardHolderName, card_number=@CardNumber, balance=@Balance, " +
+                    $"pin_code=@PinCode, expired_month=@ExpiredMonth, expired_year=@ExpiredYear, is_active=@IsActive, " +
+                        $"created_at=@CreatedAt, updated_at=@UpdatedAt WHERE id = @Id; ";
+
+            //string query = $"UPDATE public.user_transactions " +
+            //    $"SET user_id=@UserId, sender_card_number=@SenderCardNumber, receiver_card_number=@ReceiverCardNumber, " +
+            //        $"required_amount=@RequiredAmount, is_transfered=@IsTransfered, status=@Status, " +
+            //            $"created_at=@CreatedAt, updated_at=@UpdatedAt WHERE id = @Id; ";
 
             var result = await _connection.ExecuteAsync(query, entity);
 
