@@ -16,6 +16,7 @@ public class SubCategoryUpdateValidatorTest
     {
         SubCategoryUpdateDto subCategoryUpdateDto = new SubCategoryUpdateDto()
         {
+            CategoryId = 12,
             Name = name,
         };
         var validator = new SubCategoryUpdateValidator();
@@ -38,6 +39,7 @@ public class SubCategoryUpdateValidatorTest
     {
         SubCategoryUpdateDto subCategoryUpdateDto = new SubCategoryUpdateDto()
         {
+            CategoryId = 12,
             Name = name,
         };
         var validator = new SubCategoryUpdateValidator();

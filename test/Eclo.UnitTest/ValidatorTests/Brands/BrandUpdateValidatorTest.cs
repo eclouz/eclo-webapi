@@ -23,7 +23,7 @@ public class BrandUpdateValidatorTest
         IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, imageSizeInBytes, "data", "file.png");
         BrandCreateDto brandCreateDto = new BrandCreateDto()
         {
-            Name = "electronic products",
+            Name = "Electronic products",
             BrandIconPath = imageFile
         };
         var validator = new BrandCreateValidator();
@@ -45,7 +45,7 @@ public class BrandUpdateValidatorTest
         IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, imageSizeInBytes, "data", "file.png");
         BrandCreateDto brandCreateDto = new BrandCreateDto()
         {
-            Name = "electronic products",
+            Name = "Electronic products",
             BrandIconPath = imageFile
         };
         var validator = new BrandCreateValidator();
@@ -65,7 +65,7 @@ public class BrandUpdateValidatorTest
         IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, byteImage.Length, "data", imagename);
         BrandCreateDto brandCreateDto = new BrandCreateDto()
         {
-            Name = "electronic products",
+            Name = "Electronic products",
             BrandIconPath = imageFile
         };
         var validator = new BrandCreateValidator();
@@ -97,7 +97,7 @@ public class BrandUpdateValidatorTest
         IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, byteImage.Length, "data", imagename);
         BrandCreateDto brandCreateDto = new BrandCreateDto()
         {
-            Name = "electronic products",
+            Name = "Electronic products",
             BrandIconPath = imageFile
         };
         var validator = new BrandCreateValidator();
@@ -112,7 +112,7 @@ public class BrandUpdateValidatorTest
         IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, byteImage.Length, "data", "file.jpg");
         BrandCreateDto brandCreateDto = new BrandCreateDto()
         {
-            Name = "electronic products",
+            Name = "Electronic products",
             BrandIconPath = imageFile
         };
         var validator = new BrandCreateValidator();

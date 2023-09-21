@@ -16,6 +16,7 @@ public class SubCategoryCreateValidatorTest
     {
         SubCategoryCreateDto subCategoryCreateDto = new SubCategoryCreateDto()
         {
+            CategoryId = 12,
             Name = name
         };
         var validator = new SubCategoryCreateValidator();
@@ -30,6 +31,7 @@ public class SubCategoryCreateValidatorTest
     {
         SubCategoryCreateDto subCategoryCreateDto = new SubCategoryCreateDto()
         {
+            CategoryId = 12,
             Name = name,
         };
         var validator = new SubCategoryCreateValidator();

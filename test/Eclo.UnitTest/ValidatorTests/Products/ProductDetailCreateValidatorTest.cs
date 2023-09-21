@@ -23,6 +23,7 @@ public class ProductDetailCreateValidatorTest
         IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, imageSizeInBytes, "data", "file.png");
         ProductDetailCreateDto productDetailCreateDto = new ProductDetailCreateDto()
         {
+            ProductId = 12,
             Color = "White",
             ImagePath = imageFile
         };
@@ -45,6 +46,7 @@ public class ProductDetailCreateValidatorTest
         IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, imageSizeInBytes, "data", "file.png");
         ProductDetailCreateDto productDetailCreateDto = new ProductDetailCreateDto()
         {
+            ProductId = 12,
             Color = "White",
             ImagePath = imageFile
         };
@@ -65,6 +67,7 @@ public class ProductDetailCreateValidatorTest
         IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, byteImage.Length, "data", imagename);
         ProductDetailCreateDto productDetailCreateDto = new ProductDetailCreateDto()
         {
+            ProductId = 12,
             Color = "White",
             ImagePath = imageFile
         };
@@ -97,6 +100,7 @@ public class ProductDetailCreateValidatorTest
         IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, byteImage.Length, "data", imagename);
         ProductDetailCreateDto productDetailCreateDto = new ProductDetailCreateDto()
         {
+            ProductId = 12,
             Color = "White",
             ImagePath = imageFile
         };
@@ -112,6 +116,7 @@ public class ProductDetailCreateValidatorTest
         IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, byteImage.Length, "data", "file.jpg");
         ProductDetailCreateDto productDetailCreateDto = new ProductDetailCreateDto()
         {
+            ProductId = 12,
             Color = "White",
             ImagePath = imageFile
         };
@@ -130,6 +135,7 @@ public class ProductDetailCreateValidatorTest
         IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, byteImage.Length, "data", "file.jpg");
         ProductDetailCreateDto productDetailCreateDto = new ProductDetailCreateDto()
         {
+            ProductId = 12,
             Color = color,
             ImagePath = imageFile
         };
@@ -156,6 +162,7 @@ public class ProductDetailCreateValidatorTest
         IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, byteImage.Length, "data", "file.jpg");
         ProductDetailCreateDto productDetailCreateDto = new ProductDetailCreateDto()
         {
+            ProductId = 12,
             Color = color,
             ImagePath = imageFile
         };
