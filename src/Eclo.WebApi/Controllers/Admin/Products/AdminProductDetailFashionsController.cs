@@ -19,7 +19,7 @@ public class AdminProductDetailFashionsController : AdminBaseController
     [HttpGet("{productDetailId}")]
     public async Task<IActionResult> GetAllFashionsAsync(long productDetailId)
         => Ok(await _service.GetAllFashionsAsync(productDetailId));
-        
+
     [HttpPost]
     public async Task<IActionResult> CreateAsync([FromForm] ProductDetailFashionCreateDto dto)
     {

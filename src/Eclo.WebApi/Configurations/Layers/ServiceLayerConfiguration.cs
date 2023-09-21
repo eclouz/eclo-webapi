@@ -57,5 +57,6 @@ public static class ServiceLayerConfiguration
         builder.Services.AddScoped<IHeadAuthService, HeadAuthService>();
         builder.Services.AddSingleton<ISmsSender, SmsSender>();
         builder.Services.AddScoped<ICardService, CardService>();
+        builder.Services.AddScoped<ITransactionService, TransactionService>();
     }
 }

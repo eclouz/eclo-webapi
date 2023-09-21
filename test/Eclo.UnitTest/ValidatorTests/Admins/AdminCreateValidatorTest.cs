@@ -64,8 +64,6 @@ public class AdminCreateValidatorTest
         Assert.True(result.IsValid);
     }
 
-   
-
     [Theory]
     [InlineData(6)]
     [InlineData(7)]

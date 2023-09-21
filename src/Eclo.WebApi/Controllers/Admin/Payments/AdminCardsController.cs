@@ -1,7 +1,5 @@
 ﻿using Eclo.Application.Utilities;
 using Eclo.Services.Interfaces.Payments;
-using Eclo.Services.Services.Payments;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Eclo.WebApi.Controllers.Admin.Payments
