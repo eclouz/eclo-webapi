@@ -7,21 +7,14 @@ public class CardCreateValidator : AbstractValidator<CardCreateDto>
 {
     public CardCreateValidator()
     {
-        RuleFor(dto => dto.UserId)
-           .NotEmpty().NotNull().WithMessage("UserId is required!")
-           .GreaterThan(0).WithMessage("UserId must be greater than zero.")
-           .LessThanOrEqualTo(10000).WithMessage("UserId cannot exceed 10000.");
-
         RuleFor(dto => dto.CardHolderName)
             .NotEmpty().NotNull().WithMessage("CardHolderName field is required!")
             .Length(3, 100).WithMessage("CardHolderName must be between 3 and 50 characters.")
-            .Matches("^[A-Za-z]+$").WithMessage("CardHolderName can only contain letters")
             .Must(ShouldStartWithUpper).WithMessage("CardHolderName must start with Uppercase letter.");
 
         RuleFor(dto => dto.CardNumber)
             .NotEmpty().NotNull().WithMessage("CardNumber field is required!")
-            .Length(19).WithMessage("CardNumber must be 19 characters (with white spaces). (XXXX ZZZZ VVVV TTTT)")
-            .Matches("^+[0-9]$").WithMessage("CardNumber must contain only numbers.");
+            .Length(19).WithMessage("CardNumber must be 19 characters (with white spaces). (XXXX ZZZZ VVVV TTTT)");
 
         RuleFor(dto => dto.Balance)
             .NotNull().NotEmpty().WithMessage("Balance field is required!")

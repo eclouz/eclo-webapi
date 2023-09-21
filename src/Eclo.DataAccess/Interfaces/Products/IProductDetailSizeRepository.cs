@@ -1,5 +1,4 @@
-﻿using Eclo.Application.Utilities;
-using Eclo.DataAccess.Common;
+﻿using Eclo.DataAccess.Common;
 using Eclo.Domain.Entities.Products;
 
 namespace Eclo.DataAccess.Interfaces.Products;

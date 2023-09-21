@@ -12,7 +12,7 @@ public class CategoryCreateValidator : AbstractValidator<CategoryCreateDto>
             .Length(3, 50).WithMessage("Name must be between 3 and 50 characters.")
             .Matches("^[A-Za-z]+$").WithMessage("Name can only contain letters")
             .Must(ShouldStartWithUpper).WithMessage("Name must start with Uppercase letter.");
-            //.Matches(@"[""!@$%^&*(){}:;<>,.?/+\-_=|'[\]~\\]")!.WithMessage("Name must contain one or more special characters.");
+        //.Matches(@"[""!@$%^&*(){}:;<>,.?/+\-_=|'[\]~\\]")!.WithMessage("Name must contain one or more special characters.");
 
         RuleFor(dto => dto.Description)
             .NotNull().NotEmpty().WithMessage("Description field is required!")

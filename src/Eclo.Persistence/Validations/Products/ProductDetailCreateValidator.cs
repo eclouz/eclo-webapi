@@ -15,7 +15,7 @@ public class ProductDetailCreateValidator : AbstractValidator<ProductDetailCreat
 
         RuleFor(dto => dto.Color)
             .NotEmpty().NotNull().WithMessage("Color is required!")
-            .Length(3,50).WithMessage("Color must be between 3 and 50 characters.")
+            .Length(3, 50).WithMessage("Color must be between 3 and 50 characters.")
             .Matches("^[A-Za-z]+$").WithMessage("Color can only contain letters")
             .Must(ShouldStartWithUpper).WithMessage("Color must start with Uppercase letter.");
 

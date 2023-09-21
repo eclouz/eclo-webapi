@@ -12,9 +12,9 @@ public class BrandUpdateValidator : AbstractValidator<BrandUpdateDto>
             .NotEmpty().NotNull().WithMessage("Name is required!")
             .Length(3, 50).WithMessage("Name must be between 3 and 50 characters.")
             .Must(ShouldStartWithUpperOrDigit).WithMessage("Name must start with Uppercase letter or digit.");
-            //.Matches("^[A-Za-z]+$").WithMessage("Name can only contain letters");
-            //.Matches("^[0-9]+$").WithMessage("Name must contain one or more numbers.");
-            //.Matches(@"[""!@$%^&*(){}:;<>,.?/+\-_=|'[\]~\\]").WithMessage("Name must contain one or more special characters.");
+        //.Matches("^[A-Za-z]+$").WithMessage("Name can only contain letters");
+        //.Matches("^[0-9]+$").WithMessage("Name must contain one or more numbers.");
+        //.Matches(@"[""!@$%^&*(){}:;<>,.?/+\-_=|'[\]~\\]").WithMessage("Name must contain one or more special characters.");
 
         When(dto => dto.BrandIconPath is not null, () =>
         {

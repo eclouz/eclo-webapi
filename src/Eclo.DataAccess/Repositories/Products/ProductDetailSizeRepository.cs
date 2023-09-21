@@ -56,7 +56,7 @@ public class ProductDetailSizeRepository : BaseRepository, IProductDetailSizeRep
         try
         {
             await _connection.OpenAsync();
-            string query = "DELETE FROM product_detail_sizes WHERE id = #Id";
+            string query = "DELETE FROM product_detail_sizes WHERE id = @Id";
             var result = await _connection.ExecuteAsync(query, new { Id = id });
 
             return result;
@@ -102,7 +102,7 @@ public class ProductDetailSizeRepository : BaseRepository, IProductDetailSizeRep
 
             string query = $"SELECT * FROM product_detail_sizes where product_detail_id = @ProductDetailId";
 
-            var result = (await _connection.QueryAsync<ProductDetailSize>(query, new { ProductDetailId = productDetailId})).ToList();
+            var result = (await _connection.QueryAsync<ProductDetailSize>(query, new { ProductDetailId = productDetailId })).ToList();
 
             return result;
         }

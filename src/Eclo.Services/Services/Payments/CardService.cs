@@ -4,6 +4,7 @@ using Eclo.DataAccess.Interfaces.Payments;
 using Eclo.Domain.Entities.Payments;
 using Eclo.Persistence.Dtos.Payments;
 using Eclo.Persistence.Helpers;
+using Eclo.Services.Interfaces.Auth;
 using Eclo.Services.Interfaces.Common;
 using Eclo.Services.Interfaces.Payments;
 
@@ -13,12 +14,15 @@ public class CardService : ICardService
 {
     private readonly ICardRepository _cardRepository;
     private readonly IPaginator _paginator;
+    private readonly IIdentityService _identity;
 
     public CardService(ICardRepository cardRepository,
-        IPaginator paginator)
+        IPaginator paginator,
+        IIdentityService identity)
     {
         this._cardRepository = cardRepository;
         this._paginator = paginator;
+        this._identity = identity;
     }
 
     public async Task<long> CountAsync() => await _cardRepository.CountAsync();
@@ -27,7 +31,7 @@ public class CardService : ICardService
     {
         Card card = new Card()
         {
-            UserId = dto.UserId,
+            UserId = _identity.Id,
             CardHolderName = dto.CardHolderName,
             CardNumber = dto.CardNumber,
             PinCode = dto.PinCode,

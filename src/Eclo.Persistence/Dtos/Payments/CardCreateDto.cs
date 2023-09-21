@@ -2,8 +2,6 @@
 
 public class CardCreateDto
 {
-    public long UserId { get; set; }
-
     public string CardHolderName { get; set; } = String.Empty;
 
     public string CardNumber { get; set; } = String.Empty;

@@ -10,7 +10,7 @@ public class AdminCreateValidator : AbstractValidator<AdminCreateDto>
     {
         RuleFor(dto => dto.FirstName)
             .NotNull().NotEmpty().WithMessage("FirstName field is required!")
-            .Length(3,20).WithMessage("FirstName must be between 3 and 20 characters.")
+            .Length(3, 20).WithMessage("FirstName must be between 3 and 20 characters.")
             .Matches("^[A-Za-z]+$").WithMessage("FirstName can only contain letters");
 
         RuleFor(dto => dto.LastName)

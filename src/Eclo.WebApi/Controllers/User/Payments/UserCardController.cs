@@ -1,5 +1,4 @@
-﻿using Eclo.Persistence.Dtos.Orders;
-using Eclo.Persistence.Dtos.Payments;
+﻿using Eclo.Persistence.Dtos.Payments;
 using Eclo.Persistence.Validations.Payments;
 using Eclo.Services.Interfaces.Payments;
 using Microsoft.AspNetCore.Mvc;
@@ -27,16 +26,16 @@ public class UserCardController : UserBaseController
         return BadRequest(result.Errors);
     }
 
-    [HttpDelete("{cardId}")]
+    /*[HttpDelete("{cardId}")]
     public async Task<IActionResult> DeleteAsync(long cardId) 
-        => Ok(await _cardService.DeleteAsync(cardId));
+        => Ok(await _cardService.DeleteAsync(cardId));*/
 
-    [HttpPut("{cardId}")]
+    /*[HttpPut("{cardId}")]
     public async Task<IActionResult> UpdateAsync(long cardId, [FromForm] CardUpdateDto dto)
     {
         var validator = new CardUpdateValidator();
         var result = validator.Validate(dto);
         if (result.IsValid) return Ok(await _cardService.UpdateAsync(cardId, dto));
         return BadRequest(result.Errors);
-    }
+    }*/
 }
