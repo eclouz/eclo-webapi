@@ -20,6 +20,10 @@ public class AdminController : AdminBaseController
         this._identityService = identityService;
     }
 
+    [HttpGet]
+    public async Task<IActionResult> GetByIdAsync()
+        => Ok(await _adminService.GetByIdAsync());
+
     [HttpPut("adminId")]
     public async Task<IActionResult> UpdateAsync([FromForm] AdminUpdateDto dto)
     {
