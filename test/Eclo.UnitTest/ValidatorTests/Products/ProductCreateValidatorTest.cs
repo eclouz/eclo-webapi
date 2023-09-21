@@ -1,6 +1,5 @@
 ﻿using Eclo.Persistence.Dtos.Products;
 using Eclo.Persistence.Validations.Products;
-using FluentValidation;
 using Xunit;
 
 namespace Eclo.UnitTest.ValidatorTests.Products;
