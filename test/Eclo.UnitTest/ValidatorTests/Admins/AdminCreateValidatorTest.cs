@@ -28,6 +28,7 @@ public class AdminCreateValidatorTest
             FirstName = firstname,
             LastName = lastname,
             PassportSerialNumber = passportSerialNumber,
+            BirthDate = DateTime.Now,
             PhoneNumber = phone,
             Password = password,
             ImagePath = imageFile
@@ -54,6 +55,7 @@ public class AdminCreateValidatorTest
             FirstName = firstname,
             LastName = lastname,
             PassportSerialNumber = passportSerialNumber,
+            BirthDate = DateTime.Now,
             PhoneNumber = phone,
             Password = password,
             ImagePath = imageFile
@@ -81,6 +83,7 @@ public class AdminCreateValidatorTest
             FirstName = "Abdulaziz",
             LastName = "Orazbaev",
             PassportSerialNumber = "KA0561687",
+            BirthDate = DateTime.Now,
             PhoneNumber = "+998933644016",
             Password = "#CSharp2023",
             ImagePath = imageFile
@@ -107,6 +110,7 @@ public class AdminCreateValidatorTest
             FirstName = "Abdulaziz",
             LastName = "Orazbaev",
             PassportSerialNumber = "KA0561687",
+            BirthDate = DateTime.Now,
             PhoneNumber = "+998933644016",
             Password = "#CSharp2023",
             ImagePath = imageFile
@@ -131,6 +135,7 @@ public class AdminCreateValidatorTest
             FirstName = "Abdulaziz",
             LastName = "Orazbaev",
             PassportSerialNumber = "KA0561687",
+            BirthDate = DateTime.Now,
             PhoneNumber = "+998933644016",
             Password = "#CSharp2023",
             ImagePath = imageFile
@@ -167,6 +172,7 @@ public class AdminCreateValidatorTest
             FirstName = "Abdulaziz",
             LastName = "Orazbaev",
             PassportSerialNumber = "KA0561687",
+            BirthDate = DateTime.Now,
             PhoneNumber = "+998933644016",
             Password = "#CSharp2023",
             ImagePath = imageFile

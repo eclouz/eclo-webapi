@@ -7,12 +7,16 @@ namespace Eclo.UnitTest.ValidatorTests.Products;
 public class ProductDetailSizeCreateValidatorTest
 {
     [Theory]
-    [InlineData("X")]
-    public void ShouldReturnValidValidation(string size)
+    [InlineData(1, "X", 10)]
+    [InlineData(10, "XL", 15)]
+    [InlineData(111, "XXL", 20)]
+    public void ShouldReturnValidValidation(long id, string size, int quantity)
     {
         ProductDetailSizeCreateDto productDetailSizeCreateDto = new ProductDetailSizeCreateDto()
         {
+            ProductDetailId = id,
             Size = size,
+            Quantity = quantity
         };
         var validator = new ProductDetailSizeCreateValidator();
         var result = validator.Validate(productDetailSizeCreateDto);
@@ -20,20 +24,16 @@ public class ProductDetailSizeCreateValidatorTest
     }
 
     [Theory]
-    [InlineData("X#")]
-    [InlineData("X12")]
-    [InlineData("X12f")]
-    [InlineData("X12f ")]
-    [InlineData("12AS")]
-    [InlineData("12123")]
-    [InlineData("aasd")]
-    [InlineData("aasd@")]
-    [InlineData("X12SDWEFEWRWEF")]
-    public void ShouldReturnInvalidValidation(string size)
+    [InlineData(0, "X#", -10)]
+    [InlineData(-10, "X12", 0)]
+    [InlineData(10.3, "X12f", 10.4)]
+    public void ShouldReturnInvalidValidation(long id, string size, int quantity)
     {
         ProductDetailSizeCreateDto productDetailSizeCreateDto = new ProductDetailSizeCreateDto()
         {
+            ProductDetailId = id,
             Size = size,
+            Quantity = quantity
         };
         var validator = new ProductDetailSizeCreateValidator();
         var result = validator.Validate(productDetailSizeCreateDto);

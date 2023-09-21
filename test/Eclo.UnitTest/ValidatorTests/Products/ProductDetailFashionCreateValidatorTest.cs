@@ -23,6 +23,7 @@ public class ProductDetailFashionCreateValidatorTest
         IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, imageSizeInBytes, "data", "file.png");
         ProductDetailFashionCreateDto productDetailFashionCreateDto = new ProductDetailFashionCreateDto()
         {
+            ProductDetailId = 12,
             ImagePath = imageFile
         };
         var validator = new ProductDetailFashionCreateValidator();
@@ -44,6 +45,7 @@ public class ProductDetailFashionCreateValidatorTest
         IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, imageSizeInBytes, "data", "file.png");
         ProductDetailFashionCreateDto productDetailFashionCreateDto = new ProductDetailFashionCreateDto()
         {
+            ProductDetailId = 12,
             ImagePath = imageFile
         };
         var validator = new ProductDetailFashionCreateValidator();
@@ -63,6 +65,7 @@ public class ProductDetailFashionCreateValidatorTest
         IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, byteImage.Length, "data", imagename);
         ProductDetailFashionCreateDto productDetailFashionCreateDto = new ProductDetailFashionCreateDto()
         {
+            ProductDetailId = 12,
             ImagePath = imageFile
         };
         var validator = new ProductDetailFashionCreateValidator();
@@ -94,6 +97,7 @@ public class ProductDetailFashionCreateValidatorTest
         IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, byteImage.Length, "data", imagename);
         ProductDetailFashionCreateDto productDetailFashionCreateDto = new ProductDetailFashionCreateDto()
         {
+            ProductDetailId = 12,
             ImagePath = imageFile
         };
         var validator = new ProductDetailFashionCreateValidator();
@@ -108,6 +112,7 @@ public class ProductDetailFashionCreateValidatorTest
         IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, byteImage.Length, "data", "file.jpg");
         ProductDetailFashionCreateDto productDetailFashionCreateDto = new ProductDetailFashionCreateDto()
         {
+            ProductDetailId = 12,
             ImagePath = imageFile
         };
         var validator = new ProductDetailFashionCreateValidator();

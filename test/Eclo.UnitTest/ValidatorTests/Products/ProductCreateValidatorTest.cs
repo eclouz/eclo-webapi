@@ -1,5 +1,6 @@
 ﻿using Eclo.Persistence.Dtos.Products;
 using Eclo.Persistence.Validations.Products;
+using FluentValidation;
 using Xunit;
 
 namespace Eclo.UnitTest.ValidatorTests.Products;
@@ -7,22 +8,19 @@ namespace Eclo.UnitTest.ValidatorTests.Products;
 public class ProductCreateValidatorTest
 {
     [Theory]
-    [InlineData("AA")]
-    [InlineData("001")]
-    [InlineData("05")]
-    [InlineData("50")]
-    [InlineData("Ad5d")]
-    [InlineData("QE45dsfaAd45")]
-    [InlineData("A")]
-    [InlineData("A514-A")]
-    [InlineData("/_fcdAA")]
-    [InlineData("AA_=")]
-    [InlineData("electronic products, we sell an electronic products to our clients, we sell an electronic products to our clients")]
-    public void ShouldReturnInValidValidation(string name)
+    [InlineData(0, 0, "AA", 0, " ")]
+    [InlineData(-10, -10, "001", -10.0, " ")]
+    [InlineData(0.3, 0.3, "05", -3.32523, " ")]
+    [InlineData(-0.3, -0.3, "electronic products, we sell an electronic products to our clients, we sell an electronic products to our clients", -0, " ")]
+    public void ShouldReturnInValidValidation(long brandId, long subcategoryId, string name, double price, string desc)
     {
         ProductCreateDto productCreateDto = new ProductCreateDto()
         {
+            BrandId = brandId,
+            SubCategoryId = subcategoryId,
             Name = name,
+            UnitPrice = price,
+            Description = desc
         };
         var validator = new ProductCreateValidator();
         var result = validator.Validate(productCreateDto);
@@ -30,15 +28,18 @@ public class ProductCreateValidatorTest
     }
 
     [Theory]
-    [InlineData("Cap", "qwertyop")]
-    [InlineData("Jeans", "Qqwerty12#")]
-    [InlineData("Jackets", "12qwerty")]
-    public void ShouldReturnValidValidation(string name, string description)
+    [InlineData(1, 1, "Cap", 10.89, "Qwertyuiop")]
+    [InlineData(123, 123, "Jeans", 2135, "Qqwerty12#")]
+    [InlineData(1000, 1000, "Jackets", 123124.30, "12qwerty")]
+    public void ShouldReturnValidValidation(long brandId, long subcategoryId, string name, double price, string desc)
     {
         ProductCreateDto productCreateDto = new ProductCreateDto()
         {
+            BrandId = brandId,
+            SubCategoryId = subcategoryId,
             Name = name,
-            Description = description
+            UnitPrice = price,
+            Description = desc
         };
         var validator = new ProductCreateValidator();
         var result = validator.Validate(productCreateDto);

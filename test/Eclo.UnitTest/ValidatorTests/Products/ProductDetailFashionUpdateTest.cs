@@ -23,6 +23,7 @@ public class ProductDetailFashionUpdateTest
         IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, imageSizeInBytes, "data", "file.png");
         ProductDetailFashionUpdateDto productDetailFashionUpdateDto = new ProductDetailFashionUpdateDto()
         {
+            ProductDetailId = 12,
             ImagePath = imageFile
         };
         var validator = new ProductDetailFashionUpdateValidator();
@@ -44,6 +45,7 @@ public class ProductDetailFashionUpdateTest
         IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, imageSizeInBytes, "data", "file.png");
         ProductDetailFashionUpdateDto productDetailFashionUpdateDto = new ProductDetailFashionUpdateDto()
         {
+            ProductDetailId = 12,
             ImagePath = imageFile
         };
         var validator = new ProductDetailFashionUpdateValidator();
@@ -63,6 +65,7 @@ public class ProductDetailFashionUpdateTest
         IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, byteImage.Length, "data", imagename);
         ProductDetailFashionUpdateDto productDetailFashionUpdateDto = new ProductDetailFashionUpdateDto()
         {
+            ProductDetailId = 12,
             ImagePath = imageFile
         };
         var validator = new ProductDetailFashionUpdateValidator();
@@ -94,6 +97,7 @@ public class ProductDetailFashionUpdateTest
         IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, byteImage.Length, "data", imagename);
         ProductDetailFashionUpdateDto productDetailFashionUpdateDto = new ProductDetailFashionUpdateDto()
         {
+            ProductDetailId = 12,
             ImagePath = imageFile
         };
         var validator = new ProductDetailFashionUpdateValidator();
@@ -108,6 +112,7 @@ public class ProductDetailFashionUpdateTest
         IFormFile imageFile = new FormFile(new MemoryStream(byteImage), 0, byteImage.Length, "data", "file.jpg");
         ProductDetailFashionUpdateDto productDetailFashionUpdateDto = new ProductDetailFashionUpdateDto()
         {
+            ProductDetailId = 12,
             ImagePath = imageFile
         };
         var validator = new ProductDetailFashionUpdateValidator();
