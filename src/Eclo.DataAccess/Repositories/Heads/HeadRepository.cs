@@ -27,9 +27,31 @@ public class HeadRepository : BaseRepository, IHeadRepository
         }
     }
 
-    public Task<int> CreateAsync(Head entity)
+    public async Task<int> CreateAsync(Head entity)
     {
-        throw new NotImplementedException();
+        try
+        {
+            await _connection.OpenAsync();
+
+            string query = "INSERT INTO public.heads (first_name, last_name, phone_number, phone_number_confirmed, " +
+                 "password_hash, salt, image_path, passport_serial_number, " +
+                     "birth_date, region, district, address, created_at, updated_at) " +
+                        "VALUES (@FirstName, @LastName, @PhoneNumber, @PhoneNumberConfirmed, " +
+                            "@PasswordHash, @Salt, @ImagePath, @PassportSerialNumber, @BirthDate, " +
+                                "@Region, @District, @Address, @CreatedAt, @UpdatedAt);";
+
+            var result = await _connection.ExecuteAsync(query, entity);
+
+            return result;
+        }
+        catch
+        {
+            return 0;
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
     }
 
     public async Task<int> DeleteAsync(long id)
