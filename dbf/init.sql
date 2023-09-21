@@ -189,3 +189,30 @@ create table payments (
 
 ALTER DATABASE "eclo-db"
 SET TIMEZONE TO 'Asia/Tashkent';
+
+
+create table user_cards (
+	id bigint generated always as identity primary key,
+	user_id bigint references users(id) ON DELETE CASCADE not null,
+	card_holder_name text not null,
+	card_number varchar(19) not null unique,
+	balance double precision not null,
+	pin_code int not null,
+	expired_month int not null,
+	expired_year int not null,
+	is_active bool default false,
+	created_at timestamp without time zone default now(),
+	updated_at timestamp without time zone default now()
+);
+
+create table user_transactions (
+	id bigint generated always as identity primary key,
+	user_id bigint references users(id) ON DELETE CASCADE not null,
+	sender_card_number varchar(19) not null,
+	receiver_card_number varchar(19) not null,
+	required_amount double precision not null,
+	is_transfered bool default false,
+	status text not null, -- waiting, inprocess, successful, cancelled
+	created_at timestamp without time zone default now(),
+	updated_at timestamp without time zone default now()
+);
