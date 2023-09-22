@@ -44,11 +44,11 @@ public class HeadAdminsController : HeadBaseController
         => Ok(await _adminService.DeleteAsync(adminId));
 
     [HttpPut("{adminId}")]
-    public async Task<IActionResult> UpdateAsync(long adminId, [FromForm] AdminUpdateDto dto)
+    public async Task<IActionResult> UpdateAdminAsync(long adminId, [FromForm] AdminUpdateDto dto)
     {
         var updateValidator = new AdminUpdateValidator();
         var validationResult = updateValidator.Validate(dto);
-        if (validationResult.IsValid) return Ok(await _adminService.UpdateAsync(adminId, dto));
+        if (validationResult.IsValid) return Ok(await _adminService.UpdateAdminAsync(adminId, dto));
         else return BadRequest(validationResult.Errors);
     }
 }
