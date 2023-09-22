@@ -14,5 +14,7 @@ public class BaseRepository
             "Database=eclo-db; User Id=doadmin; Password=AVNS_KkiVspFxY5HjtY0VR4K;");
         /*this._connection = new NpgsqlConnection("Host=localhost; Port=5432; " +
             "Database=eclo-db; User Id=postgres; Password=12345;");*/
+        /*this._connection = new NpgsqlConnection("Host=localhost; Port=5432; " +
+            "Database=eclo2-db; User Id=postgres; Password=12345;");*/
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Eclo.Application.Utilities;
+using Eclo.DataAccess.ViewModels.Users;
 using Eclo.Domain.Entities;
 using Eclo.Domain.Entities.Admins;
 using Eclo.Persistence.DTOs.Admins;
@@ -17,6 +18,7 @@ public interface IAdminService
 
     public Task<bool> UpdateAdminAsync(long adminId, AdminUpdateDto dto);
 
+    public Task<Admin> GetByPhoneAsync(string phoneNumber);
 
     public Task<bool> DeleteAsync(long adminId);
 
