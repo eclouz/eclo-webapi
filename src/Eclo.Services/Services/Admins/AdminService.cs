@@ -39,14 +39,9 @@ public class AdminService : IAdminService
 
     public async Task<bool> CreateAsync(AdminCreateDto dto)
     {
-        var admins = await _adminRepository.GetAllAsync();
-        bool check = false;
-        for (var i = 0; i < admins.Count; i++)
-        {
-            if (admins[i].PhoneNumber == dto.PhoneNumber) throw new AdminAlreadyExistsException();
-            else check = true;
-        }
-        if (check)
+        var adminCheck = await _adminRepository.GetByPhoneNumberAsync(dto.PhoneNumber);
+        if (adminCheck is not null) throw new AdminAlreadyExistsException();
+        else
         {
             var admin = new Admin();
             admin.FirstName = dto.FirstName;
@@ -73,7 +68,6 @@ public class AdminService : IAdminService
             var result = await _adminRepository.CreateAsync(admin);
             return result > 0;
         }
-        else throw new AdminAlreadyExistsException();
     }
 
     public async Task<bool> DeleteAsync(long adminId)
@@ -114,6 +108,13 @@ public class AdminService : IAdminService
             if (admin == null) throw new AdminNotFoundException();
             else return admin;
         }
+    }
+
+    public async Task<Admin> GetByPhoneAsync(string phoneNumber)
+    {
+        var admin = await _adminRepository.GetByPhoneNumberAsync(phoneNumber);
+        if (admin == null) throw new AdminNotFoundException();
+        return admin;
     }
 
     public async Task<IList<Admin>> SearchAsync(string search, PaginationParams @params)

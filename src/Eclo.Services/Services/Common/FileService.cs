@@ -66,7 +66,7 @@ public class FileService : IFileService
     {
         string newImageName = MediaHelper.MakeImageName(image.FileName);
         string subpath = Path.Combine(AVATARS, newImageName);
-        string path = Path.Combine(ROOTPATH, subpath);
+        string path = Path.Combine(ROOTPATH, subpath);  
 
         var stream = new FileStream(path, FileMode.Create);
         await image.CopyToAsync(stream);
