@@ -15,6 +15,9 @@ public interface IAdminService
 
     public Task<bool> UpdateAsync(long adminId, AdminUpdateDto dto);
 
+    public Task<bool> UpdateAdminAsync(long adminId, AdminUpdateDto dto);
+
+
     public Task<bool> DeleteAsync(long adminId);
 
     public Task<long> CountAsync();
