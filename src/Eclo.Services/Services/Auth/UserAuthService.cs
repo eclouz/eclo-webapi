@@ -149,7 +149,7 @@ public class UserAuthService : IUserAuthService
         user.Salt = hasherResult.Salt;
 
         user.CreatedAt = user.UpdatedAt = TimeHelper.GetDateTime();
-        user.ImagePath = "avatars\\avatar.png";
+        user.ImagePath = "Avatars\\avatar.png";
 
         var dbResult = await _userRepository.CreateAsync(user);
         return dbResult > 0;
