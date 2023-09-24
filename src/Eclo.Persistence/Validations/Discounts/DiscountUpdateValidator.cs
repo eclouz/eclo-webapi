@@ -10,7 +10,7 @@ public class DiscountUpdateValidator : AbstractValidator<DiscountUpdateDto>
         RuleFor(dto => dto.Name)
             .NotNull().NotEmpty().WithMessage("Name field is required!")
             .Length(3, 50).WithMessage("Name must be between 3 and 50 characters.")
-            .Matches("^[A-Za-z0-9]+$").WithMessage("Name can only contain letters");
+            .Matches("^[A-Za-z0-9\\s'-]+$").WithMessage("Name can only contain letters");
 
         RuleFor(dto => dto.Percentage)
             .NotNull().NotEmpty().WithMessage("Percentage field is required!")
