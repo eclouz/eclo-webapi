@@ -16,7 +16,7 @@ public class ProductDetailUpdateValidator : AbstractValidator<ProductDetailUpdat
         RuleFor(dto => dto.Color)
             .NotEmpty().NotNull().WithMessage("Color is required!")
             .Length(3, 50).WithMessage("Color must be between 3 and 50 characters.")
-            .Matches("^[A-Za-z]+$").WithMessage("Color can only contain letters")
+            .Matches("^[A-Za-z\\s'-]+$").WithMessage("Color can only contain letters")
             .Must(ShouldStartWithUpper).WithMessage("Color must start with Uppercase letter.");
 
         When(dto => dto.ImagePath is not null, () =>

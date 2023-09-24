@@ -15,7 +15,7 @@ public class SubCategoryUpdateValidator : AbstractValidator<SubCategoryUpdateDto
         RuleFor(dto => dto.Name)
             .NotEmpty().NotNull().WithMessage("Name field is required!")
             .Length(3, 50).WithMessage("Name must be between 3 and 50 characters.")
-            .Matches("^[A-Za-z]+$").WithMessage("Name can only contain letters")
+            .Matches("^[A-Za-z\\s'-]+$").WithMessage("Name can only contain letters")
             .Must(ShouldStartWithUpper).WithMessage("Name must start with Uppercase letter.");
     }
 

@@ -15,7 +15,7 @@ public class ProductDetailSizeCreateValidator : AbstractValidator<ProductDetailS
         RuleFor(dto => dto.Size)
             .Must(size => SizeValidator.IsValid(size)).WithMessage("Size is invalid! ex: XL, XXL,")
             .Length(1, 5).WithMessage("Size must be between 1 and 5 characters.")
-            .Matches("^[A-Za-z]+$").WithMessage("Size can only contain letters.")
+            .Matches("^[A-Za-z\\s'-]+$").WithMessage("Size can only contain letters.")
             .Must(ShouldStartWithUpper).WithMessage("Size must start with Uppercase letter.");
 
         RuleFor(dto => dto.Quantity)
