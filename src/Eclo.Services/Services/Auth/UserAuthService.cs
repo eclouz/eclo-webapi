@@ -138,21 +138,26 @@ public class UserAuthService : IUserAuthService
 
     private async Task<bool> RegisterToDatabaseAsync(RegisterDto registerDto)
     {
-        var user = new User();
-        user.FirstName = registerDto.FirstName;
-        user.LastName = registerDto.LastName;
-        user.PhoneNumber = registerDto.PhoneNumber;
-        user.PhoneNumberConfirmed = true;
+        var userCheck = await _userRepository.GetByPhoneAsync(registerDto.PhoneNumber);
+        if (userCheck is not null) throw new UserAlreadyExistsException();
+        else
+        {
+            var user = new User();
+            user.FirstName = registerDto.FirstName;
+            user.LastName = registerDto.LastName;
+            user.PhoneNumber = registerDto.PhoneNumber;
+            user.PhoneNumberConfirmed = true;
 
-        var hasherResult = PasswordHasher.Hash(registerDto.Password);
-        user.PasswordHash = hasherResult.Hash;
-        user.Salt = hasherResult.Salt;
+            var hasherResult = PasswordHasher.Hash(registerDto.Password);
+            user.PasswordHash = hasherResult.Hash;
+            user.Salt = hasherResult.Salt;
 
-        user.CreatedAt = user.UpdatedAt = TimeHelper.GetDateTime();
-        user.ImagePath = "Avatars\\avatar.png";
+            user.CreatedAt = user.UpdatedAt = TimeHelper.GetDateTime();
+            user.ImagePath = "Avatars\\avatar.png";
 
-        var dbResult = await _userRepository.CreateAsync(user);
-        return dbResult > 0;
+            var dbResult = await _userRepository.CreateAsync(user);
+            return dbResult > 0;
+        }
     }
 
     public async Task<(bool Result, int CachedVerificationMinutes)> SendCodeForResetPasswordAsync(string phone)
