@@ -14,5 +14,5 @@ public class CardCreateDto
 
     public int ExpiredYear { get; set; }
 
-    public bool IsActive { get; set; }
+    //public bool IsActive { get; set; }
 }
