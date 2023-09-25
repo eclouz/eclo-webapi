@@ -7,6 +7,7 @@ using Eclo.Persistence.Helpers;
 using Eclo.Services.Interfaces.Auth;
 using Eclo.Services.Interfaces.Common;
 using Eclo.Services.Interfaces.Payments;
+using System;
 
 namespace Eclo.Services.Services.Payments;
 
@@ -29,23 +30,28 @@ public class CardService : ICardService
 
     public async Task<bool> CreateAsync(CardCreateDto dto)
     {
-        Card card = new Card()
+        DateTime expirationDate = new DateTime(dto.ExpiredYear, dto.ExpiredMonth, 1);
+        if (expirationDate < DateTime.Now) throw new CardExpiredException();
+        else
         {
-            UserId = _identity.Id,
-            CardHolderName = dto.CardHolderName,
-            CardNumber = dto.CardNumber,
-            PinCode = dto.PinCode,
-            Balance = dto.Balance,
-            ExpiredMonth = dto.ExpiredMonth,
-            ExpiredYear = dto.ExpiredYear,
-            IsActive = dto.IsActive,
-            CreatedAt = TimeHelper.GetDateTime(),
-            UpdatedAt = TimeHelper.GetDateTime()
-        };
+            Card card = new Card()
+            {
+                UserId = _identity.Id,
+                CardHolderName = dto.CardHolderName,
+                CardNumber = dto.CardNumber,
+                PinCode = dto.PinCode,
+                Balance = dto.Balance,
+                ExpiredMonth = dto.ExpiredMonth,
+                ExpiredYear = dto.ExpiredYear,
+                IsActive = true,
+                CreatedAt = TimeHelper.GetDateTime(),
+                UpdatedAt = TimeHelper.GetDateTime()
+            };
 
-        var result = await _cardRepository.CreateAsync(card);
+            var result = await _cardRepository.CreateAsync(card);
 
-        return result > 0;
+            return result > 0;
+        }
     }
 
     public async Task<bool> DeleteAsync(long cardId)
