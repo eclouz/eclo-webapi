@@ -73,7 +73,7 @@ public class UserService : IUserService
         if (dto.ImagePath is not null)
         {
             // delete old avatar
-            if (user.ImagePath != "avatars\\avatar.png" && user.ImagePath != "Avatars\\avatar.png")
+            if (user.ImagePath != "avatars\\avatar.png")
             {
                 var deleteResult = await _fileService.DeleteAvatarAsync(user.ImagePath);
                 if (deleteResult is false) throw new ImageNotFoundException();
