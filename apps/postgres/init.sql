@@ -216,3 +216,35 @@ create table user_transactions (
 	created_at timestamp without time zone default now(),
 	updated_at timestamp without time zone default now()
 );
+
+INSERT INTO public.heads(
+	first_name, 
+	last_name, 
+	phone_number, 
+	phone_number_confirmed, 
+	password_hash, 
+	salt, 
+	image_path, 
+	passport_serial_number, 
+	birth_date, 
+	region, 
+	district, 
+	address, 
+	created_at, 
+	updated_at)
+	VALUES ('Javohir', 
+	'Ergashev', 
+	'+998902295616', 
+	true, 
+	'$2a$11$6GOEOR47yjo1xP7ksfmz3ehXbwZqTJe1KlnNV0l3mKtxblUgXUJyS', 
+	'8c76c930-735f-4340-923b-e3454e10f586', 
+	'Avatars\avatar.png', 
+	'AC3028803',
+	'2004-07-30', 
+	'Uzbekistan', 
+	'Jizzax', 
+	'Jizzax shahar', 
+	now(),
+	now());
+
+
