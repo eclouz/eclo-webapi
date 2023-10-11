@@ -1,0 +1,37 @@
+version: '3.4'
+
+services:
+
+  backend:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: eclo-backend-container
+    image: eclo-backend-image:latest
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - database
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - db_bridge
+
+  database:
+    build: 
+      context: .
+      dockerfile: ./apps/postgres/Dockerfile
+    container_name: eclo-database-container
+    hostname: eclo-database-host
+    image: eclo-database-image
+    restart: always
+    ports:
+      - 5432:5432
+    networks:
+      - db_bridge
+    
+networks:
+  db_bridge:
+    driver: bridge
