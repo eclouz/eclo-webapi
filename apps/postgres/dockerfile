@@ -3,4 +3,5 @@ FROM  postgres:latest
 ENV POSTGRES_USER postgres_admin
 ENV POSTGRES_PASSWORD AAaa@@22
 ENV POSTGRES_DB eclo-db
-COPY  ./apps/postgres/init.sql /docker-entrypoint-initdb.d/
+COPY  ./apps/postgres/init.sql  /docker-entrypoint-initdb.d/
+

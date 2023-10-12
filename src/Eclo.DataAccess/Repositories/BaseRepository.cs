@@ -11,7 +11,7 @@ public class BaseRepository
         Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
 
         //For Docker
-         this._connection = new NpgsqlConnection("Host=eclo-database-host Port=5432; " +
+         this._connection = new NpgsqlConnection("Host=eclo-database-host; Port=5432; " +
             "Database=eclo-db; User Id=postgres_admin; Password=AAaa@@22;");
 
         //Fro Server
