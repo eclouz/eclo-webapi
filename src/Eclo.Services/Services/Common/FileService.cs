@@ -12,7 +12,7 @@ public class FileService : IFileService
     private readonly string ICONS = "icons";
     private readonly string PRODUCTS = "products";
     private readonly string BRANDS = "brands";
-    private readonly string AVATARS = "Avatars";
+    private readonly string AVATARS = "avatars";
     private readonly string ROOTPATH;
 
     public FileService(IWebHostEnvironment env)
