@@ -7,7 +7,6 @@ using Eclo.Persistence.Helpers;
 using Eclo.Services.Interfaces.Auth;
 using Eclo.Services.Interfaces.Common;
 using Eclo.Services.Interfaces.Payments;
-using System;
 
 namespace Eclo.Services.Services.Payments;
 
