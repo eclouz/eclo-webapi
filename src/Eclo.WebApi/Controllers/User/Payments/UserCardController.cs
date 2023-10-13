@@ -10,7 +10,6 @@ namespace Eclo.WebApi.Controllers.User.Payments;
 public class UserCardController : UserBaseController
 {
     private readonly ICardService _cardService;
-    private readonly int maxPageSize = 30;
 
     public UserCardController(ICardService card)
     {

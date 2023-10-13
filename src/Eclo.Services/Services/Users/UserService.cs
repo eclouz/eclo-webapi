@@ -61,7 +61,6 @@ public class UserService : IUserService
     }
 
     public async Task<bool> UpdateAsync(long userId, string phone, UserUpdateDto dto)
-
     {
         var user = await _repository.GetByPhoneAsync(phone);
         if (user is null) throw new UserNotFoundException();
