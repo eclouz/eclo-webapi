@@ -238,7 +238,7 @@ INSERT INTO public.heads(
 	true, 
 	'$2a$11$6GOEOR47yjo1xP7ksfmz3ehXbwZqTJe1KlnNV0l3mKtxblUgXUJyS', 
 	'8c76c930-735f-4340-923b-e3454e10f586', 
-	'Avatars\avatar.png', 
+	'avatars\avatar.png', 
 	'AC3028803',
 	'2004-07-30', 
 	'Uzbekistan', 
