@@ -14,8 +14,8 @@ services:
     depends_on:
       - database
     ports:
-      - 8080:80
-      - 4343:443
+      - 80:80
+      - 443:443
     networks:
       - db_bridge
 

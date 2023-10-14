@@ -323,15 +323,26 @@ CREATE VIEW product_admin_view AS
    FROM products;
 
 CREATE VIEW product_result_view AS
- SELECT DISTINCT ON (product_admin_view.product_id) product_admin_view.product_id,
-    product_admin_view.product_detail_id,
-    product_admin_view.product_image_path,
-    product_admin_view.product_name,
-    product_admin_view.product_category_name,
-    product_admin_view.product_likes,
-    product_admin_view.product_price,
-    product_admin_view.product_last_update
-   FROM product_admin_view;
+SELECT DISTINCT ON (product_admin_view.product_id)
+    product_admin_view.product_id AS product_detail_id,
+    product_details.image_path AS product_image_path,
+    product_admin_view.product_name AS product_name,
+    (
+        SELECT categories.name
+        FROM sub_categories
+        LEFT JOIN categories ON categories.id = sub_categories.category_id
+        LIMIT 1
+    ) AS product_category_name,
+    (
+        SELECT COUNT(*) AS count
+        FROM user_product_likes
+        WHERE user_product_likes.product_id = product_admin_view.product_id
+        LIMIT 1
+    ) AS product_likes,
+    product_admin_view.product_price AS product_price,
+    product_admin_view.product_last_update AS product_last_update
+FROM product_admin_view
+LEFT JOIN product_details ON product_admin_view.product_id = product_details.product_id;
 
 CREATE VIEW product_detail_view AS
  SELECT product_details.id,
