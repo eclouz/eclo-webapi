@@ -8,3 +8,5 @@ public interface IProductCommentRepository : IRepository<ProductComment, Product
 {
     public Task<ProductComment?> GetById(long id);
 }
+
+
