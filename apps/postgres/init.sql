@@ -187,8 +187,6 @@ create table payments (
 	updated_at timestamp without time zone default now()
 );
 
-ALTER DATABASE "eclo-db"
-SET TIMEZONE TO 'Asia/Tashkent';
 
 
 create table user_cards (
@@ -358,6 +356,10 @@ CREATE VIEW product_admin_detail_fashion_view AS
     product_detail_fashions.image_path
    FROM product_detail_fashions
      LEFT JOIN product_details ON product_details.id = product_detail_fashions.product_detail_id;
+	 
+ALTER DATABASE "eclo-db"
+SET TIMEZONE TO 'Asia/Tashkent';
+
 
 INSERT INTO public.heads(
 	first_name, 
